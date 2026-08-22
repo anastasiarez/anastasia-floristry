@@ -10,26 +10,58 @@ fact, 19 placeholder images.**
 
 ## 0. Decide now, because it is already public
 
-- [ ] **Should Google index it yet?** `robots.txt` currently allows everything,
-      so crawlers can index placeholder copy, "TODO" alt text and thin pages.
-      First impressions with search engines are sticky. Either accept it, or
-      add a temporary `noindex` and lift it at launch (a few lines, easy to
-      remove). **Ask before assuming.**
-
-- [ ] **Resolve the brand.** Three identities are live in one flow right now:
-      - site says **Anastasia Floristry**
-      - Instagram link points at **@flower_your_soul**
-      - enquiries deliver to **floweryoursoul@gmail.com**
-      - Resend account is **anastasiia.rn@gmail.com**
-
-      A visitor sees the inconsistency. If the new brand is the decision, set
-      up an inbox on the new domain and point `inquiryInbox` at it
-      (`content/site.ts`).
+- [ ] **Should Google index it yet?** `robots.txt` currently allows
+      everything, so crawlers can index placeholder copy, "TODO" alt text and
+      thin pages — under a visual identity that is about to change. First
+      impressions with search engines are sticky, and there is no upside to
+      being indexed before the brand and photos land. Recommend a temporary
+      `noindex`, lifted at launch. A few lines, trivial to remove.
 
 - [ ] **Confirm her home base.** `content/site.ts` guesses `Brantford` because
       her service list centres on Brant. This feeds the `Florist` structured
       data, which is the highest-value local-SEO field on the site. A wrong
       city actively hurts.
+
+---
+
+## Blocked on the brand designer
+
+She is waiting on a branding professional, so **everything visual below is
+provisional**. Do not invest effort here until that work lands.
+
+What is currently a placeholder standing in for real brand work:
+
+- [ ] **Logo / wordmark.** The header is just the business name set in Jost.
+- [ ] **Favicon and app icons.** Still the Next.js default logo in the browser
+      tab. Pointless to design now if a real mark is coming. When it arrives:
+      replace `app/favicon.ico`, and add `app/icon.png` (512px) and
+      `app/apple-icon.png` (180px) — Next picks both up automatically.
+- [ ] **Palette.** The seven colours were extracted from the reference
+      template, then darkened to pass WCAG AA. A brand palette will replace
+      them, and will need re-checking with `pnpm contrast`.
+- [ ] **Typography.** `Jost` and `Parisienne` are free stand-ins for the
+      reference design's two commercial fonts. A designer will likely specify
+      real ones.
+- [ ] **Social card.** `app/opengraph-image.tsx` is generated from the palette
+      and the name, so it changes when they do.
+
+**The swap is cheap by design.** Every colour and type value lives in the one
+`@theme` block in `app/globals.css`, and the fonts are two `next/font`
+declarations in `app/layout.tsx`. Nothing is hardcoded in components, so
+adopting a brand is editing one file plus two font lines, not a rebuild.
+
+### Identity inconsistencies to settle at the same time
+
+Three identities are currently live in one flow. Not urgent while branding is
+pending, but they need to agree before launch:
+
+- site says **Anastasia Floristry**
+- Instagram link points at **@flower_your_soul**
+- enquiries deliver to **floweryoursoul@gmail.com**
+- Resend account is **anastasiia.rn@gmail.com**
+
+If the new brand holds, set up an inbox on the new domain and point
+`inquiryInbox` at it (`content/site.ts`).
 
 ---
 
@@ -41,10 +73,6 @@ Things a visitor would notice today.
       `incoming/`, then `pnpm ingest:scan` → review `assignment.json` →
       `pnpm ingest:build`. Sizes and ratios: `docs/photo-brief.md`.
       Instagram exports (~1080px) are too small for heroes.
-
-- [ ] **Favicon.** Still the Next.js default logo in the browser tab.
-      Replace `app/favicon.ico` (and ideally add `app/icon.png` at 512px plus
-      `app/apple-icon.png` at 180px, which Next picks up automatically).
 
 - [ ] **Alt text for every image.** 13 fields still say "TODO". On an
       image-led site this is both an SEO and a screen-reader loss. Needs one
