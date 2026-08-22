@@ -8,10 +8,24 @@ import { site } from "@/content/site";
  * form service. It calls Resend's REST API directly rather than pulling in
  * an SDK, which keeps the dependency list short.
  *
- * Required environment variables (set these in Vercel):
- *   RESEND_API_KEY  from resend.com
- *   RESEND_FROM     a verified sender, e.g. "Studio <hello@yourdomain.com>"
+ * Environment variables.
+ *
+ * The Vercel Resend integration injects these two automatically, so there is
+ * nothing to copy by hand and nothing to re-set if the resource is
+ * re-provisioned:
+ *   RESEND_API_KEY        the sending key
+ *   RESEND_EMAIL_DOMAIN   the verified domain, e.g. "anastasiafloristry.com"
+ *
+ * The From address is derived from those plus the studio name, so it stays
+ * correct if the business is renamed. Optionally override the whole thing:
+ *   RESEND_FROM           e.g. "Anastasia Floristry <hello@example.com>"
+ *
+ * The local part is a constant below rather than an env var; it only needs to
+ * exist on the verified domain, and Resend accepts any local part there.
  */
+
+/** Mailbox the enquiry notifications are sent FROM, on the verified domain. */
+const SENDER_LOCAL_PART = "hello";
 
 const FIELDS = [
   ["name", "Name"],
@@ -57,7 +71,11 @@ export async function POST(request: Request) {
   }
 
   const apiKey = process.env.RESEND_API_KEY;
-  const from = process.env.RESEND_FROM;
+  const domain = process.env.RESEND_EMAIL_DOMAIN;
+
+  // An explicit RESEND_FROM wins; otherwise build it from the injected domain.
+  const from =
+    process.env.RESEND_FROM ?? (domain ? `${site.name} <${SENDER_LOCAL_PART}@${domain}>` : undefined);
 
   if (!apiKey || !from) {
     // Fail loudly in the server log rather than silently dropping an enquiry.
