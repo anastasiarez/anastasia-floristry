@@ -1,6 +1,6 @@
-allowBuilds:
-  sharp: true
-  unrs-resolver: false
-minimumReleaseAgeExclude:
-  - '@next/swc-win32-arm64-msvc@16.3.2'
-  - next@16.3.2
+# sharp ships prebuilt platform binaries but still declares a build script.
+# Allowing it keeps `pnpm placeholders` / `pnpm ingest:*` working locally.
+# Vercel does not need sharp to build the site: next/image optimisation is
+# provided by the platform, and next/og uses its own renderer.
+onlyBuiltDependencies:
+  - sharp
