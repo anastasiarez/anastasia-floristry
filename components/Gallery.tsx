@@ -1,20 +1,22 @@
 import Image from "next/image";
 
-type GalleryImage = { src: string; alt: string; portrait?: boolean };
+type GalleryCell = { src: string; alt: string; tall?: boolean };
 
 /**
  * Portfolio grid.
  *
- * Portrait images span two rows so the grid keeps the uneven, editorial
- * rhythm of the reference design without needing a JS masonry library.
+ * The tall cell spans two rows so the grid keeps the uneven, editorial rhythm
+ * of the reference design without needing a JS masonry library. Which cell is
+ * tall is derived in content/portfolio.ts from the slot manifest, not passed
+ * in by hand.
  */
-export function Gallery({ images }: { images: readonly GalleryImage[] }) {
+export function Gallery({ images }: { images: readonly GalleryCell[] }) {
   return (
     <ul className="grid auto-rows-[minmax(0,14rem)] grid-cols-2 gap-3 md:grid-cols-3 md:gap-5">
       {images.map((img) => (
         <li
           key={img.src}
-          className={`relative overflow-hidden ${img.portrait ? "row-span-2" : ""}`}
+          className={`relative overflow-hidden ${img.tall ? "row-span-2" : ""}`}
         >
           <Image
             src={img.src}

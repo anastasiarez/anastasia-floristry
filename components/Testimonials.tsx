@@ -1,6 +1,7 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
+import { Section } from "./Section";
 import type { Testimonial } from "@/content/testimonials";
 
 /**
@@ -10,33 +11,37 @@ import type { Testimonial } from "@/content/testimonials";
  * `aria-hidden` rather than removed) so search engines index every quote
  * even though only one is visible at a time.
  */
+const INTERVAL_MS = 7000;
+
 export function Testimonials({
   items,
   tone = "linen",
-  interval = 7000,
 }: {
   items: readonly Testimonial[];
   tone?: "cream" | "linen";
-  interval?: number;
 }) {
   const [index, setIndex] = useState(0);
-  const [paused, setPaused] = useState(false);
+  // A ref, not state: pausing renders nothing, and as state every mouse cross
+  // re-rendered the band and restarted the rotation from zero.
+  const paused = useRef(false);
 
   useEffect(() => {
-    if (items.length < 2 || paused) return;
-    const id = setInterval(() => setIndex((i) => (i + 1) % items.length), interval);
+    if (items.length < 2) return;
+    const id = setInterval(() => {
+      if (!paused.current) setIndex((i) => (i + 1) % items.length);
+    }, INTERVAL_MS);
     return () => clearInterval(id);
-  }, [items.length, paused, interval]);
+  }, [items.length]);
 
   if (items.length === 0) return null;
 
   return (
-    <section
-      className={`${tone === "linen" ? "bg-linen" : "bg-cream"} py-(--spacing-section)`}
-      onMouseEnter={() => setPaused(true)}
-      onMouseLeave={() => setPaused(false)}
-    >
-      <div className="mx-auto max-w-(--container-content) px-(--spacing-gutter) text-center">
+    <Section tone={tone} width="content">
+      <div
+        className="text-center"
+        onMouseEnter={() => (paused.current = true)}
+        onMouseLeave={() => (paused.current = false)}
+      >
         <p className="script text-script-sm text-clay">kind words</p>
 
         {/* Grid stacking keeps the band a constant height, so rotation
@@ -78,6 +83,6 @@ export function Testimonials({
           </div>
         )}
       </div>
-    </section>
+    </Section>
   );
 }

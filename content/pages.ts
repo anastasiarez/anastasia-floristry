@@ -1,3 +1,5 @@
+import { pricing, services } from "./services";
+
 /**
  * PAGE COPY
  *
@@ -60,7 +62,6 @@ export const about = {
   bio: {
     eyebrow: "Meet the florist",
     name: "Anastasia",
-    role: "Founder and lead designer",
     /**
      * DRAFT built from the real facts on her previous site: she grew up in
      * rural Ukraine surrounded by gardens, left a corporate career for floral
@@ -140,6 +141,35 @@ export const contactPage = {
   intro: {
     body: `TODO placeholder. Fill in as much as you know. Nothing has to be final, a rough date and a venue are enough to start. We reply to every enquiry within two business days.`,
   },
+  /**
+   * Enquiry form definition.
+   *
+   * The budget bands and event types are DERIVED from her real packages and
+   * price tiers in content/services.ts, never restated. An earlier version
+   * hardcoded bands in the component that started at "Under $2,000" while her
+   * actual floor is $5,000, which invited enquiries she cannot serve and
+   * contradicted the figures published on /services and /faq.
+   */
+  form: {
+    name: { label: "Your name" },
+    email: { label: "Email address" },
+    eventDate: { label: "Event date", hint: "Approximate is fine" },
+    eventType: {
+      label: "Type of event",
+      options: [...services.map((s) => s.name), "Something else"],
+    },
+    venue: { label: "Venue or location" },
+    budget: {
+      label: "Floral budget",
+      options: [...pricing.tiers.map((t) => t.range), "Not sure yet"],
+    },
+    message: { label: "Tell us about the day" },
+    placeholder: "Select one",
+    submit: "Send enquiry",
+    submitting: "Sending…",
+    genericError: "Something went wrong.",
+  },
+
   /** Shown after a successful submission. */
   success: {
     title: "Thank you",

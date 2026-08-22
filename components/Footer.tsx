@@ -24,7 +24,7 @@ export async function Footer() {
         <div className="grid gap-14 md:grid-cols-3 md:gap-10">
           {/* Brand + service area */}
           <div>
-            <p className="font-display text-display-2xs font-light tracking-[0.2em] uppercase">
+            <p className="wordmark">
               {site.name}
             </p>
             <p className="mt-5 max-w-xs text-body-sm">{site.location.serviceArea}</p>

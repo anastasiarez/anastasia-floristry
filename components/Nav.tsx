@@ -11,6 +11,11 @@ import { nav, site } from "@/content/site";
  * Desktop: brand centred, links split evenly either side.
  * Mobile:  brand left, hamburger right, opening a full-screen drawer.
  */
+// `nav` is a module-level constant, so the split never changes between renders.
+const half = Math.ceil(nav.length / 2);
+const leftLinks = nav.slice(0, half);
+const rightLinks = nav.slice(half);
+
 export function Nav() {
   const pathname = usePathname();
   const [open, setOpen] = useState(false);
@@ -31,10 +36,6 @@ export function Nav() {
     return () => window.removeEventListener("keydown", onKey);
   }, [open]);
 
-  const half = Math.ceil(nav.length / 2);
-  const left = nav.slice(0, half);
-  const right = nav.slice(half);
-
   return (
     <header className="sticky top-0 z-50 bg-cream/95 backdrop-blur-sm">
       <nav
@@ -43,7 +44,7 @@ export function Nav() {
       >
         {/* Desktop: left link group */}
         <ul className="hidden flex-1 items-center gap-8 lg:flex">
-          {left.map((item) => (
+          {leftLinks.map((item) => (
             <NavLink key={item.href} {...item} active={isActive(pathname, item.href)} />
           ))}
         </ul>
@@ -51,14 +52,14 @@ export function Nav() {
         {/* Brand */}
         <Link
           href="/"
-          className="font-display text-[1.05rem] font-light tracking-[0.3em] whitespace-nowrap uppercase transition-opacity hover:opacity-70 lg:text-center lg:text-[1.25rem]"
+          className="wordmark whitespace-nowrap transition-opacity hover:opacity-70 lg:text-center"
         >
           {site.name}
         </Link>
 
         {/* Desktop: right link group */}
         <ul className="hidden flex-1 items-center justify-end gap-8 lg:flex">
-          {right.map((item) => (
+          {rightLinks.map((item) => (
             <NavLink key={item.href} {...item} active={isActive(pathname, item.href)} />
           ))}
         </ul>
@@ -86,7 +87,7 @@ export function Nav() {
         }`}
       >
         <div className="flex h-16 items-center justify-between px-(--spacing-gutter)">
-          <span className="font-display text-[1.05rem] font-light tracking-[0.3em] uppercase">
+          <span className="wordmark">
             {site.name}
           </span>
           <button

@@ -19,15 +19,21 @@
  * The output is a starting proposal to be reviewed, not a decision.
  */
 
-import { readdir, mkdir, writeFile, access } from "node:fs/promises";
+import { readdir, mkdir, writeFile } from "node:fs/promises";
 import { extname } from "node:path";
 import sharp from "sharp";
-import { slots, ratioLabel, orientation } from "./slots.mjs";
+import {
+  slots,
+  ratioLabel,
+  orientation,
+  exists,
+  upscaleFactor,
+  MAX_UPSCALE,
+  INCOMING_DIR,
+} from "./slots.mjs";
 
-const IN = "incoming";
+const IN = INCOMING_DIR;
 const EXTS = new Set([".jpg", ".jpeg", ".png", ".webp", ".tif", ".tiff", ".heic", ".heif", ".avif"]);
-
-const exists = (p) => access(p).then(() => true, () => false);
 
 if (!(await exists(IN))) {
   await mkdir(IN, { recursive: true });
@@ -66,8 +72,6 @@ for (const file of files) {
     const { width, height } = meta;
     if (!width || !height) throw new Error("no dimensions");
 
-    const full = await img.clone().stats();
-
     // Central 40% box: the region text sits over on hero/CTA slots.
     const cw = Math.round(width * 0.4);
     const ch = Math.round(height * 0.4);
@@ -89,7 +93,6 @@ for (const file of files) {
       aspect: +(width / height).toFixed(3),
       orientation: orientation(width, height),
       ratio: ratioLabel(width, height),
-      detail: +busyness(full).toFixed(1),
       centreBusyness: +busyness(centre).toFixed(1),
     });
   } catch (err) {
@@ -123,11 +126,11 @@ const centreRange = {
  */
 function score(photo, slot) {
   const targetAspect = slot.w / slot.h;
-  const scaleNeeded = Math.max(slot.w / photo.width, slot.h / photo.height);
+  const scaleNeeded = upscaleFactor(slot, photo.width, photo.height);
 
   // Hard gate: more than 15% upscale is visibly soft on a photography site.
   // Return almost zero so this only ever wins if nothing else exists.
-  if (scaleNeeded > 1.15) return 0.001 / scaleNeeded;
+  if (scaleNeeded > MAX_UPSCALE) return 0.001 / scaleNeeded;
 
   // Orientation mismatch discards most of the frame. Portrait-into-landscape
   // is the worst case; square is a tolerable compromise either way.
@@ -144,18 +147,17 @@ function score(photo, slot) {
   // Headroom above the minimum is mildly good: more room to crop well.
   const resolution = Math.min(1, 1 / scaleNeeded);
 
-  // Calm centre matters only where text sits on top.
-  let quiet = 0.5;
-  if (slot.quiet && centreRange.max > centreRange.min) {
-    quiet = 1 - (photo.centreBusyness - centreRange.min) / (centreRange.max - centreRange.min);
-  }
+  // Calm centre matters only where text sits on top. Scores are only ever
+  // compared photo-against-photo within one slot, so a term that is constant
+  // across candidates cannot change the outcome: it is simply omitted rather
+  // than added as a flat 0.1, which used to make the weights look like they
+  // summed to 1.0 when for non-quiet slots they sum to 0.80.
+  const quietBonus =
+    slot.quiet && centreRange.max > centreRange.min
+      ? (1 - (photo.centreBusyness - centreRange.min) / (centreRange.max - centreRange.min)) * 0.2
+      : 0;
 
-  return (
-    orientationMatch * 0.42 +
-    retained * 0.22 +
-    resolution * 0.16 +
-    (slot.quiet ? quiet * 0.2 : 0.1)
-  );
+  return orientationMatch * 0.42 + retained * 0.22 + resolution * 0.16 + quietBonus;
 }
 
 // Assignment.
@@ -172,20 +174,17 @@ const ordered = [...slots].sort((a, b) => (a.rank ?? 99) - (b.rank ?? 99));
 const assigned = new Map();
 const useCount = new Map();
 
+const effectiveScore = (photo, slot) =>
+  score(photo, slot) * Math.pow(REUSE_PENALTY, useCount.get(photo.file) ?? 0);
+
 for (const slot of ordered) {
-  let best = null;
-  for (const photo of photos) {
-    const uses = useCount.get(photo.file) ?? 0;
-    const raw = score(photo, slot);
-    const effective = raw * Math.pow(REUSE_PENALTY, uses);
-    if (!best || effective > best.effective) {
-      best = { slot, photo, score: raw, effective };
-    }
-  }
-  if (best) {
-    assigned.set(slot.path, best);
-    useCount.set(best.photo.file, (useCount.get(best.photo.file) ?? 0) + 1);
-  }
+  // `photos` is guaranteed non-empty: the script exits earlier if nothing was
+  // readable, so reduce always produces a winner and needs no guard.
+  const best = photos.reduce((a, b) =>
+    effectiveScore(b, slot) > effectiveScore(a, slot) ? b : a,
+  );
+  assigned.set(slot.path, best);
+  useCount.set(best.file, (useCount.get(best.file) ?? 0) + 1);
 }
 
 const unused = photos.filter((p) => !useCount.has(p.file));
@@ -206,18 +205,14 @@ console.log("\nPROPOSED ASSIGNMENT\n");
 const warnings = [];
 for (const slot of slots) {
   const a = assigned.get(slot.path);
-  if (!a) {
-    console.log(`  ${slot.role.padEnd(32)} -> (none)`);
-    continue;
-  }
-  const scaleNeeded = Math.max(slot.w / a.photo.width, slot.h / a.photo.height);
+  const scaleNeeded = upscaleFactor(slot, a.width, a.height);
   const flags = [];
   if (scaleNeeded > 1) flags.push(`UPSCALE x${scaleNeeded.toFixed(2)}`);
-  if (a.photo.orientation !== orientation(slot.w, slot.h)) flags.push("ORIENTATION");
+  if (a.orientation !== orientation(slot.w, slot.h)) flags.push("ORIENTATION");
   if (flags.length) warnings.push(`${slot.role}: ${flags.join(", ")}`);
 
   console.log(
-    `  ${slot.role.padEnd(32)} ${slot.quiet ? "[text]" : "      "} -> ${a.photo.file.slice(0, 30).padEnd(32)}` +
+    `  ${slot.role.padEnd(32)} ${slot.quiet ? "[text]" : "      "} -> ${a.file.slice(0, 30).padEnd(32)}` +
       `${flags.length ? "  ** " + flags.join(", ") : ""}`,
   );
 }
@@ -250,7 +245,7 @@ const out = {
       role: slot.role,
       target: `${slot.w}x${slot.h}`,
       textOverlay: slot.quiet,
-      source: a ? a.photo.file : null,
+      source: a ? a.file : null,
       crop: "attention",
     };
   }),

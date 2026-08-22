@@ -5,7 +5,7 @@ import { Gallery } from "@/components/Gallery";
 import { Testimonials } from "@/components/Testimonials";
 import { CTABand } from "@/components/CTABand";
 import { portfolioPage, home } from "@/content/pages";
-import { galleries } from "@/content/portfolio";
+import { galleries, galleryCells } from "@/content/portfolio";
 import { testimonials } from "@/content/testimonials";
 import { seo } from "@/content/seo";
 
@@ -37,7 +37,7 @@ export default function PortfolioPage() {
             <h2 className="text-display-2xs tracking-[0.12em]">{gallery.title}</h2>
             <p className="eyebrow mt-4 text-accent">{gallery.caption}</p>
           </div>
-          <Gallery images={gallery.images} />
+          <Gallery images={galleryCells(gallery.images)} />
         </Section>
       ))}
 

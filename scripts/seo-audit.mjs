@@ -78,15 +78,24 @@ for (const path of PAGES) {
 }
 
 // --- Site-level files -----------------------------------------------------
-for (const [file, label] of [['/robots.txt','robots.txt'], ['/sitemap.xml','sitemap.xml']]) {
-  const r = await fetch(BASE + file);
-  add(r.ok ? 'INFO' : 'FAIL', file, r.ok ? `${label} present` : `${label} missing (HTTP ${r.status})`);
-}
-const notFound = await fetch(BASE + '/definitely-not-a-real-page-xyz');
-add(notFound.status === 404 ? 'INFO' : 'FAIL', '/404', `unknown URL returns HTTP ${notFound.status}`);
+// Four independent static files, fetched concurrently. The PAGES loop above
+// stays sequential on purpose: against `pnpm dev`, parallel requests mean
+// competing on-demand route compiles, which is slower overall.
+const [robotsRes, sitemapRes, notFoundRes, llmsRes] = await Promise.all([
+  fetch(BASE + '/robots.txt'),
+  fetch(BASE + '/sitemap.xml'),
+  fetch(BASE + '/definitely-not-a-real-page-xyz'),
+  fetch(BASE + '/llms.txt'),
+]);
 
-const llms = await fetch(BASE + '/llms.txt');
-add(llms.ok ? 'INFO' : 'WARN', '/llms.txt', llms.ok ? 'llms.txt present' : 'no llms.txt');
+for (const [res, file, label] of [
+  [robotsRes, '/robots.txt', 'robots.txt'],
+  [sitemapRes, '/sitemap.xml', 'sitemap.xml'],
+]) {
+  add(res.ok ? 'INFO' : 'FAIL', file, res.ok ? `${label} present` : `${label} missing (HTTP ${res.status})`);
+}
+add(notFoundRes.status === 404 ? 'INFO' : 'FAIL', '/404', `unknown URL returns HTTP ${notFoundRes.status}`);
+add(llmsRes.ok ? 'INFO' : 'WARN', '/llms.txt', llmsRes.ok ? 'llms.txt present' : 'no llms.txt');
 
 // --- Report ---------------------------------------------------------------
 const order = { FAIL: 0, WARN: 1, INFO: 2 };

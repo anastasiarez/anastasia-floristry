@@ -11,6 +11,8 @@ import { contactPage } from "@/content/pages";
  * Validation is left to the browser plus a server-side check in the route
  * handler, so there is no client validation library to maintain.
  */
+const f = contactPage.form;
+
 export function ContactForm() {
   const [state, setState] = useState<"idle" | "sending" | "sent" | "error">("idle");
   const [error, setError] = useState<string | null>(null);
@@ -30,12 +32,12 @@ export function ContactForm() {
       });
       if (!res.ok) {
         const body = await res.json().catch(() => ({}));
-        throw new Error(body.error ?? "Something went wrong.");
+        throw new Error(body.error ?? f.genericError);
       }
       setState("sent");
     } catch (err) {
       setState("error");
-      setError(err instanceof Error ? err.message : "Something went wrong.");
+      setError(err instanceof Error ? err.message : f.genericError);
     }
   }
 
@@ -50,15 +52,15 @@ export function ContactForm() {
 
   return (
     <form onSubmit={onSubmit} className="grid gap-8 md:grid-cols-2">
-      <Field name="name" label="Your name" required />
-      <Field name="email" label="Email address" type="email" required />
-      <Field name="eventDate" label="Event date" type="date" hint="Approximate is fine" />
-      <Field name="eventType" label="Type of event" as="select" options={["Wedding", "Event", "Installation", "Something else"]} />
-      <Field name="venue" label="Venue or location" />
-      <Field name="budget" label="Floral budget" as="select" options={["Under $2,000", "$2,000 – $5,000", "$5,000 – $10,000", "$10,000+", "Not sure yet"]} />
+      <Field name="name" label={f.name.label} required />
+      <Field name="email" label={f.email.label} type="email" required />
+      <Field name="eventDate" label={f.eventDate.label} type="date" hint={f.eventDate.hint} />
+      <Field name="eventType" label={f.eventType.label} as="select" options={f.eventType.options} />
+      <Field name="venue" label={f.venue.label} />
+      <Field name="budget" label={f.budget.label} as="select" options={f.budget.options} />
 
       <div className="md:col-span-2">
-        <Field name="message" label="Tell us about the day" as="textarea" required />
+        <Field name="message" label={f.message.label} as="textarea" required />
       </div>
 
       {/* Honeypot. Bots fill hidden fields, people do not. */}
@@ -73,7 +75,7 @@ export function ContactForm() {
           disabled={state === "sending"}
           className="eyebrow w-full border border-taupe px-10 py-5 transition-colors hover:bg-taupe hover:text-cream disabled:opacity-50 md:w-auto"
         >
-          {state === "sending" ? "Sending…" : "Send enquiry"}
+          {state === "sending" ? f.submitting : f.submit}
         </button>
 
         {error && (
@@ -101,7 +103,7 @@ function Field({
   as?: "input" | "textarea" | "select";
   required?: boolean;
   hint?: string;
-  options?: string[];
+  options?: readonly string[];
 }) {
   const base =
     "mt-3 w-full border-b border-taupe/30 bg-transparent pb-3 text-body focus:border-tan focus:outline-none";
@@ -118,7 +120,7 @@ function Field({
       ) : as === "select" ? (
         <select id={name} name={name} required={required} defaultValue="" className={base}>
           <option value="" disabled>
-            Select one
+            {f.placeholder}
           </option>
           {options?.map((o) => (
             <option key={o} value={o}>

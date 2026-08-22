@@ -8,16 +8,32 @@
  * Safe to re-run after real photos land: existing files are skipped.
  */
 
-import { mkdir, access, writeFile } from "node:fs/promises";
+import { mkdir, writeFile, readFile } from "node:fs/promises";
 import { dirname } from "node:path";
 import sharp from "sharp";
-import { slots, gallerySlots, ratioLabel } from "./slots.mjs";
+import {
+  slots,
+  gallerySlots,
+  ratioLabel,
+  exists,
+  PUBLIC_DIR,
+  PLACEHOLDER_MANIFEST,
+} from "./slots.mjs";
 
 const FORCE = process.argv.includes("--force");
-const OUT = "public";
-const PLACEHOLDER_GALLERIES = ["placeholder-one", "placeholder-two"];
+const OUT = PUBLIC_DIR;
+/**
+ * Gallery slugs are read out of content/portfolio.ts rather than hardcoded, so
+ * adding a gallery there (a content-only edit, as that file's header promises)
+ * produces stand-ins for it instead of a broken grid.
+ */
+const galleryScope = await readFile("content/portfolio.ts", "utf8");
+const GALLERIES = [
+  ...new Set([...galleryScope.matchAll(/slug:\s*"([^"]+)"/g)].map((m) => m[1])),
+];
 
-// Palette, matching the @theme block in app/globals.css.
+// Gradient pairs for the stand-in images. Some are palette colours, most are
+// invented partners; these files say "REPLACE ME" so drift here costs nothing.
 const TONES = [
   ["#efede8", "#d9d3c8"],
   ["#e6ded4", "#cbbfae"],
@@ -28,12 +44,10 @@ const TONES = [
 // Every slot, with gallery cells expanded per placeholder gallery.
 const targets = [
   ...slots,
-  ...PLACEHOLDER_GALLERIES.flatMap((g) =>
+  ...GALLERIES.flatMap((g) =>
     gallerySlots.map((s) => ({ ...s, path: `/images/portfolio/${g}/${s.suffix}` })),
   ),
 ];
-
-const exists = (p) => access(p).then(() => true, () => false);
 
 let written = 0;
 let skipped = 0;
@@ -71,7 +85,7 @@ for (const [i, slot] of targets.entries()) {
 
 // Record which paths are placeholders so `pnpm check` can flag them.
 await writeFile(
-  `${OUT}/images/.placeholders.json`,
+  PLACEHOLDER_MANIFEST,
   JSON.stringify(targets.map((t) => t.path), null, 2) + "\n",
 );
 

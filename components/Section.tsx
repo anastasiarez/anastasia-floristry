@@ -42,14 +42,12 @@ export function SectionIntro({
   accent,
   title,
   body,
-  align = "center",
   as = "h2",
 }: {
   eyebrow?: string;
   accent?: string;
   title?: string;
   body?: string;
-  align?: "center" | "left";
   /**
    * Heading level for `title`. Defaults to h2 because most pages already have
    * an h1 in their Hero. Pages without a Hero must pass "h1" so the page is
@@ -57,11 +55,10 @@ export function SectionIntro({
    */
   as?: "h1" | "h2";
 }) {
-  const alignment = align === "center" ? "text-center mx-auto" : "text-left";
   const Heading = as;
 
   return (
-    <div className={`max-w-(--container-content) ${alignment}`}>
+    <div className="mx-auto max-w-(--container-content) text-center">
       {eyebrow && <p className="eyebrow text-accent">{eyebrow}</p>}
       {accent && <p className="script mt-4 text-script-sm text-clay">{accent}</p>}
       {title && <Heading className="mt-6 text-display-xs">{title}</Heading>}

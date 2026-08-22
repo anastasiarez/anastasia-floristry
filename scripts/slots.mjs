@@ -96,3 +96,32 @@ export function ratioLabel(w, h) {
 export function orientation(w, h) {
   return w > h ? "landscape" : w < h ? "portrait" : "square";
 }
+
+// ---------------------------------------------------------------------------
+// Shared helpers. These lived duplicated across the scripts that import this
+// file; the path constants especially, since the manifest filename is the
+// contract between the writer (placeholders), the pruner (ingest-build) and
+// the reader (check-content).
+// ---------------------------------------------------------------------------
+
+import { access } from "node:fs/promises";
+
+export const PUBLIC_DIR = "public";
+export const INCOMING_DIR = "incoming";
+export const PLACEHOLDER_MANIFEST = `${PUBLIC_DIR}/images/.placeholders.json`;
+
+export const exists = (p) => access(p).then(() => true, () => false);
+
+/**
+ * How much a source image must be scaled up to fill a slot. <= 1 means the
+ * source is large enough.
+ *
+ * Centralised because the scanner and the builder each had their own copy and
+ * they disagreed: the scan gate was 1.15 while the build warned above 1.0, so
+ * the scanner accepted assignments the builder then complained about.
+ */
+export const upscaleFactor = (slot, width, height) =>
+  Math.max(slot.w / width, slot.h / height);
+
+/** Above this, an image is too soft to use. Both stages share the threshold. */
+export const MAX_UPSCALE = 1.15;

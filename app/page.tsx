@@ -9,12 +9,12 @@ import { Gallery } from "@/components/Gallery";
 import { home } from "@/content/pages";
 import { services } from "@/content/services";
 import { testimonials } from "@/content/testimonials";
-import { galleries } from "@/content/portfolio";
+import { galleries, galleryCells } from "@/content/portfolio";
 
 /** Covers of the featured galleries, used for the home page preview grid. */
 const featured = galleries
   .filter((g) => g.featured)
-  .flatMap((g) => g.images.slice(0, 2));
+  .flatMap((g) => galleryCells(g.images).slice(0, 2));
 
 export default function HomePage() {
   return (

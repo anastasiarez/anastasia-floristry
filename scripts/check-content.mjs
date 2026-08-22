@@ -18,26 +18,32 @@
  * Exits non-zero while anything is outstanding, so it can gate a deploy.
  */
 
-import { readdir, readFile, access } from "node:fs/promises";
-import { slots, gallerySlots } from "./slots.mjs";
-
-const exists = (p) => access(p).then(() => true, () => false);
+import { readdir, readFile } from "node:fs/promises";
+import { slots, gallerySlots, exists, PLACEHOLDER_MANIFEST } from "./slots.mjs";
 
 const findings = { todo: [], alt: [], gap: [], missing: [], placeholder: [] };
 
-// --- Scan the content files -----------------------------------------------
+// --- Scan the content files ----------------------------------------------
+// One read per file. An earlier version read every file twice: once for the
+// line scan and again to collect image paths.
 const contentFiles = (await readdir("content")).filter((f) => f.endsWith(".ts"));
+const referenced = new Set();
 
 for (const file of contentFiles) {
   const path = `content/${file}`;
-  const lines = (await readFile(path, "utf8")).split("\n");
+  const src = await readFile(path, "utf8");
 
-  lines.forEach((line, i) => {
+  for (const m of src.matchAll(/["'`](\/images\/[^"'`]+\.(?:jpg|jpeg|png|webp))["'`]/g)) {
+    referenced.add(m[1]);
+  }
+
+  src.split("\n").forEach((line, i) => {
     const at = `${path}:${i + 1}`;
     const trimmed = line.trim();
 
-    // Skip comment lines: guidance mentioning TODO is not itself a TODO.
-    const isComment = trimmed.startsWith("*") || trimmed.startsWith("//") || trimmed.startsWith("/*");
+    // Guidance that mentions TODO is not itself a TODO.
+    const isComment =
+      trimmed.startsWith("*") || trimmed.startsWith("//") || trimmed.startsWith("/*");
 
     if (/imageAlt:\s*[`"'].*TODO/i.test(line)) {
       findings.alt.push({ at, text: trimmed });
@@ -50,14 +56,6 @@ for (const file of contentFiles) {
 }
 
 // --- Check every referenced image exists ----------------------------------
-const referenced = new Set();
-for (const file of contentFiles) {
-  const src = await readFile(`content/${file}`, "utf8");
-  for (const m of src.matchAll(/["'`](\/images\/[^"'`]+\.(?:jpg|jpeg|png|webp))["'`]/g)) {
-    referenced.add(m[1]);
-  }
-}
-
 for (const img of [...referenced].sort()) {
   if (!(await exists(`public${img}`))) findings.missing.push(img);
 }
@@ -66,7 +64,7 @@ for (const img of [...referenced].sort()) {
 // placeholders.mjs records what it generated; ingest-build prunes that list.
 let manifest = [];
 try {
-  manifest = JSON.parse(await readFile("public/images/.placeholders.json", "utf8"));
+  manifest = JSON.parse(await readFile(PLACEHOLDER_MANIFEST, "utf8"));
 } catch {
   // No manifest: either nothing generated, or real photos throughout.
 }

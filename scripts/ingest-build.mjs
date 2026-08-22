@@ -27,10 +27,18 @@
 import { readFile, writeFile, mkdir, stat } from "node:fs/promises";
 import { dirname } from "node:path";
 import sharp from "sharp";
-import { slots, ratioLabel } from "./slots.mjs";
+import {
+  slots,
+  ratioLabel,
+  upscaleFactor,
+  MAX_UPSCALE,
+  PUBLIC_DIR,
+  INCOMING_DIR,
+  PLACEHOLDER_MANIFEST,
+} from "./slots.mjs";
 
-const IN = "incoming";
-const OUT = "public";
+const IN = INCOMING_DIR;
+const OUT = PUBLIC_DIR;
 const DRY = process.argv.includes("--dry");
 const QUALITY = 82;
 const VALID_CROPS = new Set(["attention", "entropy", "centre", "center", "top", "bottom", "left", "right"]);
@@ -77,11 +85,14 @@ for (const entry of manifest.assignments) {
     const pipeline = sharp(src).rotate(); // EXIF orientation
     const meta = await pipeline.metadata();
 
-    const scaleNeeded = Math.max(slot.w / meta.width, slot.h / meta.height);
+    const scaleNeeded = upscaleFactor(slot, meta.width, meta.height);
     if (scaleNeeded > 1) {
+      // MAX_UPSCALE is the scanner's disqualification threshold; anything above
+      // it only reaches here via a hand-edited assignment.json.
+      const severity = scaleNeeded > MAX_UPSCALE ? "TOO SMALL" : "slightly upscaled";
       warnings.push(
-        `${slot.role}: source ${meta.width}x${meta.height} is smaller than ` +
-          `${slot.w}x${slot.h}, upscaled ${scaleNeeded.toFixed(2)}x and will look soft.`,
+        `${slot.role}: ${severity} — source ${meta.width}x${meta.height} vs ` +
+          `${slot.w}x${slot.h}, scaled ${scaleNeeded.toFixed(2)}x.`,
       );
     }
 
@@ -116,7 +127,7 @@ for (const entry of manifest.assignments) {
 // Any slot we just filled with a real photo is no longer a placeholder.
 if (!DRY && replaced.length) {
   try {
-    const file = `${OUT}/images/.placeholders.json`;
+    const file = PLACEHOLDER_MANIFEST;
     const manifest = JSON.parse(await readFile(file, "utf8"));
     await writeFile(
       file,
