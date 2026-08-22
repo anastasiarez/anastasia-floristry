@@ -38,8 +38,12 @@ type Site = {
 export const site: Site = {
   /** Business name. Appears in the nav, footer, page titles and structured data. */
   name: "Anastasia Floristry",
-  /** Short tagline. Used as the default meta description prefix. */
-  tagline: "Wedding and event florals",
+  /**
+   * The real tagline, from the brand guidelines. It appears in the logo lockup
+   * under the wordmark, so it must match exactly. An earlier version invented
+   * "Wedding and event florals".
+   */
+  tagline: "Weddings & Events",
   /**
    * NOTE ON BRANDING: the previous business was "Flower Your Soul"
    * (floweryoursoul.ca, @flower_your_soul). The new domain is

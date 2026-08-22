@@ -173,11 +173,14 @@ an in-between width, fix the clamp, do not add a breakpoint override.
 `app/layout.tsx` wires them up. Two are free substitutes for commercial fonts
 used by the reference design:
 
-| Role | Currently | Reference design used |
+| Role | Currently | Should become (brand) |
 |---|---|---|
-| Display | Jost 300 | Made Canvas Light (commercial) |
-| Script | Parisienne | La Charlune Regular (commercial) |
-| Body | Poppins 300/400 | Poppins (free, same) |
+| Display | Jost 300 | **Playfair Display** or **Prata** (serif) |
+| Script | Parisienne | logo only; no web script needed |
+| Body | Poppins 300/400 | **Montserrat Light** |
+
+The "currently" column is pre-brand. See the Brand identity section below for
+the real specification and the sanctioned free substitutes.
 
 To move to licensed fonts, swap the two `next/font/google` calls in
 `app/layout.tsx` for `next/font/local` pointing at the woff2 files. Nothing
@@ -317,22 +320,168 @@ handling. Worth revisiting if Bun gains `cover`.
 `.withMetadata()` is never called. Wedding photos are routinely geotagged;
 publishing originals would leak the venue's coordinates and the event date.
 
-## Her real business facts
+## Her business, as it actually is
 
-Taken from her previous site, floweryoursoul.ca. These are real, not invented:
+Numbers from her brother (who commissions this work), August 2026. These are
+real and they should shape priorities more than any design opinion.
 
-- Previously **Flower Your Soul**, Instagram `@flower_your_soul`. The new
-  domain implies a rebrand to **Anastasia Floristry** — confirm before launch.
-- Based in **Southwestern Ontario**, serving Hamilton, Brantford, Brant,
-  Cambridge, Kitchener, Waterloo, Guelph, Elora, Elmira, Burlington, Oakville.
-  Her exact home base is still a TODO in `content/site.ts`.
-- **Two** packages: Signature Weddings and Intimate Celebrations. Do not invent
-  a third to balance a layout; the components handle any count.
-- Real pricing bands live in `content/services.ts` and are surfaced in the FAQ.
-  Publishing them filters enquiries and is the most useful content on the site.
-- Her background (rural Ukraine, gardens, a corporate career before floristry,
-  150+ weddings) is the most distinctive thing about her story. It belongs
-  prominently on /about, not buried.
+| | |
+|---|---|
+| Weddings last year | 15 |
+| Weddings this year | **5** |
+| Average price | $5,000 to $8,000 |
+| Margin | 50% acceptable, 70% good |
+| Main cost lines | flowers and assistants |
+| **Binding constraint** | **a 1.5-year-old child** |
+
+At ~$6.5k average that is roughly $97k revenue last year against ~$32k this
+year: a 67% volume drop with a cause that has nothing to do with marketing.
+
+**The constraint is capacity, not demand.** This matters more than it looks:
+
+- More enquiries actively cost her. Every call with someone who will not book
+  is an hour away from her child.
+- With volume capped, revenue is a function of **price per wedding**, not
+  count. Six at $10k beats fifteen at $6.5k, and beats it twice over on hours.
+- So the site's job is **qualification and price anchoring, not lead volume**.
+  Published prices, a hard minimum, a stated service area and honest lead
+  times are the highest-value content on the site. Every question the FAQ
+  answers is an enquiry she does not answer by hand.
+- This is why SEO, `llms.txt`, AI-search optimisation and Google Business
+  Profile are deprioritised in TODO.md. Being found by 200 people to book 6
+  is worse than being found by 20 of the right ones.
+
+She is also investing continuously in **Instagram reels and TikTok**, and the
+designer supplied templates for it (`Branding/Launch Graphics`, IG Post
+1080x1350 and IG Reel 1080x1920). Treat social as top-of-funnel and the site
+as where it converts: the site does not need to attract, it needs to close.
+Prominent Instagram links matter; a blog does not.
+
+### Prior business
+
+Previously **Flower Your Soul** (floweryoursoul.ca, `@flower_your_soul`),
+rebranded to Anastasia Floristry. Based in **Southwestern Ontario**, serving
+Hamilton, Brantford, Brant, Cambridge, Kitchener, Waterloo, Guelph, Elora,
+Elmira, Burlington and Oakville. Her exact home base is still unconfirmed in
+`content/site.ts`.
+
+**Two** packages: Signature Weddings and Intimate Celebrations. Do not invent a
+third to balance a layout; the components handle any count.
+
+Her background (rural Ukraine, gardens, a corporate career before floristry) is
+the most distinctive thing she has. It belongs prominently on `/about`.
+
+**Unverified claim to check before launch:** the FAQ drafts "over five years and
+more than 150 weddings". With 15 last year and 5 this year, 150 implies some
+very busy earlier years. It may be true, but per the rule about never
+publishing an unverified business fact, she must confirm it. An understated
+true figure beats an impressive one a client could question.
+
+---
+
+## Brand identity
+
+From `Branding/Brand Guidelines/Anastasia Floristry - Brand Guidelines.pdf`
+(August 2026). Source assets are gitignored; that PDF is the authority.
+
+- **Name** Anastasia Floristry
+- **Tagline** "Weddings & Events" — this is the real tagline and it belongs in
+  `content/site.ts`. Earlier copy invented "Wedding and event florals".
+- **Core values** warmth, generosity, romance, craftsmanship, elegance, care,
+  confidence, growth
+- **Mood** quiet luxury. Understated, considered, softness without fragility.
+  European in spirit, grounded in craft. Garden roses, lilacs, hand-gathered
+  branches against refined lines.
+
+### The audience is wedding PLANNERS, not couples
+
+This is the most consequential thing in the guidelines and the site currently
+contradicts it.
+
+The mission, vision and positioning all name planners as the customer: a floral
+partner planners can stop worrying about, the name planners reach for first, a
+collaborator rather than a vendor, with the reliability, follow-through and
+industry credibility a planner needs to hand off a wedding and trust it comes
+back beautiful.
+
+The site as built is couple-facing throughout: the FAQ asks "how much do
+wedding flowers cost" and "how do I book", and the enquiry form asks about
+"the day". None of that speaks to a planner.
+
+**It also fits her constraint better than couple acquisition does.** One planner
+relationship can supply several pre-qualified weddings a year with no per-couple
+marketing, which is exactly what someone with capacity for 5 to 8 weddings and
+a small child needs. Note the tension worth naming: reels and TikTok reach
+couples, while planners are won through venues, industry relationships and
+reliability. Those are two different funnels, and only one of them is a website
+job.
+
+**Do not silently rewrite the site for planners.** It is a strategy decision for
+her. But flag the mismatch whenever touching FAQ, services or form copy.
+
+### Palette (exact, from the guidelines)
+
+| Token | Hex | Role |
+|---|---|---|
+| Ink | `#1F2936` | darkest, text and dark sections |
+| Linen | `#F7F3EB` | **dominant** background |
+| Sandstone | `#E0C9BF` | second most used, warm blush |
+| Mauve | `#9E7E81` | accent |
+| Wisteria | `#CEC5CB` | soft accent |
+| Evergreen | `#646957` | deep green |
+| Sage | `#ACB29A` | light green |
+
+Hierarchy per the guidelines' own diagram, by prominence: Linen dominates, then
+Sandstone, then Ink and Mauve, then Wisteria, Evergreen and Sage.
+
+**This entirely replaces the palette extracted from the reference template.**
+Note the trap: the old token names `linen` and `ink` both exist in the new
+palette with *different values*, so a swap must be checked value-by-value, not
+by name. Re-run the contrast audit after: these are the designer's print-first
+values and several will fail AA for small text exactly as the old ones did.
+Derive accessible text variants the same way, and keep the brand values for
+large display type and decoration.
+
+### Typography
+
+| Role | Brand font | Sanctioned free substitute |
+|---|---|---|
+| Headline / header | **Myroge** (uppercase, regular spacing, large) | **Playfair Display Regular** or **Prata** |
+| Eyebrow / button | **Sweet Sans** (uppercase, wide spacing, small) | **Poppins** or **Montserrat** |
+| Subhead | **Sweet Sans** (uppercase, wide spacing, medium) | as above |
+| Body / paragraph | **Montserrat Light** (regular case, small) | Montserrat is already free |
+| Script | **OPTIExcelsior Script** (logo only) | — |
+
+The guidelines explicitly name those Google alternatives, so using them is
+sanctioned rather than a compromise.
+
+**The display face changes character.** The site currently uses Jost, a
+geometric sans. The brand calls for a high-contrast serif, matching the serif
+wordmark. That is a real visual shift, not a swap of similar fonts.
+
+Body should be Montserrat Light, not Poppins. Poppins remains valid for
+eyebrow and button copy.
+
+### Logo assets
+
+`Branding/Logos/` has CMYK (print) and RGB (screen). **Use RGB.** 81 ready SVGs
+there, named `<colour>_<variant>`, covering: main logo (crest over stacked
+wordmark with the "Weddings & Events" rule), alt logo (single line), word logo
+(no crest), brand mark (floral sprig), monogram (AF in an oval) and bird, each
+in ink, black, white, evergreen, sandstone, mauve and sage.
+
+The guidelines name the submark's uses directly, and two are ours: **website
+footer** and **website favicon**. So the favicon is the brand mark or monogram,
+not a letter.
+
+Rules from the guidelines:
+
+- Use the logo only in brand colours.
+- Place it on a clutter-free, high-contrast background with generous margin.
+- Never stretch it, never put it on a low-contrast pairing (their example: cream
+  on white), never recolour it outside the palette.
+- Clearspace unit is the middle counter of the "O". Keep it consistent across
+  every variant.
 
 ## Dependency ceiling (tested, do not just bump blindly)
 

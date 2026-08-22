@@ -48,10 +48,47 @@ fact, 19 placeholder images.**
 
 ---
 
-## Blocked on the brand designer
+## Brand has landed (Aug 2026)
 
-She is waiting on a branding professional, so **everything visual below is
-provisional**. Do not invest effort here until that work lands.
+Delivered and read: guidelines PDF, 81 web-ready RGB SVGs, and IG post/reel
+templates. Specs are documented in AGENTS.md. Source files are gitignored
+(144MB of EPS/PDF); Drive stays the source of truth.
+
+Done already: the real tagline ("Weddings & Events") replaced the invented one.
+
+- [ ] **Swap the palette** to the seven brand colours. Watch the trap: the old
+      tokens `linen` and `ink` both exist in the new palette with *different*
+      values, so check value-by-value, not by name. Re-run the contrast audit
+      after; these are print-first values and several will fail AA for small
+      text exactly as the reference palette did. Derive accessible text
+      variants the same way and keep brand values for large display only.
+- [ ] **Swap the fonts.** Display goes from Jost (geometric sans) to
+      **Playfair Display** or **Prata** (high-contrast serif) — a real change
+      of character, matching the serif wordmark. Body becomes **Montserrat
+      Light**. Both are explicitly sanctioned in the guidelines.
+- [ ] **Use the real logo.** The header is currently the name set in type.
+      Replace with an SVG from `Branding/Logos/RGB/SVG`.
+- [ ] **Favicon and app icons** from the brand mark or the AF monogram. The
+      guidelines name "website favicon" as a submark use, so this is specified,
+      not a judgement call.
+- [ ] **Regenerate the OG card** once palette and fonts are in.
+
+### Strategy question the guidelines raised
+
+- [ ] **The brand targets wedding PLANNERS; the site talks to couples.** The
+      mission, vision and positioning all name planners as the customer. The
+      FAQ ("how much do wedding flowers cost", "how do I book") and the enquiry
+      form ("tell us about the day") are couple-facing throughout.
+
+      It also suits her constraint better: one planner relationship can supply
+      several pre-qualified weddings a year with no per-couple marketing, which
+      is what capacity for 5 to 8 weddings and a small child actually needs.
+
+      Note the tension: reels and TikTok reach couples, planners are won through
+      venues and industry relationships. Two funnels, one website.
+
+      **Her decision, not ours.** But it likely means a planner-facing page or
+      section, and different FAQ questions.
 
 What is currently a placeholder standing in for real brand work:
 
@@ -124,6 +161,17 @@ Things a visitor would notice today.
 
 ## 2. Should do soon
 
+**Reprioritised:** her constraint is capacity (5 weddings this year vs 15 last,
+because of a 1.5-year-old), not demand. The site's job is qualification and
+price anchoring, not lead volume. Anything that generates more enquiries she
+cannot serve has been moved down.
+
+- [ ] **Fill the FAQ gaps — now the highest-value content on the site.** Lead
+      times, the Intimate Celebrations minimum, seasonal specifics, local
+      growers. Every answered question is an enquiry she does not answer by
+      hand, and hours are her scarcest resource.
+- [ ] **Put pricing on `/services`,** not only in the FAQ. It filters.
+
 - [ ] **AT LAUNCH: set `indexable: true`** in `content/site.ts`. See the
       banner at the top of this file. Nothing gets indexed until this happens.
 
@@ -151,9 +199,11 @@ Things a visitor would notice today.
 - [ ] **Google Search Console.** Submit the sitemap, watch indexing and
       queries. Free, and the only way to see what she actually ranks for.
 
-- [ ] **Google Business Profile.** Not a code task, and still the single
-      highest-return item on this list for a local florist. "Florist near me"
-      traffic comes from here, not from the website. Takes about an hour.
+- [ ] **Google Business Profile.** Demoted twice over: wedding work is not a
+      "florist near me" search, and she cannot serve more volume anyway. Worth
+      an hour mainly as a place to collect reviews. She has an existing profile
+      from Flower Your Soul and will rename it, which correctly preserves the
+      reviews.
 
 ---
 

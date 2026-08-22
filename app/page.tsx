@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import { Hero } from "@/components/Hero";
 import { Section, SectionIntro } from "@/components/Section";
 import { SplitFeature } from "@/components/SplitFeature";
@@ -10,6 +11,12 @@ import { home } from "@/content/pages";
 import { services } from "@/content/services";
 import { testimonials } from "@/content/testimonials";
 import { galleries, galleryCells } from "@/content/portfolio";
+import { seo } from "@/content/seo";
+
+export const metadata: Metadata = {
+  description: seo.home.description,
+  alternates: { canonical: "/" },
+};
 
 /** Covers of the featured galleries, used for the home page preview grid. */
 const featured = galleries
