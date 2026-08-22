@@ -2,6 +2,8 @@
  * Numbered card row. Drives both the service summary on the home page and
  * the booking process on /services.
  */
+import { Reveal } from "./Reveal";
+
 export function NumberedCards({
   items,
 }: {
@@ -23,11 +25,13 @@ export function NumberedCards({
     <ol className={`grid gap-14 md:gap-12 ${columns}`}>
       {items.map((item, i) => (
         <li key={item.title}>
-          <p className="script text-script-xs text-accent">
+          <Reveal delay={i * 0.12}>
+          <p className="script text-script-xs text-evergreen">
             {item.step ?? String(i + 1).padStart(2, "0")}
           </p>
           <h3 className="mt-4 text-display-2xs tracking-[0.12em]">{item.title}</h3>
           <p className="mt-5 text-body-sm">{item.body}</p>
+          </Reveal>
         </li>
       ))}
     </ol>

@@ -44,7 +44,7 @@ export function ContactForm() {
   if (state === "sent") {
     return (
       <div role="status" className="py-16 text-center">
-        <p className="script text-script-sm text-clay">{contactPage.success.title}</p>
+        <p className="script text-script-sm text-mauve">{contactPage.success.title}</p>
         <p className="mt-6">{contactPage.success.body}</p>
       </div>
     );
@@ -73,13 +73,13 @@ export function ContactForm() {
         <button
           type="submit"
           disabled={state === "sending"}
-          className="eyebrow w-full border border-taupe px-10 py-5 transition-colors hover:bg-taupe hover:text-cream disabled:opacity-50 md:w-auto"
+          className="eyebrow w-full border border-ink px-10 py-5 transition-colors hover:bg-ink hover:text-linen disabled:opacity-50 md:w-auto"
         >
           {state === "sending" ? f.submitting : f.submit}
         </button>
 
         {error && (
-          <p role="alert" className="mt-5 text-body-sm text-clay-tx">
+          <p role="alert" className="mt-5 text-body-sm text-mauve-tx">
             {error}
           </p>
         )}
@@ -106,13 +106,13 @@ function Field({
   options?: readonly string[];
 }) {
   const base =
-    "mt-3 w-full border-b border-taupe/30 bg-transparent pb-3 text-body focus:border-tan focus:outline-none";
+    "mt-3 w-full border-b border-ink/30 bg-transparent pb-3 text-body focus:border-mauve focus:outline-none";
 
   return (
     <div>
-      <label htmlFor={name} className="eyebrow text-text">
+      <label htmlFor={name} className="eyebrow text-ink">
         {label}
-        {required && <span aria-hidden className="text-clay-tx"> *</span>}
+        {required && <span aria-hidden className="text-mauve-tx"> *</span>}
       </label>
 
       {as === "textarea" ? (
@@ -132,7 +132,7 @@ function Field({
         <input id={name} name={name} type={type} required={required} className={base} />
       )}
 
-      {hint && <p className="mt-2 text-body-sm text-text">{hint}</p>}
+      {hint && <p className="mt-2 text-body-sm text-ink">{hint}</p>}
     </div>
   );
 }

@@ -19,7 +19,7 @@ export async function Footer() {
   const year = await currentYear();
 
   return (
-    <footer className="bg-linen">
+    <footer className="bg-sandstone">
       <div className="mx-auto max-w-(--container-wide) px-(--spacing-gutter) py-24">
         <div className="grid gap-14 md:grid-cols-3 md:gap-10">
           {/* Brand + service area */}
@@ -32,7 +32,7 @@ export async function Footer() {
 
           {/* Navigation */}
           <nav aria-label="Footer">
-            <p className="eyebrow text-accent">Explore</p>
+            <p className="eyebrow text-evergreen">Explore</p>
             <ul className="mt-5 space-y-2">
               {routes.map((item) => (
                 <li key={item.href}>
@@ -46,7 +46,7 @@ export async function Footer() {
 
           {/* Contact */}
           <div>
-            <p className="eyebrow text-accent">Contact</p>
+            <p className="eyebrow text-evergreen">Contact</p>
             <ul className="mt-5 space-y-2 text-body-sm">
               <li>
                 <a href={`mailto:${site.contact.email}`} className="link-underline">
@@ -91,7 +91,7 @@ export async function Footer() {
           </div>
         </div>
 
-        <p className="eyebrow mt-20 text-text">
+        <p className="eyebrow mt-20 text-ink">
           &copy; {site.founded === year ? year : `${site.founded}–${year}`} {site.name}
         </p>
       </div>

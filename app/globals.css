@@ -9,49 +9,54 @@
 
 @theme {
   /* ---- Colour ------------------------------------------------------------
-     taupe   primary text + headings (the dominant colour of the design)
-     cream   page background
-     linen   alternate / banded section background
-     tan     accents, links, small caps labels
-     olive   link hover, deepest text
-     clay    secondary accent
-     ink     warm near-black
+     The brand palette, verbatim from the guidelines. Names and values are the
+     designer's; do not rename them, they are how she and the designer refer to
+     these colours.
+
+     Prominence hierarchy per the guidelines' own diagram:
+     linen dominates, then sandstone, then ink and mauve, then the rest.
+
+       linen      page background, the dominant surface
+       sandstone  alternate banded sections
+       ink        text and dark sections
+       mauve      accent, large display and script only (3.30:1 on linen)
+       wisteria   soft decoration, borders
+       evergreen  accent that is also safe for small text (5.13:1 on linen)
+       sage       decoration only (1.98:1 on linen)
   */
-  --color-taupe: #908779; /* 2% darker than the reference #938a7b, to clear 3:1 on linen */
-  --color-cream: #fdfcfa;
-  --color-linen: #efede8;
-  --color-tan: #bf9a7d;
-  --color-olive: #493d25;
-  --color-clay: #ae7c65;
-  --color-ink: #403e3a;
+  --color-ink: #1f2936;
+  --color-linen: #f7f3eb;
+  --color-sandstone: #e0c9bf;
+  --color-mauve: #9e7e81;
+  --color-wisteria: #cec5cb;
+  --color-evergreen: #646957;
+  --color-sage: #acb29a;
 
   /* ---- Accessible text variants -----------------------------------------
-     The reference design's palette fails WCAG AA badly for text: taupe body
-     copy is 3.32:1 on cream (4.5 required) and 12px tan labels are 2.21:1
-     on linen. These are the same hues scaled toward black until they clear
-     4.5:1 on BOTH backgrounds, so the design keeps its character.
+     mauve and sage are print-first values that fail AA for small text. These
+     are the same hues scaled toward black until they clear 4.5:1 on BOTH
+     backgrounds, sandstone being the harder one.
 
-       text    body copy, any small text        5.14:1 cream / 4.51:1 linen
-       accent  eyebrow labels, small links      5.14:1 cream / 4.50:1 linen
-       clay-tx small clay text (errors, *)      5.14:1 cream / 4.51:1 linen
+     ink is already 13.28:1 on linen and needs no variant.
 
-     Use taupe / tan / clay only for LARGE display type, borders and
-     decoration. Never for anything under 24px.
-     Verified by scripts/contrast.mjs, run `pnpm contrast`.
+     Rule: mauve, wisteria and sage are for LARGE display type, borders and
+     decoration. For anything under 24px use ink, evergreen or mauve-tx.
+     Verified by scripts/contrast.mjs, which parses this block directly.
   */
-  --color-text: #726b5f;
-  --color-accent: #806754;
-  --color-clay-tx: #8a6350;
+  --color-mauve-tx: #675354;
+  --color-evergreen-tx: #55594a;
 
   /* ---- Font families ----------------------------------------------------
-     Wired to next/font in app/layout.tsx.
-     `display` and `script` are free substitutes for the reference design's
-     two commercial fonts. To swap in licensed fonts later, change only
-     the next/font declarations in layout.tsx.
+     Wired to next/font in app/layout.tsx. Both are the substitutes the brand
+     guidelines sanction: Prata for Myroge, Montserrat for Sweet Sans and for
+     Montserrat Light body copy.
+
+     `script` intentionally points at the display serif. The brand's script
+     face is logo-only and the guidelines define no web script role.
   */
-  --font-display: var(--font-jost), "Helvetica Neue", sans-serif;
-  --font-script: var(--font-parisienne), "Apple Chancery", cursive;
-  --font-body: var(--font-poppins), system-ui, sans-serif;
+  --font-display: var(--font-prata), Georgia, "Times New Roman", serif;
+  --font-script: var(--font-prata), Georgia, serif;
+  --font-body: var(--font-montserrat), system-ui, sans-serif;
 
   /* ---- Type scale -------------------------------------------------------
      Fluid. The reference design jumped 180px -> 50px with nothing between,
@@ -81,6 +86,15 @@
   --text-label: 0.75rem;
 
   /* ---- Rhythm ----------------------------------------------------------- */
+  /* ---- Motion -----------------------------------------------------------
+     The reference template faded elements in over 0.75s with a 0.25s delay,
+     and faded between pages over 0.75s. Kept for the scroll reveal; the page
+     fade is shorter because navigation here is already instant.
+  */
+  --reveal-duration: 0.75s;
+  --reveal-distance: 1.25rem;
+  --page-fade: 0.45s;
+
   --spacing-section: clamp(4.5rem, 10vw, 11rem);
   --spacing-gutter: clamp(1.25rem, 5vw, 5rem);
 
@@ -99,8 +113,8 @@
   }
 
   body {
-    background-color: var(--color-cream);
-    color: var(--color-text);
+    background-color: var(--color-linen);
+    color: var(--color-ink);
     font-family: var(--font-body);
     font-size: var(--text-body);
     font-weight: 300;
@@ -110,7 +124,7 @@
   /* Display headings: uppercase, wide, light. The signature of the design. */
   h1, h2, h3 {
     font-family: var(--font-display);
-    font-weight: 300;
+    font-weight: 400;
     line-height: 1.1;
     text-transform: uppercase;
     text-wrap: balance;
@@ -121,12 +135,12 @@
   }
 
   ::selection {
-    background-color: var(--color-tan);
-    color: var(--color-cream);
+    background-color: var(--color-mauve);
+    color: var(--color-linen);
   }
 
   :focus-visible {
-    outline: 2px solid var(--color-tan);
+    outline: 2px solid var(--color-evergreen);
     outline-offset: 3px;
   }
 }
@@ -151,7 +165,7 @@
   .wordmark {
     font-family: var(--font-display);
     font-size: var(--text-wordmark);
-    font-weight: 300;
+    font-weight: 400;
     letter-spacing: 0.3em;
     text-transform: uppercase;
   }
@@ -160,7 +174,8 @@
   .script {
     font-family: var(--font-script);
     font-weight: 400;
-    line-height: 0.9;
+    font-style: normal;
+    line-height: 1.1;
     text-transform: none;
   }
 
@@ -174,7 +189,7 @@
   }
   .link-underline:hover {
     background-size: 0% 1px;
-    color: var(--color-olive);
+    color: var(--color-mauve-tx);
   }
 }
 
@@ -185,5 +200,81 @@
   *, *::before, *::after {
     animation-duration: 0.01ms !important;
     transition-duration: 0.01ms !important;
+  }
+}
+
+/* ==========================================================================
+   MOTION
+   The template's three effects: elements fade up on scroll, pages crossfade,
+   and the full-bleed bands scroll at a different rate to the page.
+   ========================================================================== */
+
+/* Scroll reveal.
+   The hidden start state is gated on `.js-reveal`, set on <html> by an inline
+   script in app/layout.tsx before first paint. Three reasons it is a class and
+   not a media query: no-JS and pre-hydration renders stay visible, there is no
+   flash of visible-then-hidden, and it cannot be split across a query boundary
+   by the minifier (which is exactly what broke an earlier
+   `@media (scripting: enabled)` version: the hide rule was hoisted out and the
+   show rule was left inside, so content never became visible). */
+.js-reveal .reveal {
+  opacity: 0;
+  transform: translateY(var(--reveal-distance));
+  transition:
+    opacity var(--reveal-duration) ease-out,
+    transform var(--reveal-duration) ease-out;
+}
+
+.js-reveal .reveal.is-visible {
+  opacity: 1;
+  transform: none;
+}
+
+/* Page crossfade on navigation. */
+.page-fade {
+  animation: page-fade-in var(--page-fade) ease-out both;
+}
+
+@keyframes page-fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* Parallax band.
+   A clip-path on the container makes it the containing block for the fixed
+   image inside it, so the image holds still while the page scrolls over it.
+   That keeps a single optimised next/image rather than an unoptimised CSS
+   background, which is what a `background-attachment: fixed` version costs.
+
+   Desktop only. iOS Safari renders fixed-in-clipped-ancestor unreliably, and
+   the template only did this on desktop too. */
+@media (min-width: 48rem) and (prefers-reduced-motion: no-preference) {
+  .parallax-band {
+    clip-path: inset(0);
+  }
+
+  .parallax-band img {
+    position: fixed;
+    inset: 0;
+    width: 100vw;
+    height: 100vh;
+    object-fit: cover;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .js-reveal .reveal,
+  .js-reveal .reveal.is-visible {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+
+  .page-fade {
+    animation: none;
   }
 }

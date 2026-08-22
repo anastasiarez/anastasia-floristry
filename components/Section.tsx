@@ -1,4 +1,5 @@
 import type { ReactNode } from "react";
+import { Reveal } from "./Reveal";
 
 /**
  * Standard vertical section. Handles the page rhythm and optional banding
@@ -20,7 +21,7 @@ export function Section({
   return (
     <section
       id={id}
-      className={`${tone === "linen" ? "bg-linen" : "bg-cream"} py-(--spacing-section) ${className}`}
+      className={`${tone === "linen" ? "bg-sandstone" : "bg-linen"} py-(--spacing-section) ${className}`}
     >
       <div
         className={`mx-auto px-(--spacing-gutter) ${
@@ -58,11 +59,11 @@ export function SectionIntro({
   const Heading = as;
 
   return (
-    <div className="mx-auto max-w-(--container-content) text-center">
-      {eyebrow && <p className="eyebrow text-accent">{eyebrow}</p>}
-      {accent && <p className="script mt-4 text-script-sm text-clay">{accent}</p>}
+    <Reveal className="mx-auto max-w-(--container-content) text-center">
+      {eyebrow && <p className="eyebrow text-evergreen">{eyebrow}</p>}
+      {accent && <p className="script mt-4 text-script-sm text-mauve">{accent}</p>}
       {title && <Heading className="mt-6 text-display-xs">{title}</Heading>}
       {body && <p className="mt-8">{body}</p>}
-    </div>
+    </Reveal>
   );
 }

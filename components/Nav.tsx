@@ -37,7 +37,7 @@ export function Nav() {
   }, [open]);
 
   return (
-    <header className="sticky top-0 z-50 bg-cream/95 backdrop-blur-sm">
+    <header className="sticky top-0 z-50 bg-linen/95 backdrop-blur-sm">
       <nav
         aria-label="Main"
         className="mx-auto flex h-16 max-w-(--container-wide) items-center justify-between px-(--spacing-gutter) lg:h-24"
@@ -72,9 +72,9 @@ export function Nav() {
           aria-expanded={open}
           className="-mr-2 p-2 lg:hidden"
         >
-          <span className="block h-px w-6 bg-taupe" />
-          <span className="mt-1.5 block h-px w-6 bg-taupe" />
-          <span className="mt-1.5 block h-px w-6 bg-taupe" />
+          <span className="block h-px w-6 bg-ink" />
+          <span className="mt-1.5 block h-px w-6 bg-ink" />
+          <span className="mt-1.5 block h-px w-6 bg-ink" />
         </button>
       </nav>
 
@@ -82,7 +82,7 @@ export function Nav() {
       <div
         // Kept mounted so the transition runs both ways; hidden from AT when closed.
         inert={!open}
-        className={`fixed inset-0 z-50 flex flex-col bg-cream transition-opacity duration-500 lg:hidden ${
+        className={`fixed inset-0 z-50 flex flex-col bg-linen transition-opacity duration-500 lg:hidden ${
           open ? "opacity-100" : "pointer-events-none opacity-0"
         }`}
       >
@@ -96,8 +96,8 @@ export function Nav() {
             aria-label="Close menu"
             className="-mr-2 p-2"
           >
-            <span className="block h-px w-6 rotate-45 bg-taupe" />
-            <span className="-mt-px block h-px w-6 -rotate-45 bg-taupe" />
+            <span className="block h-px w-6 rotate-45 bg-ink" />
+            <span className="-mt-px block h-px w-6 -rotate-45 bg-ink" />
           </button>
         </div>
 
@@ -107,7 +107,7 @@ export function Nav() {
               <Link
                 href={item.href}
                 onClick={() => setOpen(false)}
-                className="font-display text-display-2xs font-light tracking-[0.2em] uppercase"
+                className="font-display text-display-2xs tracking-[0.2em] uppercase"
               >
                 {item.label}
               </Link>
@@ -133,7 +133,7 @@ function NavLink({
       <Link
         href={href}
         aria-current={active ? "page" : undefined}
-        className={`eyebrow link-underline ${active ? "text-accent" : ""}`}
+        className={`eyebrow link-underline ${active ? "text-evergreen" : ""}`}
       >
         {label}
       </Link>

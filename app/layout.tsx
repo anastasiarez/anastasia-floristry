@@ -1,38 +1,40 @@
 import type { Metadata } from "next";
-import { Jost, Parisienne, Poppins } from "next/font/google";
+import { Montserrat, Prata } from "next/font/google";
 import { Analytics } from "@vercel/analytics/next";
 import { Nav } from "@/components/Nav";
 import { Footer } from "@/components/Footer";
+import { PageFade } from "@/components/PageFade";
 import { site } from "@/content/site";
 import "./globals.css";
 
 /* ---------------------------------------------------------------------------
    FONTS
-   `display` and `script` are free stand-ins for the reference design's two
-   commercial fonts. To move to licensed fonts, replace these two
-   declarations with next/font/local and point at the woff2 files. Nothing
-   else in the codebase needs to change, the CSS variables below are what
-   globals.css consumes.
+
+   Both are the free substitutes the brand guidelines explicitly sanction:
+
+     Myroge      (display serif)  -> Prata
+     Sweet Sans  (eyebrow/subhead) -> Montserrat
+     Montserrat Light (body)       -> Montserrat 300
+
+   Prata ships a single 400 weight, which is correct: the spec calls for
+   regular spacing at large sizes, not a light cut.
+
+   The reference design's script face is gone. The brand's script
+   (OPTIExcelsior) is licensed for the logo only, and the guidelines specify no
+   web script role, so decorative accents use the display serif instead.
    --------------------------------------------------------------------------- */
 
-const display = Jost({
-  subsets: ["latin"],
-  weight: ["300", "400"],
-  variable: "--font-jost",
-  display: "swap",
-});
-
-const script = Parisienne({
+const display = Prata({
   subsets: ["latin"],
   weight: "400",
-  variable: "--font-parisienne",
+  variable: "--font-prata",
   display: "swap",
 });
 
-const body = Poppins({
+const body = Montserrat({
   subsets: ["latin"],
   weight: ["300", "400"],
-  variable: "--font-poppins",
+  variable: "--font-montserrat",
   display: "swap",
 });
 
@@ -96,16 +98,38 @@ function StructuredData() {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en-CA" className={`${display.variable} ${script.variable} ${body.variable}`}>
+    <html
+      lang="en-CA"
+      className={`${display.variable} ${body.variable}`}
+      // The inline script below adds `js-reveal` to this element before React
+      // hydrates, so the client class list legitimately differs from the
+      // server's. Same reason next-themes suppresses here.
+      suppressHydrationWarning
+    >
+      <head>
+        {/*
+          Arms the scroll-reveal hidden state before first paint. Kept inline
+          and synchronous on purpose: a deferred script would let content paint
+          visible and then jump to hidden. Without JS the class never lands and
+          everything renders visible, which is the safe failure.
+        */}
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `document.documentElement.classList.add('js-reveal')`,
+          }}
+        />
+      </head>
       <body>
         <a
           href="#main"
-          className="eyebrow sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-100 focus:bg-cream focus:px-5 focus:py-3"
+          className="eyebrow sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-100 focus:bg-linen focus:px-5 focus:py-3"
         >
           Skip to content
         </a>
         <Nav />
-        <main id="main">{children}</main>
+        <main id="main">
+          <PageFade>{children}</PageFade>
+        </main>
         <Footer />
         <StructuredData />
         {/*

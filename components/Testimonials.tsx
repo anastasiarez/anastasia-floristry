@@ -42,7 +42,7 @@ export function Testimonials({
         onMouseEnter={() => (paused.current = true)}
         onMouseLeave={() => (paused.current = false)}
       >
-        <p className="script text-script-sm text-clay">kind words</p>
+        <p className="script text-script-sm text-mauve">kind words</p>
 
         {/* Grid stacking keeps the band a constant height, so rotation
             does not shift the rest of the page. */}
@@ -58,9 +58,9 @@ export function Testimonials({
               <p className="text-display-2xs leading-relaxed tracking-[0.06em] uppercase">
                 &ldquo;{t.quote}&rdquo;
               </p>
-              <footer className="eyebrow mt-8 text-accent">
+              <footer className="eyebrow mt-8 text-evergreen">
                 {t.author}
-                {t.context && <span className="text-text"> &middot; {t.context}</span>}
+                {t.context && <span className="text-ink"> &middot; {t.context}</span>}
               </footer>
             </blockquote>
           ))}
@@ -76,7 +76,7 @@ export function Testimonials({
                 aria-label={`Show testimonial ${i + 1} of ${items.length}`}
                 aria-current={i === index}
                 className={`h-1.5 w-1.5 rounded-full transition-colors ${
-                  i === index ? "bg-tan" : "bg-taupe/30"
+                  i === index ? "bg-mauve" : "bg-ink/30"
                 }`}
               />
             ))}

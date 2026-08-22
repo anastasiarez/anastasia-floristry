@@ -66,7 +66,7 @@ export function Hero({
           {accent && (
             <span
               aria-hidden
-              className="script pointer-events-none absolute -bottom-4 left-1/2 -translate-x-1/2 text-script-md whitespace-nowrap text-tan md:-bottom-8"
+              className="script pointer-events-none absolute -bottom-4 left-1/2 -translate-x-1/2 text-script-md whitespace-nowrap text-mauve md:-bottom-8"
             >
               {accent}
             </span>

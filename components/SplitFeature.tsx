@@ -1,5 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
+import { Reveal } from "./Reveal";
 
 /**
  * Image on one side, text on the other. Used for the approach block, the
@@ -34,7 +35,7 @@ export function SplitFeature({
   return (
     <section
       id={id}
-      className={`${tone === "linen" ? "bg-linen" : "bg-cream"} py-(--spacing-section)`}
+      className={`${tone === "linen" ? "bg-sandstone" : "bg-linen"} py-(--spacing-section)`}
     >
       <div className="mx-auto grid max-w-(--container-wide) items-center gap-12 px-(--spacing-gutter) md:grid-cols-2 md:gap-20">
         <div
@@ -51,9 +52,9 @@ export function SplitFeature({
           />
         </div>
 
-        <div className={side === "right" ? "md:order-1" : "md:order-2"}>
-          {eyebrow && <p className="eyebrow text-accent">{eyebrow}</p>}
-          {accent && <p className="script mt-3 text-script-sm text-clay">{accent}</p>}
+        <Reveal className={side === "right" ? "md:order-1" : "md:order-2"}>
+          {eyebrow && <p className="eyebrow text-evergreen">{eyebrow}</p>}
+          {accent && <p className="script mt-3 text-script-sm text-mauve">{accent}</p>}
           <h2 className="mt-5 text-display-xs">{title}</h2>
           <p className="mt-7">{body}</p>
 
@@ -61,7 +62,7 @@ export function SplitFeature({
             <ul className="mt-8 space-y-3">
               {bullets.map((b) => (
                 <li key={b} className="flex gap-4 text-body-sm">
-                  <span aria-hidden className="mt-3 h-px w-5 shrink-0 bg-tan" />
+                  <span aria-hidden className="mt-3 h-px w-5 shrink-0 bg-mauve" />
                   {b}
                 </li>
               ))}
@@ -69,11 +70,11 @@ export function SplitFeature({
           )}
 
           {cta && (
-            <Link href={cta.href} className="eyebrow link-underline mt-10 inline-block text-accent">
+            <Link href={cta.href} className="eyebrow link-underline mt-10 inline-block text-evergreen">
               {cta.label}
             </Link>
           )}
-        </div>
+        </Reveal>
       </div>
     </section>
   );

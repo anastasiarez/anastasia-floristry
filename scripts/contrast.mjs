@@ -34,7 +34,7 @@ const C = Object.fromEntries(
   ]),
 );
 
-const required = ["cream", "linen", "taupe", "tan", "clay", "ink", "text", "accent", "clayTx"];
+const required = ["ink", "linen", "sandstone", "mauve", "wisteria", "evergreen", "sage", "mauveTx", "evergreenTx"];
 const missing = required.filter((k) => !C[k]);
 if (missing.length) {
   console.error(`Could not parse these tokens from app/globals.css: ${missing.join(", ")}`);
@@ -44,23 +44,23 @@ C.white = "#ffffff";
 
 // [description, fg, bg, largeText]
 // large = rendered at >=24px, which AA allows at 3:1 instead of 4.5:1.
+//
+// Backgrounds in use: linen (page) and sandstone (alternate band).
 const CHECKS = [
-  ['body copy on cream',            C.text,   C.cream, false],
-  ['body copy on linen',            C.text,   C.linen, false],
-  ['eyebrow label on cream',        C.accent, C.cream, false],
-  ['eyebrow label on linen',        C.accent, C.linen, false],
-  ['footer copyright on linen',     C.text,   C.linen, false],
-  ['field label on cream',          C.text,   C.cream, false],
-  ['field hint on cream',           C.text,   C.cream, false],
-  ['form error on cream',           C.clayTx, C.cream, false],
-  ['numbered step numerals',        C.accent, C.linen, false],
-  ['display heading on cream',      C.taupe,  C.cream, true],
-  ['display heading on linen',      C.taupe,  C.linen, true],
-  ['script accent on cream',        C.clay,   C.cream, true],
-  ['script accent on linen',        C.clay,   C.linen, true],
-  ['hero type on scrim',            C.white,  C.ink,   true],
-  ['link hover on cream',           C.olive,  C.cream, false],
-  ['link hover on linen',           C.olive,  C.linen, false],
+  ['body copy on linen',            C.ink,         C.linen,     false],
+  ['body copy on sandstone',        C.ink,         C.sandstone, false],
+  ['eyebrow label on linen',        C.evergreen,   C.linen,     false],
+  ['eyebrow label on sandstone',    C.evergreenTx, C.sandstone, false],
+  ['small accent on linen',         C.mauveTx,     C.linen,     false],
+  ['small accent on sandstone',     C.mauveTx,     C.sandstone, false],
+  ['form error on linen',           C.mauveTx,     C.linen,     false],
+  ['link hover on linen',           C.mauveTx,     C.linen,     false],
+  ['display heading on linen',      C.ink,         C.linen,     true],
+  ['display heading on sandstone',  C.ink,         C.sandstone, true],
+  ['script accent on linen',        C.mauve,       C.linen,     true],
+  ['script accent on sandstone',    C.mauveTx,     C.sandstone, true],
+  ['hero type on scrim',            C.white,       C.ink,       true],
+  ['linen on ink (dark sections)',  C.linen,       C.ink,       false],
 ];
 
 console.log('WCAG 2.1 AA — normal text 4.5:1, large text (>=24px) 3:1\n');

@@ -1,5 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
+import { Reveal } from "./Reveal";
 
 /** Closing call to action over a full-bleed image. Appears on every page. */
 export function CTABand({
@@ -22,7 +23,7 @@ export function CTABand({
       <Image src={image} alt={imageAlt} fill sizes="100vw" className="object-cover" />
       <div aria-hidden className="absolute inset-0 bg-ink/35" />
 
-      <div className="relative max-w-(--container-content) px-(--spacing-gutter) text-center text-white">
+      <Reveal className="relative max-w-(--container-content) px-(--spacing-gutter) text-center text-white">
         {accent && <p className="script text-script-sm">{accent}</p>}
         <h2 className="mt-5 text-display-sm">{title}</h2>
         {body && <p className="mx-auto mt-8 max-w-xl">{body}</p>}
@@ -32,7 +33,7 @@ export function CTABand({
         >
           {button.label}
         </Link>
-      </div>
+      </Reveal>
     </section>
   );
 }

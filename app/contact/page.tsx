@@ -32,7 +32,7 @@ export default function ContactPage() {
 
         <p className="mt-16 text-center text-body-sm">
           Prefer email?{" "}
-          <a href={`mailto:${site.contact.email}`} className="link-underline text-accent">
+          <a href={`mailto:${site.contact.email}`} className="link-underline text-evergreen">
             {site.contact.email}
           </a>
         </p>
