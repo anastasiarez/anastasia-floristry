@@ -71,7 +71,11 @@ Done already: the real tagline ("Weddings & Events") replaced the invented one.
 - [ ] **Favicon and app icons** from the brand mark or the AF monogram. The
       guidelines name "website favicon" as a submark use, so this is specified,
       not a judgement call.
-- [ ] **Regenerate the OG card** once palette and fonts are in.
+- [x] Regenerate the OG card once palette and fonts are in. Done.
+- [ ] **AT LAUNCH: raise `images.minimumCacheTTL`** in `next.config.ts`. It is
+      deliberately short (300s) because placeholders are overwritten in place at
+      the same path, and next/image caches by URL, so a long TTL would leave
+      returning visitors seeing a stand-in after the real photo shipped.
 
 ### Strategy question the guidelines raised
 

@@ -12,6 +12,19 @@ const nextConfig: NextConfig = {
    * Every page here is fully static, so the shell IS the whole page: a click
    * renders from memory with no server round trip.
    */
+  /**
+   * Images are still placeholders that get overwritten in place, at the same
+   * path, when real photos arrive. next/image keys its cache on the URL, so a
+   * long TTL would leave returning visitors looking at a stand-in after the
+   * real photo shipped. A short TTL costs a little re-optimisation and removes
+   * that failure mode.
+   *
+   * RAISE THIS AT LAUNCH, once the photos are final. Tracked in TODO.md.
+   */
+  images: {
+    minimumCacheTTL: 300,
+  },
+
   cacheComponents: true,
   partialPrefetching: true,
 
