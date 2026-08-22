@@ -1,0 +1,175 @@
+@import "tailwindcss";
+
+/* ==========================================================================
+   DESIGN TOKENS
+   Palette and type scale extracted from the reference design.
+   Change values here and they propagate everywhere. Nothing is hardcoded
+   in components.
+   ========================================================================== */
+
+@theme {
+  /* ---- Colour ------------------------------------------------------------
+     taupe   primary text + headings (the dominant colour of the design)
+     cream   page background
+     linen   alternate / banded section background
+     tan     accents, links, small caps labels
+     olive   link hover, deepest text
+     clay    secondary accent
+     ink     warm near-black
+  */
+  --color-taupe: #908779; /* 2% darker than the reference #938a7b, to clear 3:1 on linen */
+  --color-cream: #fdfcfa;
+  --color-linen: #efede8;
+  --color-tan: #bf9a7d;
+  --color-olive: #493d25;
+  --color-clay: #ae7c65;
+  --color-ink: #403e3a;
+
+  /* ---- Accessible text variants -----------------------------------------
+     The reference design's palette fails WCAG AA badly for text: taupe body
+     copy is 3.32:1 on cream (4.5 required) and 12px tan labels are 2.21:1
+     on linen. These are the same hues scaled toward black until they clear
+     4.5:1 on BOTH backgrounds, so the design keeps its character.
+
+       text    body copy, any small text        5.14:1 cream / 4.51:1 linen
+       accent  eyebrow labels, small links      5.14:1 cream / 4.50:1 linen
+       clay-tx small clay text (errors, *)      5.14:1 cream / 4.51:1 linen
+
+     Use taupe / tan / clay only for LARGE display type, borders and
+     decoration. Never for anything under 24px.
+     Verified by scripts/contrast.mjs, run `pnpm contrast`.
+  */
+  --color-text: #726b5f;
+  --color-accent: #806754;
+  --color-clay-tx: #8a6350;
+
+  /* ---- Font families ----------------------------------------------------
+     Wired to next/font in app/layout.tsx.
+     `display` and `script` are free substitutes for the reference design's
+     two commercial fonts. To swap in licensed fonts later, change only
+     the next/font declarations in layout.tsx.
+  */
+  --font-display: var(--font-jost), "Helvetica Neue", sans-serif;
+  --font-script: var(--font-parisienne), "Apple Chancery", cursive;
+  --font-body: var(--font-poppins), system-ui, sans-serif;
+
+  /* ---- Type scale -------------------------------------------------------
+     Fluid. The reference design jumped 180px -> 50px with nothing between,
+     which broke every width in the middle. These interpolate smoothly.
+  */
+  --text-display-hero: clamp(3.25rem, 13vw, 11.25rem);
+  --text-display-xl: clamp(2.75rem, 9vw, 7.5rem);
+  --text-display-lg: clamp(2.25rem, 7vw, 6.25rem);
+  --text-display-md: clamp(2rem, 5.5vw, 5rem);
+  --text-display-sm: clamp(1.75rem, 4.5vw, 4.6875rem);
+  --text-display-xs: clamp(1.375rem, 3vw, 3.4375rem);
+  --text-display-2xs: clamp(1.125rem, 1.8vw, 1.875rem);
+
+  --text-script-hero: clamp(4rem, 16vw, 15rem);
+  --text-script-lg: clamp(2.25rem, 4.5vw, 3.75rem);
+  --text-script-md: clamp(2rem, 4vw, 3.4375rem);
+  --text-script-sm: clamp(1.75rem, 3.5vw, 3.125rem);
+  --text-script-xs: clamp(1.5rem, 2.5vw, 2.5rem);
+
+  --text-body: 0.9375rem;
+  --text-body-sm: 0.875rem;
+  --text-label: 0.75rem;
+
+  /* ---- Rhythm ----------------------------------------------------------- */
+  --spacing-section: clamp(4.5rem, 10vw, 11rem);
+  --spacing-gutter: clamp(1.25rem, 5vw, 5rem);
+
+  --container-content: 46rem;
+  --container-wide: 82.5rem;
+}
+
+/* ==========================================================================
+   BASE
+   ========================================================================== */
+
+@layer base {
+  html {
+    -webkit-font-smoothing: antialiased;
+    scroll-behavior: smooth;
+  }
+
+  body {
+    background-color: var(--color-cream);
+    color: var(--color-text);
+    font-family: var(--font-body);
+    font-size: var(--text-body);
+    font-weight: 300;
+    line-height: 1.85;
+  }
+
+  /* Display headings: uppercase, wide, light. The signature of the design. */
+  h1, h2, h3 {
+    font-family: var(--font-display);
+    font-weight: 300;
+    line-height: 1.1;
+    text-transform: uppercase;
+    text-wrap: balance;
+  }
+
+  p {
+    text-wrap: pretty;
+  }
+
+  ::selection {
+    background-color: var(--color-tan);
+    color: var(--color-cream);
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--color-tan);
+    outline-offset: 3px;
+  }
+}
+
+/* ==========================================================================
+   COMPONENT UTILITIES
+   Small, named classes for patterns that repeat across many sections.
+   ========================================================================== */
+
+@layer components {
+  /* The small uppercase tracked-out label above most section headings. */
+  .eyebrow {
+    font-family: var(--font-body);
+    font-size: var(--text-label);
+    font-weight: 400;
+    letter-spacing: 0.22em;
+    line-height: 2;
+    text-transform: uppercase;
+  }
+
+  /* Script accent word, often overlapping a display heading. */
+  .script {
+    font-family: var(--font-script);
+    font-weight: 400;
+    line-height: 0.9;
+    text-transform: none;
+  }
+
+  /* Text link with the design's slow underline reveal. */
+  .link-underline {
+    background-image: linear-gradient(currentColor, currentColor);
+    background-position: 0 100%;
+    background-repeat: no-repeat;
+    background-size: 100% 1px;
+    transition: background-size 0.4s ease, color 0.4s ease;
+  }
+  .link-underline:hover {
+    background-size: 0% 1px;
+    color: var(--color-olive);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}
