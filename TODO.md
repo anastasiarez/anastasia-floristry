@@ -1,5 +1,36 @@
 # TODO
 
+> ## ⚠️ THE SITE IS SET TO `noindex` — REMOVE THIS AT LAUNCH
+>
+> Google and every AI crawler are currently told **not** to index the site,
+> because it is publicly reachable while showing placeholder copy, "TODO" alt
+> text and a look the brand designer is about to replace.
+>
+> **To go live in search, change one line** in `content/site.ts`:
+>
+> ```ts
+> indexable: false,   //  ->  true
+> ```
+>
+> That single flag drives all of it:
+> - `noindex, nofollow` on every HTML page (`app/layout.tsx`)
+> - `X-Robots-Tag: noindex` on llms.txt / sitemap.xml / OG image (`next.config.ts`)
+> - whether robots.txt advertises the sitemap and the AI-crawler allowlist (`app/robots.ts`)
+>
+> Verify after flipping:
+> ```bash
+> curl -s https://anastasiafloristry.com/ | grep '<meta name="robots"'
+> curl -sI https://anastasiafloristry.com/llms.txt | grep -i x-robots-tag
+> ```
+> The first should read `index, follow`; the second should return nothing.
+>
+> Note: robots.txt deliberately still **allows** crawling while noindexed. A
+> `Disallow` would stop crawlers reading the noindex, which is how pages get
+> stuck in the index. Do not "helpfully" add one.
+>
+> Then submit the sitemap in Google Search Console — nothing will be indexed
+> until this is flipped, no matter what else is done.
+
 Live at https://anastasiafloristry.com — structurally complete, still wearing
 placeholders. Run `pnpm check` for the current machine-readable state.
 
@@ -9,13 +40,6 @@ fact, 19 placeholder images.**
 ---
 
 ## 0. Decide now, because it is already public
-
-- [ ] **Should Google index it yet?** `robots.txt` currently allows
-      everything, so crawlers can index placeholder copy, "TODO" alt text and
-      thin pages — under a visual identity that is about to change. First
-      impressions with search engines are sticky, and there is no upside to
-      being indexed before the brand and photos land. Recommend a temporary
-      `noindex`, lifted at launch. A few lines, trivial to remove.
 
 - [ ] **Confirm her home base.** `content/site.ts` guesses `Brantford` because
       her service list centres on Brant. This feeds the `Florist` structured
@@ -99,6 +123,9 @@ Things a visitor would notice today.
 ---
 
 ## 2. Should do soon
+
+- [ ] **AT LAUNCH: set `indexable: true`** in `content/site.ts`. See the
+      banner at the top of this file. Nothing gets indexed until this happens.
 
 - [ ] **DMARC record.** DKIM and SPF are verified; `_dmarc` is still absent.
       Resend calls it optional, but enquiries deliver to Gmail and a

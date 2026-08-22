@@ -32,6 +32,7 @@ type Site = {
     pinterest: string;
   };
   founded: number;
+  indexable: boolean;
 };
 
 export const site: Site = {
@@ -90,6 +91,24 @@ export const site: Site = {
 
   /** Founding year, used for the footer copyright range. */
   founded: 2019, // 5+ years of experience as of her old site
+
+  /**
+   * PRE-LAUNCH INDEXING SWITCH.
+   *
+   * false  -> every page serves `noindex, nofollow`, and llms.txt/sitemap.xml
+   *           carry an X-Robots-Tag: noindex header.
+   * true   -> normal indexing, and robots.txt restores the explicit
+   *           AI-crawler allowlist (GPTBot, ClaudeBot, PerplexityBot, ...).
+   *
+   * Currently false because the site is publicly reachable while still
+   * showing placeholder copy, "TODO" alt text, and a visual identity that the
+   * brand designer is about to replace. There is no upside to being indexed
+   * in that state, and search engines' first impression is sticky.
+   *
+   * FLIP THIS TO true AT LAUNCH. It is the only change required.
+   * Tracked in TODO.md.
+   */
+  indexable: false,
 };
 
 /**

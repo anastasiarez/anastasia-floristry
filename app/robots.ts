@@ -4,18 +4,26 @@ import { site } from "@/content/site";
 /**
  * robots.txt
  *
- * AI crawlers are named explicitly rather than left to the wildcard. They are
- * all currently ALLOWED, because being readable by ChatGPT, Claude and
- * Perplexity is how a growing share of people will find a local florist.
+ * While `site.indexable` is false we still ALLOW crawling. That is
+ * deliberate: a `Disallow` would prevent crawlers from ever reading the
+ * `noindex` served on each page, which is the usual reason pages get stuck in
+ * the index. Allow the crawl, refuse the indexing. We simply stop advertising
+ * the sitemap so nothing actively invites a crawl of placeholder content.
  *
- * To opt out of one later, move it to its own rule with `disallow: "/"`.
- * Note the distinction:
- *   GPTBot / ClaudeBot / CCBot   — collect data, may be used for training
- *   OAI-SearchBot / Claude-Web   — serve live answers with a citation link
- *   Google-Extended             — controls Gemini/AI Overviews use ONLY.
- *                                 It does not affect normal Google ranking.
+ * Once indexable, AI crawlers are named explicitly and allowed, because being
+ * readable by ChatGPT, Claude and Perplexity is how a growing share of people
+ * will find a local florist. To opt one out later, give it its own rule with
+ * `disallow: "/"`. Note `Google-Extended` governs Gemini and AI Overviews
+ * only; it does not affect normal Google ranking.
  */
 export default function robots(): MetadataRoute.Robots {
+  if (!site.indexable) {
+    return {
+      rules: [{ userAgent: "*", allow: "/" }],
+      host: site.url,
+    };
+  }
+
   return {
     rules: [
       { userAgent: "*", allow: "/" },

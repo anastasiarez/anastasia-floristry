@@ -1,4 +1,5 @@
 import type { NextConfig } from "next";
+import { site } from "./content/site";
 
 const nextConfig: NextConfig = {
   /**
@@ -9,16 +10,37 @@ const nextConfig: NextConfig = {
    * for visible <Link>s before the click.
    *
    * Every page here is fully static, so the shell IS the whole page: a click
-   * renders from memory with no server round trip. This is the one feature
-   * from the 16.3 release that clearly fits a static brochure site.
+   * renders from memory with no server round trip.
    */
   cacheComponents: true,
   partialPrefetching: true,
 
   /**
+   * Pre-launch: keep non-HTML routes out of search results too.
+   *
+   * The `noindex` in app/layout.tsx only covers HTML pages. llms.txt,
+   * sitemap.xml, robots.txt and the generated OG image cannot carry a meta
+   * tag, so they need the header equivalent. llms.txt matters most here: it
+   * exists specifically to feed AI assistants, and it currently describes
+   * placeholder content.
+   *
+   * Driven by `site.indexable` in content/site.ts — flip that one flag at
+   * launch and this disappears with it.
+   */
+  async headers() {
+    if (site.indexable) return [];
+    return [
+      {
+        source: "/:path*",
+        headers: [{ key: "X-Robots-Tag", value: "noindex, nofollow" }],
+      },
+    ];
+  },
+
+  /**
    * NOTE: there is deliberately no `eslint` key here. Next 16 removed
-   * `next lint`, so the option is unrecognised and warns. ESLint is simply not
-   * installed; nothing runs it. Biome or oxlint is the intended replacement.
+   * `next lint`, so the option is unrecognised and warns. ESLint is simply
+   * not installed. Biome or oxlint is the intended replacement.
    *
    * TypeScript checking is left ON. With lint gone it is the only automated
    * safety net in the build.

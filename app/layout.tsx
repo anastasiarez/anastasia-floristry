@@ -47,7 +47,17 @@ export const metadata: Metadata = {
     siteName: site.name,
     locale: "en_CA",
   },
-  robots: { index: true, follow: true },
+  /**
+   * Driven by `site.indexable`. While false this serves `noindex, nofollow`
+   * on every page (child routes inherit, since none override `robots`).
+   *
+   * Note we deliberately do NOT also add `Disallow` to robots.txt: blocking
+   * the crawl would stop Google from ever reading this noindex, which is how
+   * pages end up stuck in the index. Allow the crawl, refuse the indexing.
+   */
+  robots: site.indexable
+    ? { index: true, follow: true }
+    : { index: false, follow: false, nocache: true },
   alternates: { canonical: "/" },
 };
 
