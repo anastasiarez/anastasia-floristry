@@ -8,10 +8,8 @@
     "start": "next start",
     "placeholders": "node scripts/placeholders.mjs",
     "contrast": "node scripts/contrast.mjs",
-    "seo": "node scripts/seo-audit.mjs",
     "ingest:scan": "node scripts/ingest-scan.mjs",
     "ingest:build": "node scripts/ingest-build.mjs",
-    "brief": "node scripts/photo-brief.mjs",
     "check": "node scripts/check-content.mjs"
   },
   "dependencies": {

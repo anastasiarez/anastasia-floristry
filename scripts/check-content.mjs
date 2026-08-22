@@ -21,7 +21,7 @@
 import { readdir, readFile } from "node:fs/promises";
 import { slots, gallerySlots, exists, PLACEHOLDER_MANIFEST } from "./slots.mjs";
 
-const findings = { todo: [], alt: [], gap: [], missing: [], placeholder: [] };
+const findings = { draft: [], alt: [], gap: [], missing: [], placeholder: [] };
 
 // --- Scan the content files ----------------------------------------------
 // One read per file. An earlier version read every file twice: once for the
@@ -41,16 +41,25 @@ for (const file of contentFiles) {
     const at = `${path}:${i + 1}`;
     const trimmed = line.trim();
 
-    // Guidance that mentions TODO is not itself a TODO.
+    // Guidance that mentions TODO is not itself a TODO. Note a trailing
+    // `// TODO` on a code line is also a comment: only text inside a string
+    // literal actually reaches the browser, so strip trailing comments before
+    // deciding whether a marker would ship.
     const isComment =
       trimmed.startsWith("*") || trimmed.startsWith("//") || trimmed.startsWith("/*");
+    const code = line.replace(/\/\/.*$/, "");
 
+    // A TODO in a VALUE ships to the browser and is a defect. A TODO or DRAFT
+    // in a COMMENT is just tracking, and is what we want.
     if (/imageAlt:\s*[`"'].*TODO/i.test(line)) {
       findings.alt.push({ at, text: trimmed });
-    } else if (!isComment && /\[TODO[^\]]*\]/i.test(line)) {
+    } else if (!isComment && /\[TODO[^\]]*\]/i.test(code)) {
       findings.gap.push({ at, text: trimmed.slice(0, 100) });
-    } else if (!isComment && /\bTODO\b/.test(line)) {
-      findings.todo.push({ at, text: trimmed.slice(0, 100) });
+    } else if (/\b(DRAFT|TODO)\b/.test(line)) {
+      findings.draft.push({ at, text: trimmed.replace(/^[*/\s]+/, "").slice(0, 100) });
+    } else if (!isComment && /\bTODO\b/.test(code)) {
+      // Would ship to the browser: report under alt/gap semantics as a defect.
+      findings.gap.push({ at, text: trimmed.slice(0, 100) });
     }
   });
 }
@@ -83,9 +92,9 @@ section("MISSING IMAGE FILES — referenced by content, not on disk", findings.m
   (f) => f);
 section("STILL PLACEHOLDER IMAGES — replace with real photos", findings.placeholder,
   (f) => f);
-section("UNFILLED FACTS — a real sentence with a [TODO] hole in it", findings.gap,
+section("SHIPPING TO THE BROWSER — must not reach a visitor", findings.gap,
   (f) => `${f.at}\n      ${f.text}`);
-section("TODO MARKERS — copy not yet written", findings.todo,
+section("AWAITING HER INPUT — tracked in comments, nothing ships", findings.draft,
   (f) => `${f.at}\n      ${f.text}`);
 
 const counts = Object.entries(findings).map(([k, v]) => `${v.length} ${k}`);

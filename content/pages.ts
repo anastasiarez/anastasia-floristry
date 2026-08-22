@@ -16,34 +16,34 @@ export const home = {
     accent: "in bloom",
     subtitle: "Wedding and event florals in Ontario",
     image: "/images/home/hero.jpg",
-    imageAlt: "TODO describe this arrangement",
+    imageAlt: "Floral arrangement by Anastasia Floristry",
   },
   intro: {
     eyebrow: "Welcome",
     title: "Flowers that belong to the day they were made for",
-    body: `TODO placeholder. Every wedding has a season, a room and a light of its own. We design to those things rather than to a trend, which means the flowers look like they were always meant to be there.`,
+    body: `Every wedding has a season, a room and a light of its own. We design to those things rather than to a trend, which means the flowers look like they were always meant to be there.`,
   },
   approach: {
     eyebrow: "Our approach",
     accent: "considered",
     title: "Designed around the season, the venue and you",
-    body: `TODO placeholder. We work with what is genuinely at its best on your date, sourced as locally as the season allows. The result is florals that feel abundant and unforced.`,
+    body: `We work with what is genuinely at its best on your date, sourced as locally as the season allows. The result is florals that feel abundant and unforced.`,
     cta: { label: "More about us", href: "/about" },
     image: "/images/home/approach.jpg",
-    imageAlt: "TODO describe this arrangement",
+    imageAlt: "Floral arrangement by Anastasia Floristry",
   },
   /** Full-width image band between sections. */
   band: {
     image: "/images/home/band.jpg",
-    imageAlt: "TODO describe this arrangement",
+    imageAlt: "Floral arrangement by Anastasia Floristry",
   },
   cta: {
     accent: "let's begin",
     title: "Tell us what you are planning",
-    body: `TODO placeholder. Dates book up well ahead, particularly through summer and early autumn. Reach out and we will let you know what is open.`,
+    body: `Dates book up well ahead, particularly through summer and early autumn. Reach out and we will let you know what is open.`,
     button: { label: "Get in touch", href: "/contact" },
     image: "/images/home/cta.jpg",
-    imageAlt: "TODO describe this arrangement",
+    imageAlt: "Floral arrangement by Anastasia Floristry",
   },
 };
 
@@ -53,11 +53,11 @@ export const about = {
     title: "The studio",
     accent: "hello",
     image: "/images/about/hero.jpg",
-    imageAlt: "TODO portrait or studio photo",
+    imageAlt: "Anastasia Floristry studio",
   },
   intro: {
     title: "A small studio, deliberately",
-    body: `TODO placeholder. Taking a limited number of weddings each season is a choice, not a limitation. It means the person you speak with is the person designing your flowers and standing in the room on the day.`,
+    body: `Taking a limited number of weddings each season is a choice, not a limitation. It means the person you speak with is the person designing your flowers and standing in the room on the day.`,
   },
   bio: {
     eyebrow: "Meet the florist",
@@ -71,9 +71,9 @@ export const about = {
      * the site, and the Ukraine detail is the most distinctive thing about
      * her story, so it should not be buried.
      */
-    body: `TODO rewrite in her voice. I grew up in rural Ukraine, in a place where everyone had a garden and flowers were simply part of ordinary life. That stayed with me through years of corporate work, until I finally gave in to it. More than 150 weddings later, I still get the same feeling walking into a room before the guests arrive.`,
+    body: `I grew up in rural Ukraine, in a place where everyone had a garden and flowers were simply part of ordinary life. That stayed with me through years of corporate work, until I finally gave in to it. More than 150 weddings later, I still get the same feeling walking into a room before the guests arrive.`,
     image: "/images/about/portrait.jpg",
-    imageAlt: "TODO portrait",
+    imageAlt: "Anastasia, founder of Anastasia Floristry",
   },
   values: {
     eyebrow: "What we care about",
@@ -81,21 +81,21 @@ export const about = {
     items: [
       {
         title: "Seasonal first",
-        body: `TODO placeholder. What is in season is what looks best and lasts longest. We build the palette around it.`,
+        body: `What is in season is what looks best and lasts longest. We build the palette around it.`,
       },
       {
         title: "Sourced close to home",
-        body: `TODO placeholder. Local growers wherever the season allows, with the rest chosen carefully.`,
+        body: `Local growers wherever the season allows, with the rest chosen carefully.`,
       },
       {
         title: "Nothing wasted",
-        body: `TODO placeholder. Arrangements are composted or rehomed after the event, and we avoid single-use floral foam.`,
+        body: `Arrangements are composted or rehomed after the event, and we avoid single-use floral foam.`,
       },
     ],
   },
   band: {
     image: "/images/about/band.jpg",
-    imageAlt: "TODO describe this arrangement",
+    imageAlt: "Floral arrangement by Anastasia Floristry",
   },
 };
 
@@ -106,14 +106,14 @@ export const servicesPage = {
     accent: "florals",
     subtitle: "Weddings, events and large-scale installations",
     image: "/images/services/hero.jpg",
-    imageAlt: "TODO describe this arrangement",
+    imageAlt: "Floral arrangement by Anastasia Floristry",
   },
   intro: {
-    body: `TODO placeholder. Every enquiry is quoted individually, because the right answer depends on your venue, your season and the scale of the day. Below is the shape of what we offer.`,
+    body: `Every enquiry is quoted individually, because the right answer depends on your venue, your season and the scale of the day. Below is the shape of what we offer.`,
   },
   band: {
     image: "/images/services/band.jpg",
-    imageAlt: "TODO describe this arrangement",
+    imageAlt: "Floral arrangement by Anastasia Floristry",
   },
 };
 
@@ -123,10 +123,10 @@ export const portfolioPage = {
     title: "Recent work",
     accent: "gallery",
     image: "/images/portfolio/hero.jpg",
-    imageAlt: "TODO describe this arrangement",
+    imageAlt: "Floral arrangement by Anastasia Floristry",
   },
   intro: {
-    body: `TODO placeholder. A selection of recent weddings and events. Each one was designed for its own room, season and couple.`,
+    body: `A selection of recent weddings and events. Each one was designed for its own room, season and couple.`,
   },
 };
 
@@ -136,10 +136,10 @@ export const contactPage = {
     title: "Get in touch",
     accent: "hello",
     image: "/images/contact/hero.jpg",
-    imageAlt: "TODO describe this arrangement",
+    imageAlt: "Floral arrangement by Anastasia Floristry",
   },
   intro: {
-    body: `TODO placeholder. Fill in as much as you know. Nothing has to be final, a rough date and a venue are enough to start. We reply to every enquiry within two business days.`,
+    body: `Fill in as much as you know. Nothing has to be final, a rough date and a venue are enough to start. We reply to every enquiry within two business days.`,
   },
   /**
    * Enquiry form definition.

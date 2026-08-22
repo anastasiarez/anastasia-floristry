@@ -19,11 +19,11 @@ export default function OpengraphImage() {
   );
 
   // ImageResponse cannot use CSS variables; hexes match app/globals.css tokens.
-  const cream = "#fdfcfa";
-  const linen = "#efede8";
-  const taupe = "#908779";
-  const text = "#726b5f";
-  const accent = "#806754";
+  const cream = "#f7f3eb";
+  const linen = "#e0c9bf";
+  const taupe = "#1f2936";
+  const text = "#1f2936";
+  const accent = "#9e7e81";
   const hairline = { width: 64, height: 1, backgroundColor: accent };
 
   return new ImageResponse(

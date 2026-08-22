@@ -51,11 +51,23 @@ export function Nav() {
         </ul>
 
         {/* Brand */}
-        <Link
-          href="/"
-          className="wordmark whitespace-nowrap transition-opacity hover:opacity-70 lg:text-center"
-        >
-          {site.name}
+        <Link href="/" className="transition-opacity hover:opacity-70" aria-label={site.name}>
+          {/*
+            A plain <img>, not next/image, and deliberately so. The project rule
+            against bare <img> exists to guarantee photographs get responsive
+            sizing and format negotiation. An SVG is resolution independent, so
+            next/image would add nothing and would require enabling
+            `dangerouslyAllowSVG` project-wide to serve one trusted logo.
+            Explicit width/height keep it from shifting layout while loading.
+          */}
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            src="/brand/wordmark-ink.svg"
+            alt={site.name}
+            width={1860}
+            height={279}
+            className="h-6 w-auto md:h-8"
+          />
         </Link>
 
         {/* Desktop: right link group */}
@@ -98,9 +110,14 @@ export function Nav() {
         }`}
       >
         <div className="flex h-16 items-center justify-between px-(--spacing-gutter)">
-          <span className="wordmark">
-            {site.name}
-          </span>
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            src="/brand/wordmark-ink.svg"
+            alt={site.name}
+            width={1860}
+            height={279}
+            className="h-6 w-auto"
+          />
           <button
             type="button"
             onClick={() => setOpen(false)}

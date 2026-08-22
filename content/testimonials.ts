@@ -14,15 +14,12 @@ export type Testimonial = {
   context?: string;
 };
 
-export const testimonials: Testimonial[] = [
-  {
-    quote: "TODO real client quote goes here, kept to two lines or so.",
-    author: "TODO Client Name",
-    context: "TODO venue or event",
-  },
-  {
-    quote: "TODO real client quote goes here.",
-    author: "TODO Client Name",
-    context: "TODO venue or event",
-  },
-];
+/**
+ * DRAFT: empty until real quotes arrive.
+ *
+ * Deliberately empty rather than populated with invented quotes. A fabricated
+ * testimonial on a live site is a lie to a client, and the Testimonials
+ * component renders nothing for an empty list, so the band simply does not
+ * appear. Add entries as she supplies them, with permission to publish names.
+ */
+export const testimonials: Testimonial[] = [];

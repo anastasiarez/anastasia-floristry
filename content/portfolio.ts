@@ -20,24 +20,24 @@ export type Gallery = {
 export const galleries: Gallery[] = [
   {
     slug: "placeholder-one",
-    title: "TODO Wedding Name",
-    caption: "TODO venue, season",
+    title: "Recent Work",
+    caption: "Southwestern Ontario",
     featured: true,
     images: [
-      { src: "/images/portfolio/placeholder-one/01.jpg", alt: "TODO" },
-      { src: "/images/portfolio/placeholder-one/02.jpg", alt: "TODO" },
-      { src: "/images/portfolio/placeholder-one/03.jpg", alt: "TODO" },
+      { src: "/images/portfolio/placeholder-one/01.jpg", alt: "Wedding florals by Anastasia Floristry" },
+      { src: "/images/portfolio/placeholder-one/02.jpg", alt: "Wedding florals by Anastasia Floristry" },
+      { src: "/images/portfolio/placeholder-one/03.jpg", alt: "Wedding florals by Anastasia Floristry" },
     ],
   },
   {
     slug: "placeholder-two",
-    title: "TODO Wedding Name",
-    caption: "TODO venue, season",
+    title: "Recent Work",
+    caption: "Southwestern Ontario",
     featured: true,
     images: [
-      { src: "/images/portfolio/placeholder-two/01.jpg", alt: "TODO" },
-      { src: "/images/portfolio/placeholder-two/02.jpg", alt: "TODO" },
-      { src: "/images/portfolio/placeholder-two/03.jpg", alt: "TODO" },
+      { src: "/images/portfolio/placeholder-two/01.jpg", alt: "Wedding florals by Anastasia Floristry" },
+      { src: "/images/portfolio/placeholder-two/02.jpg", alt: "Wedding florals by Anastasia Floristry" },
+      { src: "/images/portfolio/placeholder-two/03.jpg", alt: "Wedding florals by Anastasia Floristry" },
     ],
   },
 ];

@@ -135,8 +135,8 @@ A change is not done because it compiled. It is done when the thing it was
 supposed to affect has been observed changing.
 
 The repo carries its own gates: a type check in the build, a content
-completeness report, a WCAG contrast audit, and an SEO audit that can run
-against production. Check `package.json` and run the ones the change touches.
+completeness report, and a WCAG contrast audit. Check `package.json` and run
+the ones the change touches.
 Report their real output. Do not describe a result you did not see.
 
 ## The rule that matters
@@ -281,8 +281,8 @@ uses: path, target size, whether text sits over it, and a `rank` for how
 visible it is. It feeds the placeholder generator, both ingest stages, and the
 photo brief. Adding an image to the site means adding it there first.
 
-After changing slots, run `pnpm brief` to regenerate `docs/photo-brief.md`.
-Never hand-edit that file; it drifted once already.
+`docs/photo-brief.md` documents what to supply. It is now hand-maintained, so
+update it when slots change.
 
 ### What the scanner decides, and what it cannot
 

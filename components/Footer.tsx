@@ -24,9 +24,19 @@ export async function Footer() {
         <div className="grid gap-14 md:grid-cols-3 md:gap-10">
           {/* Brand + service area */}
           <div>
-            <p className="wordmark">
-              {site.name}
-            </p>
+            {/*
+              The brand mark. The guidelines name "website footer" as one of the
+              submark's intended uses.
+            */}
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src="/brand/mark-ink.svg"
+              alt=""
+              width={890}
+              height={718}
+              className="h-12 w-auto opacity-80"
+            />
+            <p className="wordmark mt-5">{site.name}</p>
             <p className="mt-5 max-w-xs text-body-sm">{site.location.serviceArea}</p>
           </div>
 

@@ -25,7 +25,7 @@ export const services: Service[] = [
     slug: "signature-weddings",
     name: "Signature Weddings",
     summary: "Full-service floral design across every part of the day.",
-    body: `TODO rewrite in her voice. The complete floral experience, covering the ceremony, cocktail hour, reception and all personal flowers. We design around your venue, your season and your guest count, then handle every part of the day so nothing is left for you to think about.`,
+    body: `The complete floral experience, covering the ceremony, cocktail hour, reception and all personal flowers. We design around your venue, your season and your guest count, then handle every part of the day so nothing is left for you to think about.`,
     includes: [
       "Ceremony florals and installations",
       "Cocktail hour arrangements",
@@ -34,13 +34,13 @@ export const services: Service[] = [
       "Delivery, setup and end-of-night teardown",
     ],
     image: "/images/services/signature-weddings.jpg",
-    imageAlt: "TODO describe this arrangement",
+    imageAlt: "Floral arrangement by Anastasia Floristry",
   },
   {
     slug: "intimate-celebrations",
     name: "Intimate Celebrations",
     summary: "Refined table florals with one statement ceremony installation.",
-    body: `TODO rewrite in her voice. For smaller guest lists that still deserve a real floral moment. Considered arrangements across the tables, plus a single statement installation for the ceremony, so the day has one unmistakable focal point without the scale of a full wedding package.`,
+    body: `For smaller guest lists that still deserve a real floral moment. Considered arrangements across the tables, plus a single statement installation for the ceremony, so the day has one unmistakable focal point without the scale of a full wedding package.`,
     includes: [
       "Statement ceremony installation",
       "Refined table arrangements",
@@ -48,7 +48,7 @@ export const services: Service[] = [
       "Delivery, setup and teardown",
     ],
     image: "/images/services/intimate-celebrations.jpg",
-    imageAlt: "TODO describe this arrangement",
+    imageAlt: "Floral arrangement by Anastasia Floristry",
   },
 ];
 
