@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Jost, Parisienne, Poppins } from "next/font/google";
+import { Analytics } from "@vercel/analytics/next";
 import { Nav } from "@/components/Nav";
 import { Footer } from "@/components/Footer";
 import { site } from "@/content/site";
@@ -107,6 +108,16 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <main id="main">{children}</main>
         <Footer />
         <StructuredData />
+        {/*
+          Vercel Analytics. Cookieless and with no persistent identifier, which
+          is why it was chosen over Google Analytics: no consent banner is
+          required, and the privacy policy stays simple.
+
+          Collection only happens on Vercel deployments, and must also be
+          enabled in the project's Analytics tab. The package alone does
+          nothing.
+        */}
+        <Analytics />
       </body>
     </html>
   );
