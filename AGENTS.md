@@ -1,22 +1,143 @@
-# Anastasia Floristry — site
+# Anastasia Floristry — AGENTS.md
 
-Static marketing site for a wedding and event florist based in Canada.
-Next.js App Router, Tailwind v4, TypeScript. Every page is prerendered at
-build time. The only server-side code is the contact form handler.
+> You are maintaining a six-page brochure site that has to get a florist
+> booked. Not a platform. Not a design system showcase.
 
-## Commands
+Static marketing site for a wedding and event florist in Southwestern Ontario.
+Next.js App Router, Tailwind v4, TypeScript. Every page is prerendered at build
+time. The only server-side code is the contact form handler.
 
-```bash
-pnpm dev           # local dev server on :3000
-pnpm build         # production build, also type-checks
-pnpm lint
-pnpm contrast      # WCAG AA audit of the palette (exits non-zero on failure)
-pnpm seo           # SEO/crawlability audit against a running server
-pnpm placeholders  # generate placeholder images for any missing photo path
-```
+Live at https://anastasiafloristry.com (currently `noindex`, see below).
 
-Run `pnpm contrast` after touching any colour, and `pnpm seo` after touching
-metadata, headings or structured data.
+---
+
+## Note to the agent
+
+This site is edited by AI agents, not by a developer in an IDE. Anastasia is a
+florist; she works through a chat interface (v0, Claude) and cannot debug a
+build. That single fact drives most of the rules here.
+
+Adding code is a cost. Every line is something that can break in a session
+nobody is watching, in a repo nobody will read. The best change to this site
+adds no code at all: it edits a string in `content/`.
+
+Read `TODO.md` before starting. It is the current state of the project.
+
+---
+
+## The rule that overrides everything
+
+**Never invent a fact about her business.**
+
+Not a price, not a lead time, not a minimum spend, not a delivery area, not a
+number of weddings, not a flower that is in season in a given month. If a fact
+is missing, leave the `TODO` marker exactly where it is.
+
+An empty field is a task. A plausible-sounding invented field is a lie that
+reaches a real client planning a real wedding, and nobody will catch it,
+because it will read as finished.
+
+This applies to `imageAlt` too: describe what is actually in the photograph, or
+leave the TODO.
+
+---
+
+## Priorities, in strict order
+
+When two of these conflict, the higher number loses.
+
+1. **Factual accuracy about her business.** See above.
+2. **The enquiry reaching her.** The contact form is the site's only job. If it
+   fails it must fail loudly, never silently.
+3. **Accessibility.** Guarded by `pnpm contrast`. Do not regress it for looks.
+4. **Content completeness.** Visible placeholders cost her credibility.
+5. **Discoverability.** SEO and structured data.
+6. **Performance.** Mostly handled by `next/image`; do not undo that.
+7. **Visual fidelity to the reference design.** Last. It is a reference, not a
+   specification.
+
+---
+
+## Decision rules
+
+Before building anything, ask:
+
+- Does this help her get booked?
+- Does this survive her editing it through a chat interface?
+- Does this avoid adding a thing that can silently break?
+
+If any answer is no, redesign or reject. Say so rather than building it anyway.
+
+---
+
+## Non-negotiable constraints
+
+- **No hardcoded colours or font sizes in components.** Change the token in the
+  `@theme` block of `app/globals.css`. This is what makes adopting the new
+  brand a one-file edit instead of a rebuild. Applies to visual editors too:
+  use the chat, not a property inspector that writes inline styles.
+- **No user-facing strings in components.** They live in `content/`.
+- **No bare `<img>`.** Always `next/image`.
+- **No `alt=""` or `alt="image"`.** On an image-led site that is both an SEO
+  and an accessibility loss.
+- **No new dependency** where a platform feature or an existing dependency will
+  do. The dependency list is deliberately short.
+- **No disabling the TypeScript check.** With ESLint removed it is the only
+  automated safety net in the build.
+- **No committing her photo originals.** `incoming/` is gitignored on purpose.
+
+---
+
+## YAGNI ladder
+
+Before adding code, walk the ladder. Stop at the first step that applies.
+
+1. Does this need to exist at all? If no, skip it.
+2. Is it a content change? Edit `content/`, write no code.
+3. Does the platform do it? (`next/image`, `next/font`, metadata API, file
+   conventions like `sitemap.ts` / `robots.ts` / `opengraph-image.tsx`.)
+4. Does an already-installed dependency do it?
+5. Is it one line? Keep it one line.
+6. Only then: write the minimum that works.
+
+---
+
+## Fight for the obvious solution
+
+If a change feels clever, it is probably wrong. This site should be boring:
+a visitor understands it without being taught, and the next agent understands
+the code without being told.
+
+Push back when a request would make the site harder to maintain than it is to
+use. Suggest the plainer alternative. "Simple" and "obvious" are not the same
+thing; prefer obvious.
+
+---
+
+## Copy and voice
+
+- **No em-dashes.** Use commas, periods, or parentheses.
+- **No middle dots (`·`)** in user-facing copy.
+- Plain, concrete, unhurried. She is selling craft, not urgency.
+- No manufactured scarcity, no exclamation marks, no "book now before it is
+  too late".
+- Her background (rural Ukraine, gardens, a corporate career before floristry,
+  150+ weddings) is the most distinctive thing she has. Do not flatten it into
+  generic florist copy.
+- Prices are published deliberately. Do not soften or hide them; they filter
+  enquiries, which is the point.
+
+---
+
+## Verify before claiming done
+
+A change is not done because it compiled. It is done when the thing it was
+supposed to affect has been observed changing.
+
+The repo carries its own gates: a type check in the build, a content
+completeness report, a WCAG contrast audit, and an SEO audit that can run
+against production. Check `package.json` and run the ones the change touches.
+Report their real output. Do not describe a result you did not see.
 
 ## The rule that matters
 
@@ -81,16 +202,6 @@ The desktop split nav appears at `lg` (1024px), not `md`. The business name is
 long enough that at 768px it collided with the link groups. If the name
 changes, re-check this.
 
-## SEO
-
-- Per-page `metadata` exports set title and description. Every page also sets
-  `alternates.canonical`.
-- `app/sitemap.ts` is generated from the nav, so adding a nav entry adds a
-  sitemap entry automatically.
-- `app/layout.tsx` emits `Florist` structured data built from `content/site.ts`.
-  Keeping the address and service area accurate there is the highest-value SEO
-  work on this site, because local results are where the traffic comes from.
-
 ## Contact form
 
 `components/ContactForm.tsx` posts to `app/api/inquiry/route.ts`, which sends
@@ -110,20 +221,6 @@ field; a filled one is treated as a bot and quietly accepted.
 Deliberately not built yet. The clean way to add it: `content/blog/*.mdx` with
 frontmatter, a `app/blog/[slug]/page.tsx` using `generateStaticParams`, and a
 nav entry (which picks up the sitemap for free).
-
-## Known local quirk
-
-`pnpm` 12 RC mislinks `sharp` (peer-suffixed store path), so
-`node_modules/sharp` can be a broken symlink and `pnpm placeholders` fails
-with `ERR_MODULE_NOT_FOUND`. Fix:
-
-```bash
-rm -f node_modules/sharp && ln -s "../$(ls -d node_modules/.pnpm/sharp@*_*/node_modules/sharp | head -1)" node_modules/sharp
-```
-
-Only affects the placeholder script. Vercel provides its own image optimizer,
-so this never affects a deploy.
-
 
 ## Accessibility
 
@@ -163,21 +260,18 @@ real fact that needs filling in.
 ### AI crawlers
 
 `app/robots.ts` names GPTBot, ClaudeBot, PerplexityBot, Google-Extended and
-others explicitly, all currently allowed. To opt out of one, give it its own
+others explicitly. That allowlist only applies once `site.indexable` is true;
+while it is false the site serves `noindex` to everything. To opt out of one, give it its own
 rule with `disallow: "/"`. Note `Google-Extended` controls Gemini and AI
 Overviews only, it does not affect normal Google ranking.
 
 ## Photo ingest pipeline
 
-She dumps photos, the pipeline places them. Two stages, reviewable in between:
-
-```bash
-# 1. she drops any number of photos, any names/sizes, into incoming/
-pnpm ingest:scan     # measures each, proposes slot assignments
-#    review incoming/assignment.json, override any `source` by hand
-pnpm ingest:build    # cover-crops and writes public/images/
-pnpm ingest:build --dry   # report without writing
-```
+She dumps photos into `incoming/`, any names and sizes. Two stages with a
+review step deliberately between them: the scan measures every photo and writes
+a proposed slot assignment to `incoming/assignment.json`; the build reads that
+file and produces the cropped images. **Read and correct the proposal before
+building.** Its `source` and `crop` values are meant to be overridden by hand.
 
 `scripts/slots.mjs` is the **single source of truth** for every image the site
 uses: path, target size, whether text sits over it, and a `rank` for how
@@ -243,7 +337,14 @@ Taken from her previous site, floweryoursoul.ca. These are real, not invented:
 ## Dependency ceiling (tested, do not just bump blindly)
 
 Current: Next 16.3.2, React 19.2.8, Tailwind 4.3.3, TypeScript 6.0.3,
-ESLint 9.39.5, @types/node 24.13.3, sharp 0.35.3.
+@types/node 24.13.3, sharp 0.35.3. No ESLint (see below).
+
+**pnpm is pinned to 11.22.0 via `packageManager`, and must stay there.** The
+scaffold shipped `pnpm@12.0.0-rc.7`, which broke the Vercel install outright
+(its `bin/pnpm` shim is corrupt on Vercel) and mislinked `sharp` locally via a
+peer-suffixed store path. Install with the pinned version, not whatever `pnpm`
+resolves to on your PATH, or the lockfile drifts out of sync with
+`packageManager` and the deploy fails.
 
 Two majors are available but **break the toolchain**, verified by trying them:
 
@@ -262,8 +363,12 @@ Two majors are available but **break the toolchain**, verified by trying them:
 not the latest 26. Types ahead of the runtime describe APIs that do not exist
 in the deployed environment.
 
-Retest with: `pnpm lint && pnpm build && pnpm contrast`. Lint is the canary
-here; the build survives combinations that lint does not.
+Both findings above are historical: they are why the versions are pinned, and
+partly why ESLint was dropped. **Note that the TypeScript 7 blocker was
+`typescript-eslint`, which is no longer installed.** The build itself survived
+TS 7 when lint did not, so TS 7 may now be viable. Untested since ESLint was
+removed. Verify with a real build before bumping, and expect the type checker
+to be the only thing that can object.
 
 ## No linter (deliberate)
 
@@ -344,13 +449,3 @@ Two things were done to make the files agent-friendly:
 
 MDX is still the right choice **if a blog is added** — that is long-form prose
 with inline components, which is what MDX is for.
-
-<!-- BEGIN:nextjs-agent-rules -->
-
-# This is NOT the Next.js you know
-
-This version has breaking changes — APIs, conventions, and file structure may all differ from your training data. Read the relevant guide in `node_modules/next/dist/docs/` (resolved from this file's directory; in monorepos the `next` package may not be visible from the repo root) before writing any code. Heed deprecation notices.
-
-This block is written and re-added by `next dev` — verify at `node_modules/next/dist/server/lib/generate-agent-files.js`. Removing it from a diff only re-creates the uncommitted change; committing it with your work keeps the tree clean.
-
-<!-- END:nextjs-agent-rules -->
