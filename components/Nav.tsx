@@ -37,7 +37,8 @@ export function Nav() {
   }, [open]);
 
   return (
-    <header className="sticky top-0 z-50 bg-linen/95 backdrop-blur-sm">
+    <>
+      <header className="sticky top-0 z-50 bg-linen/95 backdrop-blur-sm">
       <nav
         aria-label="Main"
         className="mx-auto flex h-16 max-w-(--container-wide) items-center justify-between px-(--spacing-gutter) lg:h-24"
@@ -78,7 +79,17 @@ export function Nav() {
         </button>
       </nav>
 
-      {/* Mobile drawer */}
+      </header>
+
+      {/*
+        Mobile drawer. A SIBLING of <header>, deliberately not a child.
+
+        The header carries `backdrop-blur-sm`, and `backdrop-filter` creates a
+        containing block for fixed-position descendants. While this lived inside
+        the header, `fixed inset-0` resolved against the header's own 64px box
+        instead of the viewport, so the "full screen" drawer was a 375x64 strip
+        with the page showing through beneath it.
+      */}
       <div
         // Kept mounted so the transition runs both ways; hidden from AT when closed.
         inert={!open}
@@ -115,7 +126,7 @@ export function Nav() {
           ))}
         </ul>
       </div>
-    </header>
+    </>
   );
 }
 
