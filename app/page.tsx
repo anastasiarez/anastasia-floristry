@@ -10,7 +10,17 @@ export const metadata: Metadata = {
 
 export default function HomePage() {
   return (
-    <section className="flex min-h-svh flex-col items-center justify-center gap-10 bg-wisteria px-(--spacing-gutter) py-8 text-center text-ink">
+    <section className="relative isolate flex min-h-svh flex-col items-center justify-center gap-10 bg-wisteria px-(--spacing-gutter) py-8 text-center text-ink">
+      <Image
+        src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/ANA_1992.JPG-ZzlR6KnLiGixe60Pa96zOAuYgUK2uY.jpeg"
+        alt=""
+        fill
+        priority
+        unoptimized
+        sizes="100vw"
+        className="absolute inset-0 -z-20 object-cover object-center"
+      />
+      <div aria-hidden="true" className="absolute inset-0 -z-10 bg-wisteria/55" />
       <a
         href={site.social.instagram}
         target="_blank"
