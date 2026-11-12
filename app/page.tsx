@@ -19,7 +19,7 @@ export default function HomePage() {
         className="block w-full max-w-[min(48rem,90vw)] rounded-sm focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-ink"
       >
         <Image
-          src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Anastasia%20Floristry%20-%20evergreen_alt%20logo-C1Ms6JT8fQRjBZ9BLTTkoV5orX1TN5.png"
+          src="/images/98140468-replacement-image-1.png"
           alt="Anastasia Floristry — Weddings & Events"
           width={2490}
           height={1000}
