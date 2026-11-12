@@ -1,7 +1,6 @@
 @import "tailwindcss";
 
-/* Licensed Myroge webfont. Place the purchased file at public/fonts/Myroge.woff2.
-   Until it exists the browser falls back to the Prata substitute in --font-myroge. */
+/* Licensed Myroge webfont, supplied as a local WOFF asset. */
 @font-face {
   font-family: "Myroge";
   src: url("/fonts/MYROGE-Regular.woff") format("woff");
@@ -134,7 +133,7 @@
 
   /* Display headings: uppercase, wide, light. The signature of the design. */
   h1, h2, h3 {
-    font-family: var(--font-display);
+    font-family: var(--font-myroge);
     font-weight: 400;
     line-height: 1.1;
     text-transform: uppercase;

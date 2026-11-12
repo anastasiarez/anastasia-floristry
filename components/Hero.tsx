@@ -47,9 +47,6 @@ export function Hero({
         sizes="100vw"
         className="object-cover"
       />
-      {/* Contrast scrim. Kept subtle so the photograph still reads. */}
-      <div aria-hidden className="absolute inset-0 bg-ink/25" />
-
       <div className="relative px-(--spacing-gutter) text-center text-white">
         {eyebrow && <p className="eyebrow mb-6">{eyebrow}</p>}
 
