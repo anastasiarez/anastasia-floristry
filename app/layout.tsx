@@ -1,8 +1,6 @@
 import type { Metadata } from "next";
 import { Montserrat, Prata } from "next/font/google";
 import { Analytics } from "@vercel/analytics/next";
-import { Nav } from "@/components/Nav";
-import { Footer } from "@/components/Footer";
 import { PageFade } from "@/components/PageFade";
 import { site } from "@/content/site";
 import "./globals.css";
@@ -126,11 +124,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         >
           Skip to content
         </a>
-        <Nav />
         <main id="main">
           <PageFade>{children}</PageFade>
         </main>
-        <Footer />
         <StructuredData />
         {/*
           Vercel Analytics. Cookieless and with no persistent identifier, which

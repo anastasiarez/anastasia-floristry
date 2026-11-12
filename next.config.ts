@@ -1,5 +1,5 @@
 import type { NextConfig } from "next";
-import { site } from "./content/site";
+import { routes, site } from "./content/site";
 
 const nextConfig: NextConfig = {
   /**
@@ -40,6 +40,16 @@ const nextConfig: NextConfig = {
    * Driven by `site.indexable` in content/site.ts — flip that one flag at
    * launch and this disappears with it.
    */
+  async redirects() {
+    return routes
+      .filter(({ href }) => href !== "/")
+      .map(({ href }) => ({
+        source: href,
+        destination: "/",
+        permanent: false,
+      }));
+  },
+
   async headers() {
     if (site.indexable) return [];
     return [
