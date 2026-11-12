@@ -1,63 +1,59 @@
+import Image from "next/image";
 import type { Metadata } from "next";
-import { Hero } from "@/components/Hero";
-import { Section, SectionIntro } from "@/components/Section";
-import { SplitFeature } from "@/components/SplitFeature";
-import { ImageBand } from "@/components/ImageBand";
-import { NumberedCards } from "@/components/NumberedCards";
-import { Testimonials } from "@/components/Testimonials";
-import { CTABand } from "@/components/CTABand";
-import { Gallery } from "@/components/Gallery";
-import { home } from "@/content/pages";
-import { services } from "@/content/services";
-import { testimonials } from "@/content/testimonials";
-import { galleries, galleryCells } from "@/content/portfolio";
-import { seo } from "@/content/seo";
+import { site } from "@/content/site";
 
 export const metadata: Metadata = {
-  description: seo.home.description,
+  title: "We are reimagining our website",
+  description: "Anastasia Floristry is reimagining its website. Please find us on Instagram.",
   alternates: { canonical: "/" },
 };
 
-/** Covers of the featured galleries, used for the home page preview grid. */
-const featured = galleries
-  .filter((g) => g.featured)
-  .flatMap((g) => galleryCells(g.images).slice(0, 2));
-
 export default function HomePage() {
   return (
-    <>
-      <Hero {...home.hero} full />
-
-      <Section width="content">
-        <SectionIntro {...home.intro} />
-      </Section>
-
-      {featured.length > 0 && (
-        <Section tone="linen">
-          <Gallery images={featured} />
-        </Section>
-      )}
-
-      <SplitFeature {...home.approach} side="left" />
-
-      <ImageBand {...home.band} />
-
-      <Section tone="linen">
-        <SectionIntro eyebrow="Services" title="How we can help" />
-        <div className="mt-20">
-          <NumberedCards
-            items={services.map((s, i) => ({
-              step: String(i + 1).padStart(2, "0"),
-              title: s.name,
-              body: s.summary,
-            }))}
-          />
-        </div>
-      </Section>
-
-      <Testimonials items={testimonials} tone="cream" />
-
-      <CTABand {...home.cta} />
-    </>
+    <section className="relative isolate flex min-h-svh flex-col items-center justify-center gap-10 bg-wisteria px-(--spacing-gutter) py-8 text-center text-ink">
+      <Image
+        src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/ANA_1992.JPG-ZzlR6KnLiGixe60Pa96zOAuYgUK2uY.jpeg"
+        alt=""
+        fill
+        priority
+        unoptimized
+        sizes="100vw"
+        className="absolute inset-0 -z-20 object-cover object-center"
+      />
+      <div aria-hidden="true" className="absolute inset-0 -z-10 bg-wisteria/55" />
+      <a
+        href={site.social.instagram}
+        target="_blank"
+        rel="noopener noreferrer"
+        aria-label="Anastasia Floristry on Instagram"
+        className="block w-full max-w-[min(48rem,90vw)] rounded-sm focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-ink"
+      >
+        <Image
+          src="/images/98140468-replacement-image-1.png"
+          alt="Anastasia Floristry — Weddings & Events"
+          width={2490}
+          height={1000}
+          priority
+          unoptimized
+          className="h-auto w-full mix-blend-difference"
+        />
+      </a>
+      <h1 className="flex flex-col font-myroge text-[clamp(2rem,5.2vw,4.1rem)] normal-case leading-[1.08]">
+        <span>We are reimagining</span>
+        <span>our website.</span>
+      </h1>
+      <p className="text-body-sm tracking-[0.08em]">
+        Please find us on{" "}
+        <a
+          href={site.social.instagram}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="underline underline-offset-4 transition-opacity hover:opacity-75 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-ink"
+        >
+          Instagram
+        </a>
+        .
+      </p>
+    </section>
   );
 }

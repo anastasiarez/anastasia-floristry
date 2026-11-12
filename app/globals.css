@@ -1,5 +1,14 @@
 @import "tailwindcss";
 
+/* Licensed Myroge webfont, supplied as a local WOFF asset. */
+@font-face {
+  font-family: "Myroge";
+  src: url("/fonts/MYROGE-Regular.woff") format("woff");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
 /* ==========================================================================
    DESIGN TOKENS
    Palette and type scale extracted from the reference design.
@@ -57,6 +66,7 @@
   --font-display: var(--font-prata), Georgia, "Times New Roman", serif;
   --font-script: var(--font-prata), Georgia, serif;
   --font-body: var(--font-montserrat), system-ui, sans-serif;
+  --font-myroge: "Myroge", var(--font-prata), Georgia, "Times New Roman", serif;
 
   /* ---- Type scale -------------------------------------------------------
      Fluid. The reference design jumped 180px -> 50px with nothing between,
@@ -123,7 +133,7 @@
 
   /* Display headings: uppercase, wide, light. The signature of the design. */
   h1, h2, h3 {
-    font-family: var(--font-display);
+    font-family: var(--font-myroge);
     font-weight: 400;
     line-height: 1.1;
     text-transform: uppercase;
