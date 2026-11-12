@@ -10,13 +10,13 @@ export const metadata: Metadata = {
 
 export default function HomePage() {
   return (
-    <section className="flex min-h-svh flex-col items-center justify-center gap-6 bg-black px-(--spacing-gutter) py-8 text-center text-linen">
+    <section className="flex min-h-svh flex-col items-center justify-center gap-10 bg-wisteria px-(--spacing-gutter) py-8 text-center text-ink">
       <a
         href={site.social.instagram}
         target="_blank"
         rel="noopener noreferrer"
         aria-label="Anastasia Floristry on Instagram"
-        className="block w-full max-w-[min(48rem,90vw)] rounded-sm focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-linen"
+        className="block w-full max-w-[min(48rem,90vw)] rounded-sm focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-ink"
       >
         <Image
           src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Anastasia%20Floristry%20-%20evergreen_alt%20logo-C1Ms6JT8fQRjBZ9BLTTkoV5orX1TN5.png"
@@ -25,7 +25,7 @@ export default function HomePage() {
           height={1000}
           priority
           unoptimized
-          className="h-auto w-full"
+          className="h-auto w-full mix-blend-difference"
         />
       </a>
       <h1 className="flex flex-col font-myroge text-[clamp(2rem,5.2vw,4.1rem)] normal-case leading-[1.08]">
@@ -38,7 +38,7 @@ export default function HomePage() {
           href={site.social.instagram}
           target="_blank"
           rel="noopener noreferrer"
-          className="underline underline-offset-4 transition-opacity hover:opacity-75 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-linen"
+          className="underline underline-offset-4 transition-opacity hover:opacity-75 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-ink"
         >
           Instagram
         </a>
