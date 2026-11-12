@@ -54,7 +54,7 @@ export function Hero({
         {eyebrow && <p className="eyebrow mb-6">{eyebrow}</p>}
 
         <h1 className="relative inline-block">
-          <span className={full ? "text-display-hero" : "text-display-lg"}>
+          <span className={full ? "text-display-hero font-myroge" : "text-display-lg"}>
             {titleTop}
             {titleBottom && (
               <>
