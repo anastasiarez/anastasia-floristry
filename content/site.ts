@@ -89,7 +89,7 @@ export const site: Site = {
   },
 
   social: {
-    instagram: "https://instagram.com/flower_your_soul", // TODO update if the handle changes with the rebrand
+    instagram: "https://instagram.com/anastasiafloristry",
     pinterest: "", // leave empty to hide
   },
 

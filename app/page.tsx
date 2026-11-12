@@ -1,3 +1,4 @@
+import Image from "next/image";
 import type { Metadata } from "next";
 import { site } from "@/content/site";
 
@@ -9,9 +10,27 @@ export const metadata: Metadata = {
 
 export default function HomePage() {
   return (
-    <section className="flex min-h-svh flex-col items-center justify-center gap-8 bg-sandstone px-(--spacing-gutter) py-24 text-center text-ink">
-      <h1 className="max-w-5xl font-myroge text-display-xl normal-case leading-[1.15]">
-        We are reimagining our website.
+    <section className="flex min-h-svh flex-col items-center justify-center gap-6 bg-black px-(--spacing-gutter) py-8 text-center text-linen">
+      <a
+        href={site.social.instagram}
+        target="_blank"
+        rel="noopener noreferrer"
+        aria-label="Anastasia Floristry on Instagram"
+        className="block w-full max-w-[min(48rem,90vw)] rounded-sm focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-linen"
+      >
+        <Image
+          src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Anastasia%20Floristry%20-%20evergreen_alt%20logo-C1Ms6JT8fQRjBZ9BLTTkoV5orX1TN5.png"
+          alt="Anastasia Floristry — Weddings & Events"
+          width={2490}
+          height={1000}
+          priority
+          unoptimized
+          className="h-auto w-full"
+        />
+      </a>
+      <h1 className="flex flex-col font-myroge text-[clamp(2rem,5.2vw,4.1rem)] normal-case leading-[1.08]">
+        <span>We are reimagining</span>
+        <span>our website.</span>
       </h1>
       <p className="text-body-sm tracking-[0.08em]">
         Please find us on{" "}
@@ -19,7 +38,7 @@ export default function HomePage() {
           href={site.social.instagram}
           target="_blank"
           rel="noopener noreferrer"
-          className="underline underline-offset-4 transition-opacity hover:opacity-75 focus-visible:outline-linen"
+          className="underline underline-offset-4 transition-opacity hover:opacity-75 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-linen"
         >
           Instagram
         </a>
