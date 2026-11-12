@@ -4,7 +4,7 @@
    Until it exists the browser falls back to the Prata substitute in --font-myroge. */
 @font-face {
   font-family: "Myroge";
-  src: url("/fonts/Myroge.woff2") format("woff2");
+  src: url("/fonts/MYROGE-Regular.woff") format("woff");
   font-weight: 400;
   font-style: normal;
   font-display: swap;
