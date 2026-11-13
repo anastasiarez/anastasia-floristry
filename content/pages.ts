@@ -23,6 +23,12 @@ export const holding = {
 };
 
 export const home = {
+  /** Heading and link around the photo strip of featured work. */
+  featured: {
+    eyebrow: "Portfolio",
+    title: "Recent work",
+    link: "See the portfolio",
+  },
   services: {
     eyebrow: "Services",
     title: "How we can help",
@@ -74,6 +80,7 @@ export const about = {
     imageAlt: "Anastasia Floristry studio",
   },
   intro: {
+    eyebrow: "The studio",
     title: "A small studio, deliberately",
     body: `Taking a limited number of weddings each season is a choice, not a limitation. It means the person you speak with is the person designing your flowers and standing in the room on the day.`,
   },
@@ -154,6 +161,8 @@ export const portfolioPage = {
     image: "/images/portfolio/hero.jpg",
     imageAlt: "Floral arrangement by Anastasia Floristry",
   },
+  /** Under each gallery, linking to the enquiry form. */
+  galleryEnquire: "Enquire about your date",
   intro: {
     body: `A selection of recent weddings and events. Each one was designed for its own room, season and couple.`,
   },

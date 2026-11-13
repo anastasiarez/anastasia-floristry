@@ -66,7 +66,7 @@ export default function ServicesPage() {
         imageAlt={servicesPage.hero.imageAlt}
       />
 
-      <Section width="content">
+      <Section width="content" compact>
         <SectionIntro body={servicesPage.intro.body} />
         <div className="mt-10 text-center">
           <p className="text-display-2xs">

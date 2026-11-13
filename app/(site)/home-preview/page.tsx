@@ -35,7 +35,15 @@ export default function HomePage() {
 
       {featured.length > 0 && (
         <Section tone="sandstone">
-          <Gallery images={featured} />
+          <SectionIntro eyebrow={home.featured.eyebrow} title={home.featured.title} />
+          <div className="mt-16">
+            <Gallery images={featured} />
+          </div>
+          <div className="mt-10 text-center">
+            <Link href="/portfolio" className="eyebrow link-underline text-evergreen">
+              {home.featured.link}
+            </Link>
+          </div>
         </Section>
       )}
 

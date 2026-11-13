@@ -100,6 +100,9 @@
   --page-fade: 0.45s;
 
   --spacing-section: clamp(4.5rem, 10vw, 11rem);
+  /* For a section holding only a sentence or two, so it does not leave a
+     full section of empty Linen above the first photo. */
+  --spacing-section-sm: clamp(3rem, 5vw, 5.5rem);
   --spacing-gutter: clamp(1.25rem, 5vw, 5rem);
 
   --container-content: 46rem;

@@ -36,7 +36,7 @@ export default function AboutPage() {
       />
 
       <Section width="content">
-        <SectionIntro title={about.intro.title} body={about.intro.body} />
+        <SectionIntro eyebrow={about.intro.eyebrow} title={about.intro.title} body={about.intro.body} />
       </Section>
 
       <ImageBand {...about.band} height="sm" />
