@@ -7,6 +7,21 @@ import { pricing, services } from "./services";
  * testimonial. All placeholder, written to the right length per slot.
  */
 
+/** The temporary holding page shown at "/" while the full site is rebuilt. */
+export const holding = {
+  /** Browser tab title and search snippet for the holding page. */
+  metaTitle: `We are reimagining our website`,
+  metaDescription: `Anastasia Floristry is reimagining its website. Please find us on Instagram.`,
+  /** Two short lines, shown stacked. */
+  heading: [`We are reimagining`, `our website.`],
+  /** The word "Instagram" after this is the link. */
+  instagramLead: `Please find us on`,
+  instagramLink: `Instagram`,
+  /** Describes the logo image for screen readers. */
+  logoAlt: `Anastasia Floristry, Weddings & Events`,
+  logoLinkLabel: `Anastasia Floristry on Instagram`,
+};
+
 export const home = {
   hero: {
     /** Split across two lines in the hero. Keep each part short. */
