@@ -37,13 +37,15 @@ const FIELDS = [
   ["message", "Message"],
 ] as const;
 
-/** Trim, cap length, and strip anything that could break out of the HTML email. */
+/** Trim and cap length. Returns plain text; escape it before putting it in HTML. */
 function clean(value: unknown, max = 2000): string {
   if (typeof value !== "string") return "";
-  return value
-    .trim()
-    .slice(0, max)
-    .replace(/[<>&]/g, (c) => ({ "<": "&lt;", ">": "&gt;", "&": "&amp;" })[c]!);
+  return value.trim().slice(0, max);
+}
+
+/** For the HTML email body only. The subject and logs take plain text. */
+function escapeHtml(value: string): string {
+  return value.replace(/[<>&]/g, (c) => ({ "<": "&lt;", ">": "&gt;", "&": "&amp;" })[c]!);
 }
 
 export async function POST(request: Request) {
@@ -90,29 +92,45 @@ export async function POST(request: Request) {
     );
   }
 
+  const fields = Object.fromEntries(FIELDS.map(([key]) => [key, clean(payload[key])]));
+
+  // pre-wrap keeps the line breaks of a multi-paragraph message.
   const rows = FIELDS.map(([key, label]) => {
-    const value = clean(payload[key]);
-    return value ? `<tr><td><strong>${label}</strong></td><td>${value}</td></tr>` : "";
+    const value = fields[key];
+    return value
+      ? `<tr><td valign="top"><strong>${label}</strong></td><td style="white-space:pre-wrap">${escapeHtml(value)}</td></tr>`
+      : "";
   }).join("");
 
-  const res = await fetch("https://api.resend.com/emails", {
-    method: "POST",
-    headers: {
-      Authorization: `Bearer ${apiKey}`,
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({
-      from,
-      to: site.contact.inquiryInbox,
-      reply_to: email,
-      subject: `New enquiry from ${name}`,
-      html: `<table cellpadding="8">${rows}</table>`,
-    }),
-  });
+  // Every failure path logs the full enquiry, so a failed send never loses it.
+  const failed = (reason: string, detail?: unknown) => {
+    console.error(`Inquiry NOT delivered (${reason}). Enquiry:`, fields, detail ?? "");
+    return Response.json({ error: "We could not send that. Please try again." }, { status: 502 });
+  };
+
+  let res: Response;
+  try {
+    res = await fetch("https://api.resend.com/emails", {
+      method: "POST",
+      headers: {
+        Authorization: `Bearer ${apiKey}`,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        from,
+        to: site.contact.inquiryInbox,
+        reply_to: email,
+        // Plain text, no line breaks: an email subject is not HTML.
+        subject: `New enquiry from ${name.replace(/[\r\n]+/g, " ")}`,
+        html: `<table cellpadding="8">${rows}</table>`,
+      }),
+    });
+  } catch (error) {
+    return failed("network error reaching Resend", error);
+  }
 
   if (!res.ok) {
-    console.error("Resend rejected the request:", res.status, await res.text());
-    return Response.json({ error: "We could not send that. Please try again." }, { status: 502 });
+    return failed(`Resend rejected it, status ${res.status}`, await res.text());
   }
 
   return Response.json({ ok: true });
