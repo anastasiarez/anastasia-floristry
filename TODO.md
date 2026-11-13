@@ -39,6 +39,9 @@ no real testimonials, and 9 facts awaiting her confirmation. Run `pnpm check`.
 
 ---
 
+**Open questions for Anastasia live in `docs/questions-for-anastasia.md`.**
+Add to that file whenever a fact or decision needs her; do not guess.
+
 ## 0. Decide now, because it is already public
 
 - [ ] **Confirm her home base.** `content/site.ts` guesses `Brantford` because

@@ -22,6 +22,8 @@ nobody is watching, in a repo nobody will read. The best change to this site
 adds no code at all: it edits a string in `content/`.
 
 Read `TODO.md` before starting. It is the current state of the project.
+Questions waiting on Anastasia are collected in
+`docs/questions-for-anastasia.md`; add new ones there rather than guessing.
 
 ---
 
