@@ -23,3 +23,9 @@ export type Testimonial = {
  * appear. Add entries as she supplies them, with permission to publish names.
  */
 export const testimonials: Testimonial[] = [];
+
+/** Fixed labels around the testimonial band. */
+export const testimonialsCopy = {
+  accent: "kind words",
+  dotLabel: (n: number, total: number) => `Show testimonial ${n} of ${total}`,
+};

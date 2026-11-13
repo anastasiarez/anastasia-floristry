@@ -19,8 +19,9 @@ type HeroProps = {
 /**
  * Full-bleed image hero with overlaid type.
  *
- * The image is darkened just enough for white text to hold contrast at
- * AA. `priority` is set because this is always the largest contentful
+ * A `.scrim` darkens the photo behind the white text (see globals.css).
+ * Pick hero photos with a mid-tone centre: on a near-white centre the small
+ * eyebrow and subtitle can still fall short of AA. `preload` is set because this is always the largest contentful
  * paint on the page it appears on.
  */
 export function Hero({
@@ -43,10 +44,11 @@ export function Hero({
         src={image}
         alt={imageAlt}
         fill
-        priority
+        preload
         sizes="100vw"
         className="object-cover"
       />
+      <div aria-hidden className="scrim absolute inset-0" />
       <div className="relative px-(--spacing-gutter) text-center text-white">
         {eyebrow && <p className="eyebrow mb-6">{eyebrow}</p>}
 
@@ -63,7 +65,7 @@ export function Hero({
           {accent && (
             <span
               aria-hidden
-              className="script pointer-events-none absolute -bottom-10 left-1/2 -translate-x-1/2 text-script-md whitespace-nowrap text-mauve md:-bottom-8"
+              className="script pointer-events-none absolute -bottom-10 left-1/2 -translate-x-1/2 text-script-md whitespace-nowrap text-linen md:-bottom-8"
             >
               {accent}
             </span>

@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import { Hero } from "@/components/Hero";
 import { Section, SectionIntro } from "@/components/Section";
 import { SplitFeature } from "@/components/SplitFeature";
@@ -68,6 +69,14 @@ export default function ServicesPage() {
 
       <Section width="content">
         <SectionIntro body={servicesPage.intro.body} />
+        <div className="mt-10 text-center">
+          <p className="text-display-2xs">
+            {servicesPage.intro.fromPrice} {pricing.minimum}
+          </p>
+          <Link href="#pricing" className="eyebrow link-underline mt-6 inline-block text-evergreen">
+            {servicesPage.intro.priceLink}
+          </Link>
+        </div>
       </Section>
 
       {/* One detail block per service, alternating sides. */}
@@ -85,7 +94,7 @@ export default function ServicesPage() {
         />
       ))}
 
-      <Section width="content">
+      <Section width="content" id="pricing">
         <SectionIntro
           eyebrow={servicesPage.pricing.eyebrow}
           title={servicesPage.pricing.title}

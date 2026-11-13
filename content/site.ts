@@ -51,8 +51,14 @@ export const site: Site = {
    * keeping the old name instead, change `name` above and nothing else
    * needs touching.
    */
-  /** Production URL. Required for canonical links, sitemap and Open Graph. */
-  url: "https://anastasiafloristry.com",
+  /**
+   * Production URL. Required for canonical links, sitemap and Open Graph.
+   * Must be the address Vercel serves, not one it redirects from: the bare
+   * domain 308-redirects to www, and a canonical that redirects is a
+   * conflicting signal to search engines. If the primary domain in Vercel is
+   * ever switched to the bare domain, change this to match.
+   */
+  url: "https://www.anastasiafloristry.com",
 
   /** Where she works. Drives the service-area structured data. */
   location: {
@@ -138,6 +144,15 @@ export const nav = [
   { label: "Questions", href: "/faq" },
   { label: "Contact", href: "/contact" },
 ] as const;
+
+/**
+ * The header's enquiry button: always visible, including on phones next to
+ * the menu button. On desktop it replaces the plain link for the same page.
+ */
+export const navCta = { label: "Enquire", href: "/contact" } as const;
+
+/** Labels for the mobile menu buttons, read by screen readers. */
+export const navLabels = { open: "Open menu", close: "Close menu", menu: "Menu" } as const;
 
 /**
  * Every indexable page. Drives the sitemap and llms.txt.

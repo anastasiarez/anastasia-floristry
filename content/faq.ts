@@ -39,7 +39,7 @@ export const faqs: FAQ[] = [
   },
   {
     question: "Do you have a minimum spend?",
-    answer: `Full-service wedding florals start at $5,000.`,
+    answer: `Full-service wedding florals start at ${pricing.minimum}.`,
   },
   {
     question: "What is the difference between your two packages?",

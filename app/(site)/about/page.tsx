@@ -25,10 +25,6 @@ export default function AboutPage() {
         imageAlt={about.hero.imageAlt}
       />
 
-      <Section width="content">
-        <SectionIntro title={about.intro.title} body={about.intro.body} />
-      </Section>
-
       <SplitFeature
         eyebrow={about.bio.eyebrow}
         title={about.bio.name}
@@ -39,6 +35,10 @@ export default function AboutPage() {
         side="left"
         tone="linen"
       />
+
+      <Section width="content">
+        <SectionIntro title={about.intro.title} body={about.intro.body} />
+      </Section>
 
       <ImageBand {...about.band} height="sm" />
 

@@ -54,7 +54,11 @@ export default function FaqPage() {
         <dl className="mt-20 space-y-14">
           {faqs.map((f) => (
             <div key={f.question}>
-              <dt className="text-display-2xs tracking-[0.1em]">{f.question}</dt>
+              {/* A heading inside the dt: screen readers can jump question to
+                  question, and the dl keeps the question/answer pairing. */}
+              <dt>
+                <h2 className="text-display-2xs tracking-[0.1em]">{f.question}</h2>
+              </dt>
               <dd className="mt-5">{f.answer}</dd>
             </div>
           ))}

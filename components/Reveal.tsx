@@ -14,8 +14,9 @@ const FAILSAFE_MS = 2500;
  * Two deliberate safety properties, because the hidden start state is applied
  * by CSS and therefore does not depend on this component running:
  *
- *  - The CSS only hides content behind `@media (scripting: enabled)`, so with
- *    JavaScript off, or before hydration, everything renders visible.
+ *  - The CSS only hides content behind a `js-reveal` class on <html>. If React
+ *    has not mounted any Reveal within 3s (slow network, failed bundle), the
+ *    inline script in app/layout.tsx removes that class and everything shows.
  *  - If scripting IS available but the observer never fires, content would stay
  *    invisible forever. So anything already on screen at mount is revealed
  *    immediately without waiting, and a failsafe timer reveals the rest
@@ -38,6 +39,9 @@ export function Reveal({
   const [shown, setShown] = useState(false);
 
   useEffect(() => {
+    // Tells the inline fallback in app/layout.tsx that React is running, so it
+    // leaves the reveal animation alone.
+    document.documentElement.dataset.revealReady = "1";
     const el = ref.current;
     if (!el || shown) return;
 

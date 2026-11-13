@@ -1,3 +1,4 @@
+import { cacheLife } from "next/cache";
 import Link from "next/link";
 import { routes, site } from "@/content/site";
 
@@ -12,6 +13,9 @@ import { routes, site } from "@/content/site";
  */
 async function currentYear() {
   "use cache";
+  // Without a profile, "use cache" revalidates every 15 minutes, which kept
+  // regenerating the sitemap lastmod. Nothing here changes between deploys.
+  cacheLife("max");
   return new Date().getFullYear();
 }
 
@@ -30,6 +34,7 @@ export async function Footer() {
             */}
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
+              loading="lazy"
               src="/brand/mark-ink.svg"
               alt=""
               width={890}

@@ -13,11 +13,10 @@ export default function HomePage() {
   return (
     <section className="relative isolate flex min-h-svh flex-col items-center justify-start gap-8 bg-wisteria px-(--spacing-gutter) pt-8 pb-8 text-center text-black">
       <Image
-        src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/ANA_1992.JPG-ZzlR6KnLiGixe60Pa96zOAuYgUK2uY.jpeg"
+        src="/images/holding/hero.jpg"
         alt=""
         fill
-        priority
-        unoptimized
+        preload
         sizes="100vw"
         className="absolute inset-0 -z-20 object-cover object-[50%_56%]"
       />
@@ -32,10 +31,10 @@ export default function HomePage() {
         <Image
           src="/images/anastasia-floristry-evergreen-logo.png"
           alt={holding.logoAlt}
-          width={2490}
-          height={1000}
-          priority
-          unoptimized
+          width={3000}
+          height={1204}
+          sizes="(min-width: 44rem) 38rem, 88vw"
+          preload
           className="h-auto w-full brightness-0"
         />
       </a>

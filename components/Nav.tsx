@@ -2,95 +2,144 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useEffect, useState } from "react";
-import { nav, site } from "@/content/site";
+import { useEffect, useRef, useState } from "react";
+import { nav, navCta, navLabels, site } from "@/content/site";
 
 /**
  * Primary navigation.
  *
- * Desktop: brand centred, links split evenly either side.
- * Mobile:  brand left, hamburger right, opening a full-screen drawer.
+ * Desktop: brand centred, links split evenly either side. The enquiry page is
+ *          a bordered button rather than a plain link.
+ * Mobile:  brand left, enquiry button and hamburger right. The hamburger opens
+ *          a full-screen drawer that behaves as a modal dialog.
  */
 // `nav` is a module-level constant, so the split never changes between renders.
 const half = Math.ceil(nav.length / 2);
 const leftLinks = nav.slice(0, half);
 const rightLinks = nav.slice(half);
 
+/** The drawer only exists below this width (Tailwind `lg`). */
+const DESKTOP = "(min-width: 64rem)";
+
 export function Nav() {
   const pathname = usePathname();
-  const [open, setOpen] = useState(false);
 
-  // Lock body scroll while the drawer is open.
+  // The drawer is open for the page it was opened on. Navigating (a link, the
+  // back button) changes `pathname`, so it closes itself without an effect
+  // calling setState.
+  const [openOn, setOpenOn] = useState<string | null>(null);
+  const open = openOn === pathname;
+  const close = () => setOpenOn(null);
+
+  const openButton = useRef<HTMLButtonElement>(null);
+  const closeButton = useRef<HTMLButtonElement>(null);
+  const wasOpen = useRef(false);
+
+  // While open: lock scroll, make the page behind inert so Tab cannot reach
+  // it, and move focus into the drawer. On close, return focus to the
+  // hamburger, but only if focus was inside the drawer (not after navigating).
   useEffect(() => {
-    document.body.style.overflow = open ? "hidden" : "";
+    const behind = [
+      document.querySelector("body > header"),
+      document.getElementById("main"),
+      // `body >` matters: testimonials use <footer> inside <main> too.
+      document.querySelector("body > footer"),
+    ].filter((el): el is HTMLElement => el !== null);
+
+    if (open) {
+      document.body.style.overflow = "hidden";
+      behind.forEach((el) => (el.inert = true));
+      closeButton.current?.focus();
+    } else if (wasOpen.current) {
+      const focusWasInDrawer =
+        document.activeElement === document.body ||
+        closeButton.current?.closest("[role=dialog]")?.contains(document.activeElement);
+      if (focusWasInDrawer) openButton.current?.focus();
+    }
+    wasOpen.current = open;
+
     return () => {
       document.body.style.overflow = "";
+      behind.forEach((el) => (el.inert = false));
     };
   }, [open]);
 
-  // Escape closes the drawer.
+  // Escape closes. Widening past the breakpoint closes too, because the drawer
+  // is hidden there and would otherwise leave the page scroll-locked.
   useEffect(() => {
     if (!open) return;
-    const onKey = (e: KeyboardEvent) => e.key === "Escape" && setOpen(false);
+    const onKey = (e: KeyboardEvent) => e.key === "Escape" && close();
+    const wide = window.matchMedia(DESKTOP);
+    const onWide = () => wide.matches && close();
     window.addEventListener("keydown", onKey);
-    return () => window.removeEventListener("keydown", onKey);
+    wide.addEventListener("change", onWide);
+    return () => {
+      window.removeEventListener("keydown", onKey);
+      wide.removeEventListener("change", onWide);
+    };
   }, [open]);
 
   return (
     <>
       <header className="sticky top-0 z-50 bg-linen/95 backdrop-blur-sm">
-      <nav
-        aria-label="Main"
-        className="mx-auto flex h-16 max-w-(--container-wide) items-center justify-between px-(--spacing-gutter) lg:h-24"
-      >
-        {/* Desktop: left link group */}
-        <ul className="hidden flex-1 items-center gap-8 lg:flex">
-          {leftLinks.map((item) => (
-            <NavLink key={item.href} {...item} active={isActive(pathname, item.href)} />
-          ))}
-        </ul>
-
-        {/* Brand */}
-        <Link href="/" className="transition-opacity hover:opacity-70" aria-label={site.name}>
-          {/*
-            A plain <img>, not next/image, and deliberately so. The project rule
-            against bare <img> exists to guarantee photographs get responsive
-            sizing and format negotiation. An SVG is resolution independent, so
-            next/image would add nothing and would require enabling
-            `dangerouslyAllowSVG` project-wide to serve one trusted logo.
-            Explicit width/height keep it from shifting layout while loading.
-          */}
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img
-            src="/brand/wordmark-ink.svg"
-            alt={site.name}
-            width={1860}
-            height={279}
-            className="h-6 w-auto md:h-8"
-          />
-        </Link>
-
-        {/* Desktop: right link group */}
-        <ul className="hidden flex-1 items-center justify-end gap-8 lg:flex">
-          {rightLinks.map((item) => (
-            <NavLink key={item.href} {...item} active={isActive(pathname, item.href)} />
-          ))}
-        </ul>
-
-        {/* Mobile: hamburger */}
-        <button
-          type="button"
-          onClick={() => setOpen(true)}
-          aria-label="Open menu"
-          aria-expanded={open}
-          className="-mr-2 p-2 lg:hidden"
+        <nav
+          aria-label="Main"
+          className="mx-auto flex h-16 max-w-(--container-wide) items-center justify-between gap-4 px-(--spacing-gutter) lg:h-24"
         >
-          <span className="block h-px w-6 bg-ink" />
-          <span className="mt-1.5 block h-px w-6 bg-ink" />
-          <span className="mt-1.5 block h-px w-6 bg-ink" />
-        </button>
-      </nav>
+          {/* Desktop: left link group */}
+          <ul className="hidden flex-1 items-center gap-6 lg:flex xl:gap-8">
+            {leftLinks.map((item) => (
+              <NavLink key={item.href} {...item} pathname={pathname} />
+            ))}
+          </ul>
 
+          {/* Brand */}
+          <Link href="/" className="mr-auto transition-opacity hover:opacity-70 lg:mr-0" aria-label={site.name}>
+            {/*
+              A plain <img>, not next/image, and deliberately so. The project rule
+              against bare <img> exists to guarantee photographs get responsive
+              sizing and format negotiation. An SVG is resolution independent, so
+              next/image would add nothing and would require enabling
+              `dangerouslyAllowSVG` project-wide to serve one trusted logo.
+              Explicit width/height keep it from shifting layout while loading.
+            */}
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src="/brand/wordmark-ink.svg"
+              alt={site.name}
+              width={1860}
+              height={279}
+              className="h-5 w-auto sm:h-6 md:h-8"
+            />
+          </Link>
+
+          {/* Desktop: right link group */}
+          <ul className="hidden flex-1 items-center justify-end gap-6 lg:flex xl:gap-8">
+            {rightLinks.map((item) => (
+              <NavLink key={item.href} {...item} pathname={pathname} />
+            ))}
+          </ul>
+
+          {/* Mobile: enquiry button, always visible */}
+          <Link href={navCta.href} className={`${ctaClass} lg:hidden`}>
+            {navCta.label}
+          </Link>
+
+          {/* Mobile: hamburger (44px target) */}
+          <button
+            ref={openButton}
+            type="button"
+            onClick={() => setOpenOn(pathname)}
+            aria-label={navLabels.open}
+            aria-expanded={open}
+            aria-controls="mobile-menu"
+            className="-mr-2.5 flex size-11 flex-col items-center justify-center gap-1.5 lg:hidden"
+          >
+            <span className="block h-px w-6 bg-ink" />
+            <span className="block h-px w-6 bg-ink" />
+            <span className="block h-px w-6 bg-ink" />
+          </button>
+        </nav>
       </header>
 
       {/*
@@ -103,6 +152,10 @@ export function Nav() {
         with the page showing through beneath it.
       */}
       <div
+        id="mobile-menu"
+        role="dialog"
+        aria-modal="true"
+        aria-label={navLabels.menu}
         // Kept mounted so the transition runs both ways; hidden from AT when closed.
         inert={!open}
         className={`fixed inset-0 z-50 flex flex-col bg-linen transition-opacity duration-500 lg:hidden ${
@@ -116,52 +169,78 @@ export function Nav() {
             alt={site.name}
             width={1860}
             height={279}
-            className="h-6 w-auto"
+            className="h-5 w-auto sm:h-6"
           />
           <button
+            ref={closeButton}
             type="button"
-            onClick={() => setOpen(false)}
-            aria-label="Close menu"
-            className="-mr-2 p-2"
+            onClick={close}
+            aria-label={navLabels.close}
+            className="-mr-2.5 flex size-11 flex-col items-center justify-center"
           >
-            <span className="block h-px w-6 rotate-45 bg-ink" />
-            <span className="-mt-px block h-px w-6 -rotate-45 bg-ink" />
+            <span className="block h-px w-6 translate-y-px rotate-45 bg-ink" />
+            <span className="block h-px w-6 -rotate-45 bg-ink" />
           </button>
         </div>
 
         <ul className="flex flex-1 flex-col items-center justify-center gap-8">
-          {nav.map((item) => (
-            <li key={item.href}>
-              <Link
-                href={item.href}
-                onClick={() => setOpen(false)}
-                className="font-display text-display-2xs tracking-[0.2em] uppercase"
-              >
-                {item.label}
-              </Link>
-            </li>
-          ))}
+          {nav.map((item) => {
+            const active = isActive(pathname, item.href);
+            return (
+              <li key={item.href}>
+                <Link
+                  href={item.href}
+                  onClick={close}
+                  aria-current={active ? "page" : undefined}
+                  className={`font-display text-display-2xs tracking-[0.2em] uppercase ${
+                    active ? "text-evergreen underline underline-offset-8" : ""
+                  }`}
+                >
+                  {item.label}
+                </Link>
+              </li>
+            );
+          })}
         </ul>
       </div>
     </>
   );
 }
 
+/** The bordered enquiry button, shared by the desktop and mobile headers. */
+const ctaClass =
+  "eyebrow border border-ink/60 px-3 py-2.5 leading-none transition-colors hover:bg-ink hover:text-linen sm:px-4";
+
 function NavLink({
   label,
   href,
-  active,
+  pathname,
 }: {
   label: string;
   href: string;
-  active: boolean;
+  pathname: string;
 }) {
+  const active = isActive(pathname, href);
+
+  if (href === navCta.href) {
+    return (
+      <li>
+        <Link href={href} aria-current={active ? "page" : undefined} className={ctaClass}>
+          {navCta.label}
+        </Link>
+      </li>
+    );
+  }
+
+  // Every link is underlined at rest (the design's underline-on-hover-out).
+  // The current page gets a heavier, lower underline plus Evergreen, so colour
+  // is not the only signal.
   return (
     <li>
       <Link
         href={href}
         aria-current={active ? "page" : undefined}
-        className={`eyebrow link-underline ${active ? "text-evergreen" : ""}`}
+        className={`eyebrow ${active ? "text-evergreen underline decoration-2 underline-offset-8" : "link-underline"}`}
       >
         {label}
       </Link>

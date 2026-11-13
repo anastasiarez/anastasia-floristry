@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import { Section } from "./Section";
-import type { Testimonial } from "@/content/testimonials";
+import { testimonialsCopy, type Testimonial } from "@/content/testimonials";
 
 /**
  * Rotating testimonial band.
@@ -27,6 +27,9 @@ export function Testimonials({
 
   useEffect(() => {
     if (items.length < 2) return;
+    // WCAG 2.2.2: no automatic movement for people who asked for less motion.
+    // The dots still let them move through the quotes.
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
     const id = setInterval(() => {
       if (!paused.current) setIndex((i) => (i + 1) % items.length);
     }, INTERVAL_MS);
@@ -39,10 +42,14 @@ export function Testimonials({
     <Section tone={tone} width="content">
       <div
         className="text-center"
+        // Paused while hovered or while keyboard focus is inside, so nothing
+        // moves under someone who is reading or using the dots.
         onMouseEnter={() => (paused.current = true)}
         onMouseLeave={() => (paused.current = false)}
+        onFocus={() => (paused.current = true)}
+        onBlur={() => (paused.current = false)}
       >
-        <p className="script text-script-sm text-mauve">kind words</p>
+        <p className="script text-script-sm text-mauve">{testimonialsCopy.accent}</p>
 
         {/* Grid stacking keeps the band a constant height, so rotation
             does not shift the rest of the page. */}
@@ -60,7 +67,7 @@ export function Testimonials({
               </p>
               <footer className="eyebrow mt-8 text-evergreen">
                 {t.author}
-                {t.context && <span className="text-ink"> &middot; {t.context}</span>}
+                {t.context && <span className="text-ink">, {t.context}</span>}
               </footer>
             </blockquote>
           ))}
@@ -73,12 +80,17 @@ export function Testimonials({
                 key={t.author + i}
                 type="button"
                 onClick={() => setIndex(i)}
-                aria-label={`Show testimonial ${i + 1} of ${items.length}`}
+                aria-label={testimonialsCopy.dotLabel(i + 1, items.length)}
                 aria-current={i === index}
-                className={`h-1.5 w-1.5 rounded-full transition-colors ${
-                  i === index ? "bg-mauve" : "bg-ink/30"
-                }`}
-              />
+                // 24px target (WCAG 2.5.8) around a 6px dot.
+                className="flex size-6 items-center justify-center"
+              >
+                <span
+                  className={`size-1.5 rounded-full transition-colors ${
+                    i === index ? "bg-mauve" : "bg-ink/30"
+                  }`}
+                />
+              </button>
             ))}
           </div>
         )}
