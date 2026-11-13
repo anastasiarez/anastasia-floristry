@@ -70,7 +70,7 @@
   --text-display-hero: clamp(3.25rem, 13vw, 11.25rem);
   --text-display-lg: clamp(2.25rem, 7vw, 6.25rem);
   --text-display-sm: clamp(1.75rem, 4.5vw, 4.6875rem);
-  --text-display-xs: clamp(1.375rem, 3vw, 3.4375rem);
+  --text-display-xs: clamp(1.75rem, 3vw, 3.4375rem);
   /* Holding page heading only. */
   --text-holding: clamp(1.5rem, 3.3vw, 3.25rem);
   --text-display-2xs: clamp(1.125rem, 1.8vw, 1.875rem);

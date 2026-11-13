@@ -42,18 +42,19 @@ export async function Footer() {
           {/* Brand + service area */}
           <div>
             {/*
-              The brand lockup, the same artwork as the header rather than the
-              name re-typed in a third style. A plain <img> for the same reason
-              as in Nav.tsx: an SVG gains nothing from next/image.
+              The brand mark. The guidelines name the website footer as one of
+              its uses, and the full lockup shrank its tagline to an unreadable
+              5px here. Plain <img> as in Nav.tsx: an SVG gains nothing from
+              next/image.
             */}
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
               loading="lazy"
-              src="/brand/lockup-ink.svg"
+              src="/brand/mark-ink.svg"
               alt={site.name}
-              width={1860}
-              height={376}
-              className="h-auto w-56 max-w-full"
+              width={890}
+              height={718}
+              className="h-14 w-auto"
             />
             <p className="mt-5 max-w-xs text-body-sm">{site.location.serviceArea}</p>
           </div>

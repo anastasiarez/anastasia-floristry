@@ -63,7 +63,6 @@ export const home = {
     imageAlt: "Floral arrangement by Anastasia Floristry",
   },
   cta: {
-    accent: "let's begin",
     title: "Tell us what you are planning",
     body: `Dates book up well ahead, particularly through summer and early autumn. Reach out and we will let you know what is open.`,
     button: { label: "Enquire", href: "/contact" },
@@ -80,7 +79,7 @@ export const about = {
     imageAlt: "Anastasia Floristry studio",
   },
   intro: {
-    eyebrow: "The studio",
+    eyebrow: "Our way of working",
     title: "A small studio, deliberately",
     body: `Taking a limited number of weddings each season is a choice, not a limitation. It means the person you speak with is the person designing your flowers and standing in the room on the day.`,
   },
