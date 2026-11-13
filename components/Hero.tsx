@@ -4,8 +4,6 @@ type HeroProps = {
   /** Rendered as the page h1. Pass two parts to break across lines. */
   titleTop: string;
   titleBottom?: string;
-  /** Script accent, positioned over the title. */
-  accent?: string;
   /** Small tracked label above the title. */
   eyebrow?: string;
   /** One line below the title. */
@@ -27,7 +25,6 @@ type HeroProps = {
 export function Hero({
   titleTop,
   titleBottom,
-  accent,
   eyebrow,
   subtitle,
   image,
@@ -37,7 +34,7 @@ export function Hero({
   return (
     <section
       className={`relative flex items-center justify-center overflow-hidden ${
-        full ? "min-h-[85svh]" : "min-h-[55svh]"
+        full ? "min-h-[85svh]" : "min-h-[40svh] md:min-h-[55svh]"
       }`}
     >
       <Image
@@ -52,27 +49,17 @@ export function Hero({
       <div className="relative px-(--spacing-gutter) text-center text-white">
         {eyebrow && <p className="eyebrow mb-6">{eyebrow}</p>}
 
-        <h1 className="relative inline-block">
-          <span className={full ? "text-display-hero font-myroge" : "text-display-lg"}>
-            {titleTop}
-            {titleBottom && (
-              <>
-                <br />
-                {titleBottom}
-              </>
-            )}
-          </span>
-          {accent && (
-            <span
-              aria-hidden
-              className="script pointer-events-none absolute -bottom-10 left-1/2 -translate-x-1/2 text-script-md whitespace-nowrap text-linen md:-bottom-8"
-            >
-              {accent}
-            </span>
+        <h1 className={full ? "text-display-hero font-myroge" : "text-display-lg"}>
+          {titleTop}
+          {titleBottom && (
+            <>
+              <br />
+              {titleBottom}
+            </>
           )}
         </h1>
 
-        {subtitle && <p className="eyebrow mt-14">{subtitle}</p>}
+        {subtitle && <p className="eyebrow mt-10">{subtitle}</p>}
       </div>
     </section>
   );

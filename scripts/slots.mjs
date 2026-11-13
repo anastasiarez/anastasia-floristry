@@ -50,8 +50,6 @@ export const slots = [
 
   { path: "/images/portfolio/hero.jpg", w: 2400, h: 1400, role: "Portfolio hero", quiet: true, rank: 7,
     note: "Banner. Text overlaid centred." },
-  { path: "/images/contact/hero.jpg", w: 2400, h: 1400, role: "Contact hero", quiet: true, rank: 10,
-    note: "Banner. Text overlaid centred." },
 ];
 
 /** Gallery cells repeat per gallery. 01 is the tall anchor cell. */

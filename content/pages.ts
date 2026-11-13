@@ -34,8 +34,6 @@ export const home = {
     /** Split across two lines in the hero. Keep each part short. */
     titleTop: "anastasia",
     titleBottom: "floristry",
-    /** Script accent overlapping the title. One or two words. */
-    accent: "in bloom",
     subtitle: "Weddings & Events in Southwestern Ontario",
     image: "/images/home/hero.jpg",
     imageAlt: "Floral arrangement by Anastasia Floristry",
@@ -47,7 +45,6 @@ export const home = {
   },
   approach: {
     eyebrow: "Our approach",
-    accent: "considered",
     title: "Designed around the season, the venue and you",
     body: `We work with what is genuinely at its best on your date, sourced as locally as the season allows. The result is florals that feel abundant and unforced.`,
     cta: { label: "More about us", href: "/about" },
@@ -73,7 +70,6 @@ export const about = {
   hero: {
     eyebrow: "About",
     title: "The studio",
-    accent: "hello",
     image: "/images/about/hero.jpg",
     imageAlt: "Anastasia Floristry studio",
   },
@@ -126,7 +122,6 @@ export const servicesPage = {
   hero: {
     eyebrow: "Services",
     title: "What we do",
-    accent: "florals",
     subtitle: "Signature weddings and intimate celebrations",
     image: "/images/services/hero.jpg",
     imageAlt: "Floral arrangement by Anastasia Floristry",
@@ -156,28 +151,22 @@ export const portfolioPage = {
   hero: {
     eyebrow: "Portfolio",
     title: "Recent work",
-    accent: "gallery",
     image: "/images/portfolio/hero.jpg",
     imageAlt: "Floral arrangement by Anastasia Floristry",
   },
   intro: {
     body: `A selection of recent weddings and events. Each one was designed for its own room, season and couple.`,
   },
-  /** Shown under the galleries. Instagram is where new work appears first. */
-  instagram: {
-    body: `New work appears on Instagram first.`,
-    link: `Follow on Instagram`,
-  },
 };
 
 export const contactPage = {
-  hero: {
+  /** No image hero here: people arrive ready to enquire, so the form comes first. */
+  heading: {
     eyebrow: "Contact",
     title: "Get in touch",
-    accent: "hello",
-    image: "/images/contact/hero.jpg",
-    imageAlt: "Floral arrangement by Anastasia Floristry",
   },
+  /** Shown under the form, followed by the email address. */
+  emailLead: "Prefer email?",
   intro: {
     body: `Fill in as much as you know. Nothing has to be final, a rough date and a venue are enough to start. We reply to every enquiry within two business days.`,
   },
@@ -220,7 +209,6 @@ export const contactPage = {
 
 export const faqPage = {
   eyebrow: "Questions",
-  accent: "good to know",
   title: "Frequently asked",
   body: `Everything couples usually want to know before enquiring. If your question is not here, just ask.`,
 };

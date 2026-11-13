@@ -8,7 +8,6 @@ import { portfolioPage, home } from "@/content/pages";
 import { galleries, galleryCells } from "@/content/portfolio";
 import { testimonials } from "@/content/testimonials";
 import { seo } from "@/content/seo";
-import { site } from "@/content/site";
 
 export const metadata: Metadata = {
   title: "Portfolio",
@@ -22,7 +21,6 @@ export default function PortfolioPage() {
       <Hero
         titleTop={portfolioPage.hero.title}
         eyebrow={portfolioPage.hero.eyebrow}
-        accent={portfolioPage.hero.accent}
         image={portfolioPage.hero.image}
         imageAlt={portfolioPage.hero.imageAlt}
       />
@@ -41,20 +39,6 @@ export default function PortfolioPage() {
           <Gallery images={galleryCells(gallery.images)} />
         </Section>
       ))}
-
-      <Section width="content">
-        <div className="text-center">
-          <p>{portfolioPage.instagram.body}</p>
-          <a
-            href={site.social.instagram}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="eyebrow link-underline mt-6 inline-block text-evergreen"
-          >
-            {portfolioPage.instagram.link}
-          </a>
-        </div>
-      </Section>
 
       <Testimonials items={testimonials} />
 

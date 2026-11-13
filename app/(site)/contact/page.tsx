@@ -15,18 +15,15 @@ export const metadata: Metadata = {
 export default function ContactPage() {
   return (
     <>
-      <Hero
-        titleTop={contactPage.hero.title}
-        eyebrow={contactPage.hero.eyebrow}
-        accent={contactPage.hero.accent}
-        image={contactPage.hero.image}
-        imageAlt={contactPage.hero.imageAlt}
-      />
-
       <Section width="content">
-        <SectionIntro body={contactPage.intro.body} />
+        <SectionIntro
+          as="h1"
+          eyebrow={contactPage.heading.eyebrow}
+          title={contactPage.heading.title}
+          body={contactPage.intro.body}
+        />
 
-        <div className="mt-20">
+        <div className="mt-16">
           <ContactForm />
         </div>
 

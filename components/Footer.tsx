@@ -1,6 +1,6 @@
 import { cacheLife } from "next/cache";
 import Link from "next/link";
-import { routes, site } from "@/content/site";
+import { routes, site, footerCopy } from "@/content/site";
 
 /**
  * The copyright year is resolved when the page is prerendered, not per request.
@@ -24,30 +24,43 @@ export async function Footer() {
 
   return (
     <footer className="bg-sandstone">
+      {/* Instagram is where her new work goes first, so it gets a real button
+          on every page, not only a footer text link. */}
+      <div className="border-b border-ink/10 px-(--spacing-gutter) py-14 text-center">
+        <p>{footerCopy.instagramLead}</p>
+        <a
+          href={site.social.instagram}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="eyebrow mt-6 inline-block border border-ink/60 px-8 py-3 transition-colors hover:bg-ink hover:text-linen"
+        >
+          {footerCopy.instagramButton}
+        </a>
+      </div>
       <div className="mx-auto max-w-(--container-wide) px-(--spacing-gutter) py-24">
         <div className="grid gap-14 md:grid-cols-3 md:gap-10">
           {/* Brand + service area */}
           <div>
             {/*
-              The brand mark. The guidelines name "website footer" as one of the
-              submark's intended uses.
+              The brand lockup, the same artwork as the header rather than the
+              name re-typed in a third style. A plain <img> for the same reason
+              as in Nav.tsx: an SVG gains nothing from next/image.
             */}
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
               loading="lazy"
-              src="/brand/mark-ink.svg"
-              alt=""
-              width={890}
-              height={718}
-              className="h-12 w-auto opacity-80"
+              src="/brand/lockup-ink.svg"
+              alt={site.name}
+              width={1860}
+              height={376}
+              className="h-auto w-56 max-w-full"
             />
-            <p className="wordmark mt-5">{site.name}</p>
             <p className="mt-5 max-w-xs text-body-sm">{site.location.serviceArea}</p>
           </div>
 
           {/* Navigation */}
           <nav aria-label="Footer">
-            <p className="eyebrow text-evergreen">Explore</p>
+            <p className="eyebrow text-evergreen">{footerCopy.explore}</p>
             <ul className="mt-5 space-y-2">
               {routes.map((item) => (
                 <li key={item.href}>
@@ -61,7 +74,7 @@ export async function Footer() {
 
           {/* Contact */}
           <div>
-            <p className="eyebrow text-evergreen">Contact</p>
+            <p className="eyebrow text-evergreen">{footerCopy.contact}</p>
             <ul className="mt-5 space-y-2 text-body-sm">
               <li>
                 <a href={`mailto:${site.contact.email}`} className="link-underline">

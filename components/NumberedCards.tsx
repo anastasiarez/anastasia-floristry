@@ -33,7 +33,7 @@ export function NumberedCards({
               {item.step ?? String(i + 1).padStart(2, "0")}
             </p>
           )}
-          <h3 className="text-display-2xs tracking-[0.12em]">{item.title}</h3>
+          <h3 className="text-display-2xs tracking-[0.12em] md:min-h-[2lh]">{item.title}</h3>
           <p className="mt-5 text-body-sm">{item.body}</p>
           </Reveal>
         </li>

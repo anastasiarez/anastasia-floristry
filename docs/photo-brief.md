@@ -38,7 +38,6 @@ Listed most visible first, so if time is short, start at the top.
 | Portfolio hero | `/images/portfolio/hero.jpg` | 2400 × 1400 | 12:7 | landscape | **yes** | Banner. Text overlaid centred. |
 | About hero | `/images/about/hero.jpg` | 2400 × 1400 | 12:7 | landscape | **yes** | Banner. Text overlaid centred. |
 | Services hero | `/images/services/hero.jpg` | 2400 × 1400 | 12:7 | landscape | **yes** | Banner. Text overlaid centred. |
-| Contact hero | `/images/contact/hero.jpg` | 2400 × 1400 | 12:7 | landscape | **yes** | Banner. Text overlaid centred. |
 | Home — full-width band | `/images/home/band.jpg` | 2400 × 1400 | 12:7 | landscape | no | Full-width divider. No text over it. Parallax on desktop, so depth helps. |
 | About — band | `/images/about/band.jpg` | 2400 × 1200 | 2:1 | landscape | no | Full-width divider. No text. |
 | Services — band | `/images/services/band.jpg` | 2400 × 1200 | 2:1 | landscape | no | Full-width divider. No text. |

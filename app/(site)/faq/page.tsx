@@ -43,7 +43,6 @@ export default function FaqPage() {
         <SectionIntro
           as="h1"
           eyebrow={faqPage.eyebrow}
-          accent={faqPage.accent}
           title={faqPage.title}
           body={faqPage.body}
         />
