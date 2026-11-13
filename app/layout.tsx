@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import { Montserrat, Prata } from "next/font/google";
 import { Analytics } from "@vercel/analytics/next";
-import { PageFade } from "@/components/PageFade";
 import { site } from "@/content/site";
 import "./globals.css";
 
@@ -124,9 +123,12 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         >
           Skip to content
         </a>
-        <main id="main">
-          <PageFade>{children}</PageFade>
-        </main>
+        {/*
+          <main> lives in the route-group layouts, so the full site can put the
+          nav and footer outside it: (holding) for the public holding page,
+          (site) for every other page.
+        */}
+        {children}
         <StructuredData />
         {/*
           Vercel Analytics. Cookieless and with no persistent identifier, which
