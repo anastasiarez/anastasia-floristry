@@ -1,13 +1,15 @@
 /**
- * Numbered card row. Drives both the service summary on the home page and
- * the booking process on /services.
+ * Card row. Numbered for real sequences (the booking process on /services);
+ * pass `numbered={false}` for sets that have no order (services, values).
  */
 import { Reveal } from "./Reveal";
 
 export function NumberedCards({
   items,
+  numbered = true,
 }: {
   items: readonly { step?: string; title: string; body: string }[];
+  numbered?: boolean;
 }) {
   // Column count follows the item count, so two services do not leave an empty
   // third column. Classes are mapped explicitly because Tailwind cannot see
@@ -26,10 +28,12 @@ export function NumberedCards({
       {items.map((item, i) => (
         <li key={item.title}>
           <Reveal delay={i * 0.12}>
-          <p className="script text-script-xs text-evergreen">
-            {item.step ?? String(i + 1).padStart(2, "0")}
-          </p>
-          <h3 className="mt-4 text-display-2xs tracking-[0.12em]">{item.title}</h3>
+          {numbered && (
+            <p className="script mb-4 text-script-xs text-evergreen">
+              {item.step ?? String(i + 1).padStart(2, "0")}
+            </p>
+          )}
+          <h3 className="text-display-2xs tracking-[0.12em]">{item.title}</h3>
           <p className="mt-5 text-body-sm">{item.body}</p>
           </Reveal>
         </li>

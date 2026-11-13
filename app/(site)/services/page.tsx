@@ -7,7 +7,7 @@ import { NumberedCards } from "@/components/NumberedCards";
 import { Testimonials } from "@/components/Testimonials";
 import { CTABand } from "@/components/CTABand";
 import { servicesPage, home } from "@/content/pages";
-import { services, process } from "@/content/services";
+import { pricing, services, process } from "@/content/services";
 import { testimonials } from "@/content/testimonials";
 import { seo } from "@/content/seo";
 import { site } from "@/content/site";
@@ -75,7 +75,6 @@ export default function ServicesPage() {
         <SplitFeature
           key={service.slug}
           id={service.slug}
-          eyebrow={`0${i + 1}`}
           title={service.name}
           body={service.body}
           bullets={service.includes}
@@ -86,10 +85,29 @@ export default function ServicesPage() {
         />
       ))}
 
+      <Section width="content">
+        <SectionIntro
+          eyebrow={servicesPage.pricing.eyebrow}
+          title={servicesPage.pricing.title}
+          body={pricing.note}
+        />
+        <dl className="mt-16 divide-y divide-sandstone border-y border-sandstone">
+          {pricing.tiers.map((tier) => (
+            <div
+              key={tier.guests}
+              className="flex flex-col gap-1 py-6 text-center sm:flex-row sm:items-baseline sm:justify-between sm:text-left"
+            >
+              <dt className="eyebrow text-evergreen">{tier.guests}</dt>
+              <dd className="text-display-2xs">{tier.range}</dd>
+            </div>
+          ))}
+        </dl>
+      </Section>
+
       <ImageBand {...servicesPage.band} height="sm" />
 
       <Section>
-        <SectionIntro eyebrow="The process" title="How it works" />
+        <SectionIntro eyebrow={servicesPage.process.eyebrow} title={servicesPage.process.title} />
         <div className="mt-20">
           <NumberedCards items={process} />
         </div>

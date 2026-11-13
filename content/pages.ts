@@ -23,6 +23,11 @@ export const holding = {
 };
 
 export const home = {
+  services: {
+    eyebrow: "Services",
+    title: "How we can help",
+    link: "Services and pricing",
+  },
   hero: {
     /** Split across two lines in the hero. Keep each part short. */
     titleTop: "anastasia",
@@ -89,6 +94,7 @@ export const about = {
     body: `I grew up in rural Ukraine, in a place where everyone had a garden and flowers were simply part of ordinary life. That stayed with me through years of corporate work, until I finally gave in to it. More than 150 weddings later, I still get the same feeling walking into a room before the guests arrive.`,
     image: "/images/about/portrait.jpg",
     imageAlt: "Anastasia, founder of Anastasia Floristry",
+    cta: { label: "See her work", href: "/portfolio" },
   },
   values: {
     eyebrow: "What we care about",
@@ -126,6 +132,15 @@ export const servicesPage = {
   intro: {
     body: `Every enquiry is quoted individually, because the right answer depends on your venue, your season and the scale of the day. Below is the shape of what we offer.`,
   },
+  /** Price guide. The figures come from `pricing` in content/services.ts. */
+  pricing: {
+    eyebrow: "Investment",
+    title: "Price guide",
+  },
+  process: {
+    eyebrow: "The process",
+    title: "How it works",
+  },
   band: {
     image: "/images/services/band.jpg",
     imageAlt: "Floral arrangement by Anastasia Floristry",
@@ -142,6 +157,11 @@ export const portfolioPage = {
   },
   intro: {
     body: `A selection of recent weddings and events. Each one was designed for its own room, season and couple.`,
+  },
+  /** Shown under the galleries. Instagram is where new work appears first. */
+  instagram: {
+    body: `New work appears on Instagram first.`,
+    link: `Follow on Instagram`,
   },
 };
 
@@ -191,4 +211,11 @@ export const contactPage = {
     body:
       "Your enquiry has arrived. We will be in touch within two business days.",
   },
+};
+
+export const faqPage = {
+  eyebrow: "Questions",
+  accent: "good to know",
+  title: "Frequently asked",
+  body: `Everything couples usually want to know before enquiring. If your question is not here, just ask.`,
 };

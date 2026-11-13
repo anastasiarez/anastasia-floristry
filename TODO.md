@@ -39,6 +39,9 @@ no real testimonials, and 9 facts awaiting her confirmation. Run `pnpm check`.
 
 ---
 
+**Open questions for Anastasia live in `docs/questions-for-anastasia.md`.**
+Add to that file whenever a fact or decision needs her; do not guess.
+
 ## 0. Decide now, because it is already public
 
 - [ ] **Confirm her home base.** `content/site.ts` guesses `Brantford` because
@@ -65,6 +68,14 @@ Done already: the real tagline ("Weddings & Events") replaced the invented one.
       deliberately short (300s) because placeholders are overwritten in place at
       the same path, and next/image caches by URL, so a long TTL would leave
       returning visitors seeing a stand-in after the real photo shipped.
+
+### Planned: price calculator (her request, Nov 2026)
+
+She wants a price calculator on the site in the near future. Not built yet:
+it needs her real pricing rules, and a calculator showing a wrong number is
+worse than none. The price guide on /services already reads from `pricing` in
+`content/services.ts`, so a calculator should use that same data, not a second
+copy. Inputs to agree with her are listed in `docs/questions-for-anastasia.md`.
 
 ### Strategy question the guidelines raised
 
