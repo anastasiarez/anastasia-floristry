@@ -66,13 +66,13 @@ export default function ServicesPage() {
         imageAlt={servicesPage.hero.imageAlt}
       />
 
-      <Section width="content">
+      <Section width="content" compact>
         <SectionIntro body={servicesPage.intro.body} />
         <div className="mt-10 text-center">
           <p className="text-display-2xs">
             {servicesPage.intro.fromPrice} {pricing.minimum}
           </p>
-          <Link href="#pricing" className="eyebrow link-underline mt-6 inline-block text-evergreen">
+          <Link href="#pricing" className="eyebrow link-underline mt-10 inline-block text-evergreen">
             {servicesPage.intro.priceLink}
           </Link>
         </div>
@@ -89,17 +89,17 @@ export default function ServicesPage() {
           image={service.image}
           imageAlt={service.imageAlt}
           side={i % 2 === 0 ? "left" : "right"}
-          tone={i % 2 === 0 ? "cream" : "linen"}
+          tone={i % 2 === 0 ? "sandstone" : "linen"}
         />
       ))}
 
-      <Section width="content" id="pricing">
+      <Section width="content" id="pricing" tone="sandstone">
         <SectionIntro
           eyebrow={servicesPage.pricing.eyebrow}
           title={servicesPage.pricing.title}
           body={pricing.note}
         />
-        <dl className="mt-16 divide-y divide-sandstone border-y border-sandstone">
+        <dl className="mt-16 divide-y divide-ink/15 border-y border-ink/15">
           {pricing.tiers.map((tier) => (
             <div
               key={tier.guests}
@@ -116,7 +116,7 @@ export default function ServicesPage() {
 
       <Section>
         <SectionIntro eyebrow={servicesPage.process.eyebrow} title={servicesPage.process.title} />
-        <div className="mt-20">
+        <div className="mt-16">
           <NumberedCards items={process} />
         </div>
       </Section>

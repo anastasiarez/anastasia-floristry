@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import { Hero } from "@/components/Hero";
 import { Section, SectionIntro } from "@/components/Section";
 import { Gallery } from "@/components/Gallery";
@@ -25,18 +26,23 @@ export default function PortfolioPage() {
         imageAlt={portfolioPage.hero.imageAlt}
       />
 
-      <Section width="content">
+      <Section width="content" compact>
         <SectionIntro body={portfolioPage.intro.body} />
       </Section>
 
       {/* One banded section per gallery, alternating tone. */}
       {galleries.map((gallery, i) => (
-        <Section key={gallery.slug} tone={i % 2 === 0 ? "cream" : "linen"} id={gallery.slug}>
+        <Section key={gallery.slug} tone={i % 2 === 0 ? "sandstone" : "linen"} id={gallery.slug}>
           <div className="mb-12 text-center">
-            <h2 className="text-display-2xs tracking-[0.12em]">{gallery.title}</h2>
+            <h2 className="text-display-2xs tracking-heading">{gallery.title}</h2>
             <p className="eyebrow mt-4 text-evergreen">{gallery.caption}</p>
           </div>
           <Gallery images={galleryCells(gallery.images)} />
+          <div className="mt-10 text-center">
+            <Link href="/contact" className="eyebrow link-underline text-evergreen">
+              {portfolioPage.galleryEnquire}
+            </Link>
+          </div>
         </Section>
       ))}
 

@@ -14,9 +14,12 @@ import { nav, navCta, navLabels, site } from "@/content/site";
  *          a full-screen drawer that behaves as a modal dialog.
  */
 // `nav` is a module-level constant, so the split never changes between renders.
-const half = Math.ceil(nav.length / 2);
-const leftLinks = nav.slice(0, half);
-const rightLinks = nav.slice(half);
+// Desktop leaves out Home: the centred logo is the home link, and dropping it
+// keeps both sides clear of the logo at 1024px. The mobile menu lists it.
+const desktopLinks = nav.filter((item) => item.href !== "/");
+const half = Math.ceil(desktopLinks.length / 2);
+const leftLinks = desktopLinks.slice(0, half);
+const rightLinks = desktopLinks.slice(half);
 
 /** The drawer only exists below this width (Tailwind `lg`). */
 const DESKTOP = "(min-width: 64rem)";
@@ -84,10 +87,10 @@ export function Nav() {
       <header className="sticky top-0 z-50 bg-linen/95 backdrop-blur-sm">
         <nav
           aria-label="Main"
-          className="mx-auto flex h-16 max-w-(--container-wide) items-center justify-between gap-4 px-(--spacing-gutter) lg:grid lg:h-24 lg:grid-cols-[1fr_auto_1fr]"
+          className="mx-auto flex h-16 max-w-(--container-wide) items-center justify-between gap-4 px-(--spacing-gutter) lg:grid lg:h-24 lg:grid-cols-[minmax(0,1fr)_auto_minmax(0,1fr)]"
         >
           {/* Desktop: left link group */}
-          <ul className="hidden flex-1 items-center gap-6 lg:flex xl:gap-8">
+          <ul className="hidden flex-1 items-center gap-5 lg:flex xl:gap-8">
             {leftLinks.map((item) => (
               <NavLink key={item.href} {...item} pathname={pathname} />
             ))}
@@ -114,7 +117,7 @@ export function Nav() {
           </Link>
 
           {/* Desktop: right link group */}
-          <ul className="hidden flex-1 items-center justify-end gap-6 lg:flex xl:gap-8">
+          <ul className="hidden flex-1 items-center justify-end gap-5 lg:flex xl:gap-8">
             {rightLinks.map((item) => (
               <NavLink key={item.href} {...item} pathname={pathname} />
             ))}
@@ -135,9 +138,9 @@ export function Nav() {
             aria-controls="mobile-menu"
             className="-mr-2.5 flex size-11 flex-col items-center justify-center gap-1.5 lg:hidden"
           >
-            <span className="block h-px w-6 bg-ink" />
-            <span className="block h-px w-6 bg-ink" />
-            <span className="block h-px w-6 bg-ink" />
+            <span className="icon-line block h-px w-6 bg-ink" />
+            <span className="icon-line block h-px w-6 bg-ink" />
+            <span className="icon-line block h-px w-6 bg-ink" />
           </button>
         </nav>
       </header>
@@ -178,8 +181,8 @@ export function Nav() {
             aria-label={navLabels.close}
             className="-mr-2.5 flex size-11 flex-col items-center justify-center"
           >
-            <span className="block h-px w-6 translate-y-px rotate-45 bg-ink" />
-            <span className="block h-px w-6 -rotate-45 bg-ink" />
+            <span className="icon-line block h-px w-6 translate-y-px rotate-45 bg-ink" />
+            <span className="icon-line block h-px w-6 -rotate-45 bg-ink" />
           </button>
         </div>
 
@@ -192,7 +195,7 @@ export function Nav() {
                   href={item.href}
                   onClick={close}
                   aria-current={active ? "page" : undefined}
-                  className={`font-display text-display-2xs tracking-[0.2em] uppercase ${
+                  className={`font-myroge text-display-2xs tracking-heading uppercase ${
                     active ? "text-evergreen underline underline-offset-8" : ""
                   }`}
                 >
@@ -208,8 +211,7 @@ export function Nav() {
 }
 
 /** The bordered enquiry button, shared by the desktop and mobile headers. */
-const ctaClass =
-  "eyebrow border border-ink/60 px-3 py-2.5 leading-none transition-colors hover:bg-ink hover:text-linen sm:px-4";
+const ctaClass = "eyebrow btn btn-sm";
 
 function NavLink({
   label,

@@ -107,24 +107,10 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <html
       lang="en-CA"
       className={`${display.variable} ${body.variable} ${myroge.variable}`}
-      // The inline script below adds `js-reveal` to this element before React
-      // hydrates, so the client class list legitimately differs from the
-      // server's. Same reason next-themes suppresses here.
-      suppressHydrationWarning
+      // Next 16 turns smooth scrolling off while changing pages when this is
+      // set; without it, leaving a page from the footer scrolled slowly back up.
+      data-scroll-behavior="smooth"
     >
-      <head>
-        {/*
-          Arms the scroll-reveal hidden state before first paint. Kept inline
-          and synchronous on purpose: a deferred script would let content paint
-          visible and then jump to hidden. Without JS the class never lands and
-          everything renders visible, which is the safe failure.
-        */}
-        <script
-          dangerouslySetInnerHTML={{
-            __html: `document.documentElement.classList.add('js-reveal');setTimeout(function(){var d=document.documentElement;if(!d.dataset.revealReady)d.classList.remove('js-reveal')},3000)`,
-          }}
-        />
-      </head>
       <body>
         <a
           href="#main"

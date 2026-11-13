@@ -23,13 +23,13 @@ export function CTABand({
       <Image src={image} alt={imageAlt} fill sizes="100vw" className="object-cover" />
       <div aria-hidden className="scrim absolute inset-0" />
 
-      <Reveal className="relative max-w-(--container-content) px-(--spacing-gutter) text-center text-white">
+      <Reveal className="on-dark relative max-w-(--container-content) px-(--spacing-gutter) text-center text-linen">
         {accent && <p className="script text-script-sm">{accent}</p>}
-        <h2 className="mt-5 text-display-sm">{title}</h2>
+        <h2 className="mt-6 text-display-sm">{title}</h2>
         {body && <p className="mx-auto mt-8 max-w-xl">{body}</p>}
         <Link
           href={button.href}
-          className="eyebrow mt-12 inline-block border border-white/70 px-10 py-4 transition-colors hover:bg-white hover:text-ink"
+          className="eyebrow btn btn-light mt-12"
         >
           {button.label}
         </Link>

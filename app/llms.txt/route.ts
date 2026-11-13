@@ -42,7 +42,7 @@ based on venue, season and scale.
 
 ## Services
 
-${services.map((s) => `- **${s.name}** — ${s.summary}`).join("\n")}
+${services.map((s) => `- **${s.name}**: ${s.summary}`).join("\n")}
 
 ## Pages
 
@@ -52,7 +52,7 @@ ${routes.map((r) => `- [${r.label}](${new URL(r.href, site.url)})`).join("\n")}
 
 ${Object.entries(seo)
   .filter(([, v]) => v.description)
-  .map(([k, v]) => `- **${k}** — ${v.description}`)
+  .map(([k, v]) => `- **${k}**: ${v.description}`)
   .join("\n")}
 `;
 

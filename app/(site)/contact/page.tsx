@@ -28,7 +28,7 @@ export default function ContactPage() {
         </div>
 
         <p className="mt-16 text-center text-body-sm">
-          Prefer email?{" "}
+          {contactPage.emailLead}{" "}
           <a href={`mailto:${site.contact.email}`} className="link-underline text-evergreen">
             {site.contact.email}
           </a>

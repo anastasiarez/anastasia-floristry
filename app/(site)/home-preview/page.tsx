@@ -34,8 +34,16 @@ export default function HomePage() {
       </Section>
 
       {featured.length > 0 && (
-        <Section tone="linen">
-          <Gallery images={featured} />
+        <Section tone="sandstone">
+          <SectionIntro eyebrow={home.featured.eyebrow} title={home.featured.title} />
+          <div className="mt-16">
+            <Gallery images={featured} />
+          </div>
+          <div className="mt-10 text-center">
+            <Link href="/portfolio" className="eyebrow link-underline text-evergreen">
+              {home.featured.link}
+            </Link>
+          </div>
         </Section>
       )}
 
@@ -43,16 +51,16 @@ export default function HomePage() {
 
       <ImageBand {...home.band} />
 
-      <Section tone="linen">
+      <Section tone="sandstone">
         <SectionIntro eyebrow={home.services.eyebrow} title={home.services.title} />
-        <div className="mt-20">
+        <div className="mt-16">
           {/* One card per package, each with its photo, linking to its
               section on /services. Mirrors the packages, so any count works. */}
           <ul className="grid gap-12 md:grid-cols-2 md:gap-10">
             {services.map((s) => (
               <li key={s.slug}>
                 <Link href={`/services#${s.slug}`} className="group block">
-                  <div className="relative aspect-[4/5] overflow-hidden">
+                  <div className="relative aspect-4/5 overflow-hidden">
                     <Image
                       src={s.image}
                       alt={s.imageAlt}
@@ -61,8 +69,8 @@ export default function HomePage() {
                       className="object-cover transition-transform duration-700 group-hover:scale-105"
                     />
                   </div>
-                  <h3 className="mt-8 text-display-2xs tracking-[0.12em]">{s.name}</h3>
-                  <p className="mt-4 text-body-sm">{s.summary}</p>
+                  <h3 className="mt-8 text-display-2xs tracking-heading">{s.name}</h3>
+                  <p className="mt-5 text-body-sm">{s.summary}</p>
                 </Link>
               </li>
             ))}
@@ -72,13 +80,13 @@ export default function HomePage() {
           <p className="text-display-2xs">
             {home.services.fromPrice} {pricing.minimum}
           </p>
-          <Link href="/services#pricing" className="eyebrow link-underline mt-6 inline-block text-evergreen">
+          <Link href="/services#pricing" className="eyebrow link-underline mt-10 inline-block text-evergreen">
             {home.services.link}
           </Link>
         </div>
       </Section>
 
-      <Testimonials items={testimonials} tone="cream" />
+      <Testimonials items={testimonials} tone="linen" />
 
       <CTABand {...home.cta} />
     </>

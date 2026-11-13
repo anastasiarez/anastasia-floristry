@@ -18,6 +18,8 @@ type Site = {
     country: string;
     countryCode: string;
     serviceArea: string;
+    /** Short name for the whole area, for tight spaces like the social card. */
+    areaName: string;
     towns: readonly string[];
   };
   contact: {
@@ -68,6 +70,7 @@ export const site: Site = {
     country: "Canada",
     countryCode: "CA",
     /** Free-text service area shown in the footer. */
+    areaName: "Southwestern Ontario",
     serviceArea: `Hamilton, Brantford, Cambridge, Kitchener, Waterloo, Guelph and surrounding Southwestern Ontario`,
     /** Named towns, used for local SEO and the FAQ. Order roughly by volume. */
     towns: [

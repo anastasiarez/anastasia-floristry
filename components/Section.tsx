@@ -7,13 +7,16 @@ import { Reveal } from "./Reveal";
  */
 export function Section({
   children,
-  tone = "cream",
+  tone = "linen",
   width = "wide",
   id,
+  compact = false,
   className = "",
 }: {
   children: ReactNode;
-  tone?: "cream" | "linen";
+  /** Half-height padding, for an intro of a sentence or two. */
+  compact?: boolean;
+  tone?: "linen" | "sandstone";
   width?: "wide" | "content";
   id?: string;
   className?: string;
@@ -21,7 +24,7 @@ export function Section({
   return (
     <section
       id={id}
-      className={`${tone === "linen" ? "bg-sandstone" : "bg-linen"} py-(--spacing-section) ${className}`}
+      className={`${tone === "sandstone" ? "bg-sandstone" : "bg-linen"} ${compact ? "py-(--spacing-section-sm)" : "py-(--spacing-section)"} ${className}`}
     >
       <div
         className={`mx-auto px-(--spacing-gutter) ${

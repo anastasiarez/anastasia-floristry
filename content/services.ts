@@ -81,8 +81,8 @@ export const pricing = {
   minimum: "$5,000",
   note: "Full-service wedding florals, scaled to guest count.",
   tiers: [
-    { guests: "70–80 guests", range: "$5,000 – $6,500" },
-    { guests: "80–100 guests", range: "$6,500 – $7,500" },
-    { guests: "100–125 guests", range: "$7,500 – $9,500+" },
+    { guests: "70–80 guests", range: "$5,000–$6,500" },
+    { guests: "80–100 guests", range: "$6,500–$7,500" },
+    { guests: "100–125 guests", range: "$7,500–$9,500+" },
   ],
 };

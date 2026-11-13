@@ -27,13 +27,13 @@ export function NumberedCards({
     <ol className={`grid gap-14 md:gap-12 ${columns}`}>
       {items.map((item, i) => (
         <li key={item.title}>
-          <Reveal delay={i * 0.12}>
+          <Reveal>
           {numbered && (
             <p className="script mb-4 text-script-xs text-evergreen">
               {item.step ?? String(i + 1).padStart(2, "0")}
             </p>
           )}
-          <h3 className="text-display-2xs tracking-[0.12em] md:min-h-[2lh]">{item.title}</h3>
+          <h3 className="text-display-2xs tracking-heading md:min-h-[2lh]">{item.title}</h3>
           <p className="mt-5 text-body-sm">{item.body}</p>
           </Reveal>
         </li>
