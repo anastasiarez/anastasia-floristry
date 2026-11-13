@@ -10,7 +10,7 @@ export const metadata: Metadata = {
 
 export default function HomePage() {
   return (
-    <section className="relative isolate flex min-h-svh flex-col items-center justify-start gap-8 bg-wisteria px-(--spacing-gutter) pt-8 pb-8 text-center text-ink">
+    <section className="relative isolate flex min-h-svh flex-col items-center justify-start gap-8 bg-wisteria px-(--spacing-gutter) pt-8 pb-8 text-center text-black">
       <Image
         src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/ANA_1992.JPG-ZzlR6KnLiGixe60Pa96zOAuYgUK2uY.jpeg"
         alt=""
@@ -20,7 +20,7 @@ export default function HomePage() {
         sizes="100vw"
         className="absolute inset-0 -z-20 object-cover object-[50%_56%]"
       />
-      <div aria-hidden="true" className="absolute inset-0 -z-10 bg-linen/65" />
+      <div aria-hidden="true" className="absolute inset-0 -z-10 bg-linen/80" />
       <a
         href={site.social.instagram}
         target="_blank"
@@ -35,14 +35,14 @@ export default function HomePage() {
           height={1000}
           priority
           unoptimized
-          className="h-auto w-full mix-blend-difference"
+          className="h-auto w-full brightness-0"
         />
       </a>
-      <h1 className="flex flex-col font-myroge text-[clamp(1.5rem,3.3vw,3.25rem)] normal-case leading-[1.12]">
+      <h1 className="flex flex-col font-myroge text-[clamp(1.5rem,3.3vw,3.25rem)] font-bold normal-case leading-[1.12] text-black">
         <span>We are reimagining</span>
         <span>our website.</span>
       </h1>
-      <p className="text-body-sm tracking-[0.08em]">
+      <p className="text-body-sm font-semibold tracking-[0.08em] text-black">
         Please find us on{" "}
         <a
           href={site.social.instagram}
