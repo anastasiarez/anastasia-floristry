@@ -61,7 +61,6 @@ export default function ServicesPage() {
       <Hero
         titleTop={servicesPage.hero.title}
         eyebrow={servicesPage.hero.eyebrow}
-        accent={servicesPage.hero.accent}
         subtitle={servicesPage.hero.subtitle}
         image={servicesPage.hero.image}
         imageAlt={servicesPage.hero.imageAlt}

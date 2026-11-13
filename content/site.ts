@@ -151,6 +151,14 @@ export const nav = [
  */
 export const navCta = { label: "Enquire", href: "/contact" } as const;
 
+/** Footer labels and the Instagram strip above it. */
+export const footerCopy = {
+  explore: "Explore",
+  contact: "Contact",
+  instagramLead: "New work appears on Instagram first.",
+  instagramButton: "Follow on Instagram",
+} as const;
+
 /** Labels for the mobile menu buttons, read by screen readers. */
 export const navLabels = { open: "Open menu", close: "Close menu", menu: "Menu" } as const;
 

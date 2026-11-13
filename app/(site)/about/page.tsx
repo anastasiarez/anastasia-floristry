@@ -20,7 +20,6 @@ export default function AboutPage() {
       <Hero
         titleTop={about.hero.title}
         eyebrow={about.hero.eyebrow}
-        accent={about.hero.accent}
         image={about.hero.image}
         imageAlt={about.hero.imageAlt}
       />

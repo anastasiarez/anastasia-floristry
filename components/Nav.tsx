@@ -84,7 +84,7 @@ export function Nav() {
       <header className="sticky top-0 z-50 bg-linen/95 backdrop-blur-sm">
         <nav
           aria-label="Main"
-          className="mx-auto flex h-16 max-w-(--container-wide) items-center justify-between gap-4 px-(--spacing-gutter) lg:h-24"
+          className="mx-auto flex h-16 max-w-(--container-wide) items-center justify-between gap-4 px-(--spacing-gutter) lg:grid lg:h-24 lg:grid-cols-[1fr_auto_1fr]"
         >
           {/* Desktop: left link group */}
           <ul className="hidden flex-1 items-center gap-6 lg:flex xl:gap-8">
@@ -109,7 +109,7 @@ export function Nav() {
               alt={site.name}
               width={1860}
               height={279}
-              className="h-5 w-auto sm:h-6 md:h-8"
+              className="h-6 w-auto md:h-8"
             />
           </Link>
 
@@ -169,7 +169,7 @@ export function Nav() {
             alt={site.name}
             width={1860}
             height={279}
-            className="h-5 w-auto sm:h-6"
+            className="h-6 w-auto"
           />
           <button
             ref={closeButton}
@@ -232,15 +232,14 @@ function NavLink({
     );
   }
 
-  // Every link is underlined at rest (the design's underline-on-hover-out).
-  // The current page gets a heavier, lower underline plus Evergreen, so colour
-  // is not the only signal.
+  // Plain at rest, underline drawn in on hover. The current page keeps a
+  // permanent underline plus Evergreen, so colour is not the only signal.
   return (
     <li>
       <Link
         href={href}
         aria-current={active ? "page" : undefined}
-        className={`eyebrow ${active ? "text-evergreen underline decoration-2 underline-offset-8" : "link-underline"}`}
+        className={`eyebrow ${active ? "text-evergreen underline underline-offset-8" : "link-hover"}`}
       >
         {label}
       </Link>

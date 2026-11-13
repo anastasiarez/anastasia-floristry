@@ -46,6 +46,13 @@ Sizes: `docs/photo-brief.md`. She drops originals into `incoming/`.
 - [ ] Approve the About story (drafted from her old site): rural Ukraine,
       gardens, corporate career, then floristry.
 
+### Setup only she (or Oleh) can do
+
+- [ ] Contact form email: set `RESEND_API_KEY` and `RESEND_FROM` in the Vercel
+      project settings (probably not set yet), then send one real test
+      enquiry. Until then the form shows "not configured" and logs enquiries
+      on the server only. Launch blocker.
+
 ### Decisions
 
 - [ ] Brand book says her main clients are wedding planners; the site talks to

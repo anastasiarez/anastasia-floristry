@@ -67,7 +67,6 @@ const CHECKS = [
   ['script accent on sandstone',    C.mauveTx,     C.sandstone, true],
   // Worst case: the .scrim centre (55% ink) over a pure white photo.
   ['hero title on scrim, white photo', C.white,    mix(C.ink, C.white, 0.55), true],
-  ['hero script accent on scrim',  C.linen,      mix(C.ink, C.white, 0.55), true],
   ['linen on ink (dark sections)',  C.linen,       C.ink,       false],
 ];
 

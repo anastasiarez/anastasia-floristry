@@ -4,7 +4,7 @@ import { Hero } from "@/components/Hero";
 import { Section, SectionIntro } from "@/components/Section";
 import { SplitFeature } from "@/components/SplitFeature";
 import { ImageBand } from "@/components/ImageBand";
-import { NumberedCards } from "@/components/NumberedCards";
+import Image from "next/image";
 import { Testimonials } from "@/components/Testimonials";
 import { CTABand } from "@/components/CTABand";
 import { Gallery } from "@/components/Gallery";
@@ -46,10 +46,27 @@ export default function HomePage() {
       <Section tone="linen">
         <SectionIntro eyebrow={home.services.eyebrow} title={home.services.title} />
         <div className="mt-20">
-          <NumberedCards
-            numbered={false}
-            items={services.map((s) => ({ title: s.name, body: s.summary }))}
-          />
+          {/* One card per package, each with its photo, linking to its
+              section on /services. Mirrors the packages, so any count works. */}
+          <ul className="grid gap-12 md:grid-cols-2 md:gap-10">
+            {services.map((s) => (
+              <li key={s.slug}>
+                <Link href={`/services#${s.slug}`} className="group block">
+                  <div className="relative aspect-[4/5] overflow-hidden">
+                    <Image
+                      src={s.image}
+                      alt={s.imageAlt}
+                      fill
+                      sizes="(min-width: 768px) 40vw, 100vw"
+                      className="object-cover transition-transform duration-700 group-hover:scale-105"
+                    />
+                  </div>
+                  <h3 className="mt-8 text-display-2xs tracking-[0.12em]">{s.name}</h3>
+                  <p className="mt-4 text-body-sm">{s.summary}</p>
+                </Link>
+              </li>
+            ))}
+          </ul>
         </div>
         <div className="mt-16 text-center">
           <p className="text-display-2xs">
