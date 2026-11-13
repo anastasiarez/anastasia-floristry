@@ -21,6 +21,14 @@
 import { readdir, readFile } from "node:fs/promises";
 import { slots, gallerySlots, exists, PLACEHOLDER_MANIFEST } from "./slots.mjs";
 
+/**
+ * Stand-in alt text written so the site never shipped "TODO" to screen
+ * readers. It describes no actual photo, so it counts as placeholder alt text
+ * until a real description replaces it.
+ */
+const GENERIC_ALT =
+  /imageAlt:\s*[`"'](Floral arrangement by|Wedding florals by|Anastasia Floristry studio)/;
+
 const findings = { draft: [], alt: [], gap: [], missing: [], placeholder: [] };
 
 // --- Scan the content files ----------------------------------------------
@@ -51,15 +59,17 @@ for (const file of contentFiles) {
 
     // A TODO in a VALUE ships to the browser and is a defect. A TODO or DRAFT
     // in a COMMENT is just tracking, and is what we want.
-    if (/imageAlt:\s*[`"'].*TODO/i.test(line)) {
+    // Order matters: anything that would SHIP is checked before the "tracked in
+    // a comment" bucket, or a visible TODO is reported as harmless.
+    if (/imageAlt:\s*[`"'].*TODO/i.test(line) || GENERIC_ALT.test(line)) {
       findings.alt.push({ at, text: trimmed });
     } else if (!isComment && /\[TODO[^\]]*\]/i.test(code)) {
       findings.gap.push({ at, text: trimmed.slice(0, 100) });
+    } else if (!isComment && /\bTODO\b/.test(code)) {
+      // A TODO inside a value (the trailing // comment is already stripped).
+      findings.gap.push({ at, text: trimmed.slice(0, 100) });
     } else if (/\b(DRAFT|TODO)\b/.test(line)) {
       findings.draft.push({ at, text: trimmed.replace(/^[*/\s]+/, "").slice(0, 100) });
-    } else if (!isComment && /\bTODO\b/.test(code)) {
-      // Would ship to the browser: report under alt/gap semantics as a defect.
-      findings.gap.push({ at, text: trimmed.slice(0, 100) });
     }
   });
 }

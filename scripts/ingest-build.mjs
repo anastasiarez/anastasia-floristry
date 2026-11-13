@@ -83,7 +83,8 @@ for (const entry of manifest.assignments) {
 
   try {
     const pipeline = sharp(src).rotate(); // EXIF orientation
-    const meta = await pipeline.metadata();
+    // Size as displayed, after EXIF rotation (see ingest-scan.mjs).
+    const meta = (await pipeline.metadata()).autoOrient ?? (await pipeline.metadata());
 
     const scaleNeeded = upscaleFactor(slot, meta.width, meta.height);
     if (scaleNeeded > 1) {
@@ -151,6 +152,9 @@ if (!DRY && written > 0) {
   console.log(
     "\nNext: every image needs real alt text. Edit the `imageAlt` fields in\n" +
       "content/pages.ts, content/services.ts and content/portfolio.ts, then run\n" +
-      "`pnpm seo` to confirm no placeholder alt text remains.",
+      "`pnpm check` to confirm no placeholder alt text remains.",
   );
 }
+
+// A failed image must fail the command, or a half-finished ingest looks done.
+if (failed > 0) process.exit(1);

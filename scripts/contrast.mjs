@@ -42,6 +42,10 @@ if (missing.length) {
 }
 C.white = "#ffffff";
 
+/** `a` composited over `b` at `alpha`, as the .scrim overlay does. */
+const mix = (a, b, alpha) =>
+  '#' + hex(a).map((v, i) => Math.round(alpha * v + (1 - alpha) * hex(b)[i]).toString(16).padStart(2, '0')).join('');
+
 // [description, fg, bg, largeText]
 // large = rendered at >=24px, which AA allows at 3:1 instead of 4.5:1.
 //
@@ -50,6 +54,8 @@ const CHECKS = [
   ['body copy on linen',            C.ink,         C.linen,     false],
   ['body copy on sandstone',        C.ink,         C.sandstone, false],
   ['eyebrow label on linen',        C.evergreen,   C.linen,     false],
+  // On Sandstone, .text-evergreen and .text-mauve are swapped to their -tx
+  // variants by a rule in globals.css, so these test the -tx colours.
   ['eyebrow label on sandstone',    C.evergreenTx, C.sandstone, false],
   ['small accent on linen',         C.mauveTx,     C.linen,     false],
   ['small accent on sandstone',     C.mauveTx,     C.sandstone, false],
@@ -59,9 +65,16 @@ const CHECKS = [
   ['display heading on sandstone',  C.ink,         C.sandstone, true],
   ['script accent on linen',        C.mauve,       C.linen,     true],
   ['script accent on sandstone',    C.mauveTx,     C.sandstone, true],
-  ['hero type on scrim',            C.white,       C.ink,       true],
+  // Worst case: the .scrim centre (55% ink) over a pure white photo.
+  ['hero title on scrim, white photo', C.white,    mix(C.ink, C.white, 0.55), true],
+  ['hero script accent on scrim',  C.linen,      mix(C.ink, C.white, 0.55), true],
   ['linen on ink (dark sections)',  C.linen,       C.ink,       false],
 ];
+
+if (!/\.bg-sandstone \.text-evergreen\s*\{[^}]*evergreen-tx/.test(css) || !/\.bg-sandstone \.text-mauve\s*\{[^}]*mauve-tx/.test(css)) {
+  console.error('The Sandstone text-colour swap rules are missing from globals.css; the sandstone checks below would be testing colours the site does not use.');
+  process.exit(1);
+}
 
 console.log('WCAG 2.1 AA — normal text 4.5:1, large text (>=24px) 3:1\n');
 

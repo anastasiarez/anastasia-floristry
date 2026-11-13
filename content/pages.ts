@@ -26,6 +26,8 @@ export const home = {
   services: {
     eyebrow: "Services",
     title: "How we can help",
+    /** Followed by the minimum from `pricing` in content/services.ts. */
+    fromPrice: "Full-service weddings from",
     link: "Services and pricing",
   },
   hero: {
@@ -34,7 +36,7 @@ export const home = {
     titleBottom: "floristry",
     /** Script accent overlapping the title. One or two words. */
     accent: "in bloom",
-    subtitle: "Wedding and event florals in Ontario",
+    subtitle: "Weddings & Events in Southwestern Ontario",
     image: "/images/home/hero.jpg",
     imageAlt: "Floral arrangement by Anastasia Floristry",
   },
@@ -131,6 +133,9 @@ export const servicesPage = {
   },
   intro: {
     body: `Every enquiry is quoted individually, because the right answer depends on your venue, your season and the scale of the day. Below is the shape of what we offer.`,
+    /** Followed by the minimum from `pricing`, linking to the price guide. */
+    fromPrice: "Full-service weddings from",
+    priceLink: "See the price guide",
   },
   /** Price guide. The figures come from `pricing` in content/services.ts. */
   pricing: {

@@ -271,8 +271,10 @@ Adding a new text colour means adding a case to `scripts/contrast.mjs`.
 ### The FAQ page is the AI-search page
 
 `content/faq.ts` matters more than its size suggests. Question-and-answer text
-with `FAQPage` schema is the format Google's answer boxes and AI assistants
-extract from. Answers must lead with the answer, stand alone out of context,
+is the format AI assistants and answer engines extract from. Note that Google
+no longer shows FAQ rich results for sites like this (restricted in 2023), so
+the `FAQPage` schema is kept for machine readability, not for a search-result
+feature. Answers must lead with the answer, stand alone out of context,
 and contain concrete specifics (place names, months, dollar figures, lead
 times). Atmospheric writing does not get cited. Every `TODO` in that file is a
 real fact that needs filling in.

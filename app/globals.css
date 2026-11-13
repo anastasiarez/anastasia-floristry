@@ -93,8 +93,10 @@
      treatments across Nav (twice) and Footer. */
   --text-wordmark: clamp(1.05rem, 1.6vw, 1.25rem);
 
-  --text-body: 0.9375rem;
-  --text-body-sm: 0.875rem;
+  /* 16px floor for body copy: Montserrat Light is thin, and 15px read faint
+     on Linen, especially on phones. */
+  --text-body: 1rem;
+  --text-body-sm: 0.9375rem;
   --text-label: 0.75rem;
 
   /* ---- Rhythm ----------------------------------------------------------- */
@@ -122,6 +124,9 @@
   html {
     -webkit-font-smoothing: antialiased;
     scroll-behavior: smooth;
+    /* Clears the sticky header (64px mobile, 96px desktop) for in-page jumps
+       and keyboard focus, so targets never land underneath it. */
+    scroll-padding-top: 7rem;
   }
 
   body {
@@ -213,6 +218,29 @@
     animation-duration: 0.01ms !important;
     transition-duration: 0.01ms !important;
   }
+}
+
+/* Text colour on Sandstone bands.
+   Brand Evergreen and Mauve drop below AA on Sandstone (3.59:1 and 2.31:1),
+   so inside a Sandstone band they swap to their darker text variants. One rule
+   here instead of every component having to know which band it sits in.
+   Deliberately unlayered: Tailwind utilities live in a cascade layer, and only
+   an unlayered rule can override them. Guarded by `pnpm contrast`. */
+.bg-sandstone .text-evergreen {
+  color: var(--color-evergreen-tx);
+}
+.bg-sandstone .text-mauve {
+  color: var(--color-mauve-tx);
+}
+
+/* Darkening behind white text on photos (Hero, CTA band). Strongest in the
+   centre where the text sits, lighter at the edges so the photo still reads. */
+.scrim {
+  background: radial-gradient(
+    ellipse at center,
+    color-mix(in srgb, var(--color-ink) 55%, transparent),
+    color-mix(in srgb, var(--color-ink) 20%, transparent)
+  );
 }
 
 /* ==========================================================================

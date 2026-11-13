@@ -9,7 +9,7 @@ import { Testimonials } from "@/components/Testimonials";
 import { CTABand } from "@/components/CTABand";
 import { Gallery } from "@/components/Gallery";
 import { home } from "@/content/pages";
-import { services } from "@/content/services";
+import { pricing, services } from "@/content/services";
 import { testimonials } from "@/content/testimonials";
 import { galleries, galleryCells } from "@/content/portfolio";
 import { seo } from "@/content/seo";
@@ -52,7 +52,10 @@ export default function HomePage() {
           />
         </div>
         <div className="mt-16 text-center">
-          <Link href="/services" className="eyebrow link-underline text-evergreen">
+          <p className="text-display-2xs">
+            {home.services.fromPrice} {pricing.minimum}
+          </p>
+          <Link href="/services#pricing" className="eyebrow link-underline mt-6 inline-block text-evergreen">
             {home.services.link}
           </Link>
         </div>

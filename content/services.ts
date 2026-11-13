@@ -77,6 +77,8 @@ export const process = [
  * not soften or remove them.
  */
 export const pricing = {
+  /** The lowest price for a full-service wedding. Shown on home, services and FAQ. */
+  minimum: "$5,000",
   note: "Full-service wedding florals, scaled to guest count.",
   tiers: [
     { guests: "70–80 guests", range: "$5,000 – $6,500" },

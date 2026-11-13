@@ -58,7 +58,6 @@ export const metadata: Metadata = {
   robots: site.indexable
     ? { index: true, follow: true }
     : { index: false, follow: false, nocache: true },
-  alternates: { canonical: "/" },
 };
 
 /**
@@ -112,7 +111,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         */}
         <script
           dangerouslySetInnerHTML={{
-            __html: `document.documentElement.classList.add('js-reveal')`,
+            __html: `document.documentElement.classList.add('js-reveal');setTimeout(function(){var d=document.documentElement;if(!d.dataset.revealReady)d.classList.remove('js-reveal')},3000)`,
           }}
         />
       </head>

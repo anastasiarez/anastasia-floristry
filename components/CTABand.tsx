@@ -21,7 +21,7 @@ export function CTABand({
   return (
     <section className="relative flex min-h-[70svh] items-center justify-center overflow-hidden">
       <Image src={image} alt={imageAlt} fill sizes="100vw" className="object-cover" />
-      <div aria-hidden className="absolute inset-0 bg-ink/35" />
+      <div aria-hidden className="scrim absolute inset-0" />
 
       <Reveal className="relative max-w-(--container-content) px-(--spacing-gutter) text-center text-white">
         {accent && <p className="script text-script-sm">{accent}</p>}

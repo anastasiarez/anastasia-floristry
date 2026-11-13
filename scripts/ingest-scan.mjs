@@ -65,11 +65,13 @@ const photos = [];
 for (const file of files) {
   const path = `${IN}/${file}`;
   try {
-    // .rotate() with no argument applies EXIF orientation, so width/height
-    // below are the dimensions as the photo actually appears.
+    // .rotate() applies EXIF orientation to the pixels, but metadata() still
+    // reports the stored (unrotated) size. `autoOrient` is the size as the
+    // photo actually appears; without it a portrait phone photo reads as
+    // landscape and gets proposed for the wrong slots.
     const img = sharp(path).rotate();
     const meta = await img.metadata();
-    const { width, height } = meta;
+    const { width, height } = meta.autoOrient ?? meta;
     if (!width || !height) throw new Error("no dimensions");
 
     // Central 40% box: the region text sits over on hero/CTA slots.
