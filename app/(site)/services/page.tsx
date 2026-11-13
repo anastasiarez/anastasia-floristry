@@ -14,7 +14,7 @@ import { seo } from "@/content/seo";
 import { site } from "@/content/site";
 
 export const metadata: Metadata = {
-  title: "Services",
+  title: seo.services.title,
   description: seo.services.description,
   alternates: { canonical: "/services" },
 };
@@ -68,7 +68,7 @@ export default function ServicesPage() {
 
       <Section width="content" compact>
         <SectionIntro body={servicesPage.intro.body} />
-        <div className="mt-10 text-center">
+        <div className="mt-16 text-center">
           <p className="text-display-2xs">
             {servicesPage.intro.fromPrice} {pricing.minimum}
           </p>

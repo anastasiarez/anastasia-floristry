@@ -7,7 +7,7 @@ import { site } from "@/content/site";
 import { seo } from "@/content/seo";
 
 export const metadata: Metadata = {
-  title: "Contact",
+  title: seo.contact.title,
   description: seo.contact.description,
   alternates: { canonical: "/contact" },
 };

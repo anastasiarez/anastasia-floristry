@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { Montserrat, Prata } from "next/font/google";
 import localFont from "next/font/local";
 import { Analytics } from "@vercel/analytics/next";
-import { site } from "@/content/site";
+import { navLabels, site } from "@/content/site";
 import "./globals.css";
 
 /* ---------------------------------------------------------------------------
@@ -116,7 +116,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           href="#main"
           className="eyebrow sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-100 focus:bg-linen focus:px-5 focus:py-3"
         >
-          Skip to content
+          {navLabels.skip}
         </a>
         {/*
           <main> lives in the route-group layouts, so the full site can put the

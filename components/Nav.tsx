@@ -195,8 +195,8 @@ export function Nav() {
                   href={item.href}
                   onClick={close}
                   aria-current={active ? "page" : undefined}
-                  className={`font-myroge text-display-2xs tracking-heading uppercase ${
-                    active ? "text-evergreen underline underline-offset-8" : ""
+                  className={`link-hover font-myroge text-display-2xs tracking-heading uppercase ${
+                    active ? "text-evergreen" : ""
                   }`}
                 >
                   {item.label}
@@ -241,7 +241,7 @@ function NavLink({
       <Link
         href={href}
         aria-current={active ? "page" : undefined}
-        className={`eyebrow ${active ? "text-evergreen underline underline-offset-8" : "link-hover"}`}
+        className={`eyebrow ${active ? "link-hover text-evergreen" : "link-hover"}`}
       >
         {label}
       </Link>

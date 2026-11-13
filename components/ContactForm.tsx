@@ -109,7 +109,7 @@ function Field({
 }) {
   const hintId = hint ? `${name}-hint` : undefined;
   const base =
-    "mt-3 w-full border-b border-ink/60 bg-transparent pb-3 text-body focus:border-mauve focus:outline-hidden user-invalid:border-mauve-tx";
+    "mt-3 w-full border-b border-ink/60 bg-transparent pb-3 text-body focus:border-ink focus:outline-hidden user-invalid:border-mauve-tx";
 
   return (
     <div>
@@ -121,16 +121,30 @@ function Field({
       {as === "textarea" ? (
         <textarea id={name} name={name} rows={5} required={required} className={`${base} min-h-32 resize-y field-sizing-content`} />
       ) : as === "select" ? (
-        <select id={name} name={name} required={required} defaultValue="" className={base}>
-          <option value="" disabled>
-            {f.placeholder}
-          </option>
-          {options?.map((o) => (
-            <option key={o} value={o}>
-              {o}
+        // appearance-none drops the browser's own height and inset, so the
+        // select lines up with the text fields beside it; the arrow is drawn.
+        <div className="relative">
+          <select
+            id={name}
+            name={name}
+            required={required}
+            defaultValue=""
+            className={`${base} h-11 appearance-none pr-8`}
+          >
+            <option value="" disabled>
+              {f.placeholder}
             </option>
-          ))}
-        </select>
+            {options?.map((o) => (
+              <option key={o} value={o}>
+                {o}
+              </option>
+            ))}
+          </select>
+          <span
+            aria-hidden
+            className="pointer-events-none absolute right-1 bottom-5 size-2 rotate-45 border-r border-b border-ink"
+          />
+        </div>
       ) : (
         <input
           id={name}
@@ -139,7 +153,7 @@ function Field({
           required={required}
           autoComplete={autoComplete}
           aria-describedby={hintId}
-          className={base}
+          className={`${base} h-11`}
         />
       )}
 

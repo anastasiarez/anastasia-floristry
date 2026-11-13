@@ -11,7 +11,7 @@ import { testimonials } from "@/content/testimonials";
 import { seo } from "@/content/seo";
 
 export const metadata: Metadata = {
-  title: "Portfolio",
+  title: seo.portfolio.title,
   description: seo.portfolio.description,
   alternates: { canonical: "/portfolio" },
 };
@@ -33,7 +33,7 @@ export default function PortfolioPage() {
       {/* One banded section per gallery, alternating tone. */}
       {galleries.map((gallery, i) => (
         <Section key={gallery.slug} tone={i % 2 === 0 ? "sandstone" : "linen"} id={gallery.slug}>
-          <div className="mb-12 text-center">
+          <div className="mb-16 text-center">
             <h2 className="text-display-2xs tracking-heading">{gallery.title}</h2>
             <p className="eyebrow mt-4 text-evergreen">{gallery.caption}</p>
           </div>

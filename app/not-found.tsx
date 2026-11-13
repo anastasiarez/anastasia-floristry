@@ -27,7 +27,7 @@ export default function NotFound() {
             title={notFoundPage.title}
             body={notFoundPage.body}
           />
-          <ul className="mt-16 flex flex-wrap justify-center gap-x-8 gap-y-4">
+          <ul className="mx-auto mt-16 grid max-w-md grid-cols-3 justify-items-center gap-y-4">
             {nav.map((item) => (
               <li key={item.href}>
                 <Link href={item.href} className="eyebrow link-underline text-evergreen">

@@ -16,13 +16,13 @@ export function Gallery({ images }: { images: readonly GalleryCell[] }) {
   // backfills any gap a tall cell leaves.
   const columns = images.length >= 4 ? "md:grid-cols-3" : "";
   return (
-    <ul
-      className={`grid grid-flow-dense auto-rows-[minmax(0,14rem)] grid-cols-2 gap-3 md:auto-rows-[minmax(0,18rem)] md:gap-5 ${columns}`}
-    >
+    <ul className={`grid grid-flow-dense grid-cols-2 gap-3 md:gap-5 ${columns}`}>
       {images.map((img) => (
         <li
           key={img.src}
-          className={`relative overflow-hidden ${img.tall ? "row-span-2" : ""}`}
+          // Wide cells keep the 4:3 they were cropped to; the tall cell spans
+          // two of them, which lands close to its 5:7 crop at every width.
+          className={`relative overflow-hidden ${img.tall ? "row-span-2" : "aspect-4/3"}`}
         >
           <Image
             src={img.src}
