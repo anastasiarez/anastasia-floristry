@@ -32,7 +32,7 @@ export async function Footer() {
           href={site.social.instagram}
           target="_blank"
           rel="noopener noreferrer"
-          className="eyebrow mt-6 inline-block border border-ink/60 px-8 py-3 transition-colors hover:bg-ink hover:text-linen"
+          className="eyebrow btn mt-10"
         >
           {footerCopy.instagramButton}
         </a>

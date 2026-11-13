@@ -1,30 +1,39 @@
+import { readFile } from "node:fs/promises";
+import { join } from "node:path";
 import { ImageResponse } from "next/og";
+import { cacheLife } from "next/cache";
 import { site } from "@/content/site";
 
-/** Palette-only social card so it stays legible without depending on photos. */
+/**
+ * Social card: the real brand lockup on the brand colours, so it matches the
+ * site header and logo instead of re-setting the name in a generic font.
+ * Photo-free on purpose, so it stays legible before real photos arrive.
+ */
 
 export const alt = `${site.name}, ${site.tagline}`;
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
-export default function OpengraphImage() {
-  const name = site.name.toUpperCase();
-  const pad = 60;
-  const usable = size.width - pad * 2;
-  const tracking = 10;
-  // Advance width ≈ fontSize * 0.62 + tracking; fit the longest name on the canvas.
-  const fontSize = Math.max(
-    28,
-    Math.min(76, Math.floor((usable / name.length - tracking) / 0.62)),
-  );
+// ImageResponse cannot read CSS variables; these match app/globals.css tokens.
+const linen = "#f7f3eb";
+const sandstone = "#e0c9bf";
+const ink = "#1f2936";
+const mauve = "#9e7e81";
 
-  // ImageResponse cannot use CSS variables; hexes match app/globals.css tokens.
-  const cream = "#f7f3eb";
-  const linen = "#e0c9bf";
-  const taupe = "#1f2936";
-  const text = "#1f2936";
-  const accent = "#9e7e81";
-  const hairline = { width: 64, height: 1, backgroundColor: accent };
+/**
+ * The lockup as a data URL. Cached because a file read is I/O: without it,
+ * Cache Components renders this card on every request instead of at build.
+ */
+async function lockupDataUrl() {
+  "use cache";
+  cacheLife("max");
+  const svg = await readFile(join(process.cwd(), "public/brand/lockup-ink.svg"));
+  return `data:image/svg+xml;base64,${svg.toString("base64")}`;
+}
+
+export default async function OpengraphImage() {
+  const lockup = await lockupDataUrl();
+  const hairline = { width: 64, height: 1, backgroundColor: mauve };
 
   return new ImageResponse(
     (
@@ -36,55 +45,27 @@ export default function OpengraphImage() {
           flexDirection: "column",
           alignItems: "center",
           justifyContent: "center",
-          padding: `0 ${pad}px`,
-          backgroundColor: cream,
-          backgroundImage: `linear-gradient(135deg, ${linen} 0%, ${cream} 45%, ${linen} 100%)`,
-          color: text,
+          backgroundColor: linen,
+          backgroundImage: `linear-gradient(135deg, ${sandstone} 0%, ${linen} 45%, ${sandstone} 100%)`,
+          color: ink,
           fontFamily: "sans-serif",
         }}
       >
         <div style={hairline} />
-
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img src={lockup} alt="" width={900} height={182} style={{ marginTop: 48 }} />
         <div
           style={{
-            marginTop: 40,
-            fontSize,
-            letterSpacing: tracking,
-            color: taupe,
-            display: "flex",
-            maxWidth: usable,
-            textAlign: "center",
-          }}
-        >
-          {name}
-        </div>
-
-        <div
-          style={{
-            marginTop: 36,
-            fontSize: 26,
-            letterSpacing: 8,
+            marginTop: 44,
+            fontSize: 24,
+            letterSpacing: 6,
             textTransform: "uppercase",
-            color: accent,
             display: "flex",
           }}
         >
-          {site.tagline}
+          {site.location.areaName}
         </div>
-
-        <div
-          style={{
-            marginTop: 18,
-            fontSize: 22,
-            letterSpacing: 3,
-            color: text,
-            display: "flex",
-          }}
-        >
-          {site.location.city}, {site.location.region}
-        </div>
-
-        <div style={{ ...hairline, marginTop: 40 }} />
+        <div style={{ ...hairline, marginTop: 48 }} />
       </div>
     ),
     size,

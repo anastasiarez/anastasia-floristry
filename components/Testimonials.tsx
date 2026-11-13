@@ -15,10 +15,10 @@ const INTERVAL_MS = 7000;
 
 export function Testimonials({
   items,
-  tone = "linen",
+  tone = "sandstone",
 }: {
   items: readonly Testimonial[];
-  tone?: "cream" | "linen";
+  tone?: "linen" | "sandstone";
 }) {
   const [index, setIndex] = useState(0);
   // A ref, not state: pausing renders nothing, and as state every mouse cross
@@ -86,7 +86,7 @@ export function Testimonials({
                 className="flex size-6 items-center justify-center"
               >
                 <span
-                  className={`size-1.5 rounded-full transition-colors ${
+                  className={`icon-line size-1.5 rounded-full transition-colors ${
                     i === index ? "bg-mauve" : "bg-ink/30"
                   }`}
                 />

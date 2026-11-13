@@ -50,13 +50,13 @@ export default function FaqPage() {
         {/* Plain dl rather than accordions: every answer is in the initial
             HTML with no interaction needed, which is what crawlers and AI
             assistants read. */}
-        <dl className="mt-20 space-y-14">
+        <dl className="mt-16 space-y-14">
           {faqs.map((f) => (
             <div key={f.question}>
               {/* A heading inside the dt: screen readers can jump question to
                   question, and the dl keeps the question/answer pairing. */}
               <dt>
-                <h2 className="text-display-2xs tracking-[0.1em]">{f.question}</h2>
+                <h2 className="text-display-2xs tracking-heading">{f.question}</h2>
               </dt>
               <dd className="mt-5">{f.answer}</dd>
             </div>

@@ -135,9 +135,9 @@ export function Nav() {
             aria-controls="mobile-menu"
             className="-mr-2.5 flex size-11 flex-col items-center justify-center gap-1.5 lg:hidden"
           >
-            <span className="block h-px w-6 bg-ink" />
-            <span className="block h-px w-6 bg-ink" />
-            <span className="block h-px w-6 bg-ink" />
+            <span className="icon-line block h-px w-6 bg-ink" />
+            <span className="icon-line block h-px w-6 bg-ink" />
+            <span className="icon-line block h-px w-6 bg-ink" />
           </button>
         </nav>
       </header>
@@ -178,8 +178,8 @@ export function Nav() {
             aria-label={navLabels.close}
             className="-mr-2.5 flex size-11 flex-col items-center justify-center"
           >
-            <span className="block h-px w-6 translate-y-px rotate-45 bg-ink" />
-            <span className="block h-px w-6 -rotate-45 bg-ink" />
+            <span className="icon-line block h-px w-6 translate-y-px rotate-45 bg-ink" />
+            <span className="icon-line block h-px w-6 -rotate-45 bg-ink" />
           </button>
         </div>
 
@@ -192,7 +192,7 @@ export function Nav() {
                   href={item.href}
                   onClick={close}
                   aria-current={active ? "page" : undefined}
-                  className={`font-display text-display-2xs tracking-[0.2em] uppercase ${
+                  className={`font-myroge text-display-2xs tracking-heading uppercase ${
                     active ? "text-evergreen underline underline-offset-8" : ""
                   }`}
                 >
@@ -208,8 +208,7 @@ export function Nav() {
 }
 
 /** The bordered enquiry button, shared by the desktop and mobile headers. */
-const ctaClass =
-  "eyebrow border border-ink/60 px-3 py-2.5 leading-none transition-colors hover:bg-ink hover:text-linen sm:px-4";
+const ctaClass = "eyebrow btn btn-sm";
 
 function NavLink({
   label,

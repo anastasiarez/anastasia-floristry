@@ -16,7 +16,7 @@ export function SplitFeature({
   image,
   imageAlt,
   side = "left",
-  tone = "cream",
+  tone = "linen",
   id,
 }: {
   eyebrow?: string;
@@ -29,13 +29,13 @@ export function SplitFeature({
   imageAlt: string;
   /** Which side the image sits on at md and up. */
   side?: "left" | "right";
-  tone?: "cream" | "linen";
+  tone?: "linen" | "sandstone";
   id?: string;
 }) {
   return (
     <section
       id={id}
-      className={`${tone === "linen" ? "bg-sandstone" : "bg-linen"} py-(--spacing-section)`}
+      className={`${tone === "sandstone" ? "bg-sandstone" : "bg-linen"} py-(--spacing-section)`}
     >
       <div className="mx-auto grid max-w-(--container-wide) items-center gap-12 px-(--spacing-gutter) md:grid-cols-2 md:gap-20">
         <div
@@ -54,9 +54,9 @@ export function SplitFeature({
 
         <Reveal className={side === "right" ? "md:order-1" : "md:order-2"}>
           {eyebrow && <p className="eyebrow text-evergreen">{eyebrow}</p>}
-          {accent && <p className="script mt-3 text-script-sm text-mauve">{accent}</p>}
-          <h2 className="mt-5 text-display-xs">{title}</h2>
-          <p className="mt-7">{body}</p>
+          {accent && <p className="script mt-4 text-script-sm text-mauve">{accent}</p>}
+          <h2 className="mt-6 text-display-xs">{title}</h2>
+          <p className="mt-8">{body}</p>
 
           {bullets && bullets.length > 0 && (
             <ul className="mt-8 space-y-3">

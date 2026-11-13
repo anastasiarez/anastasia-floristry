@@ -20,7 +20,7 @@ export type Gallery = {
 export const galleries: Gallery[] = [
   {
     slug: "placeholder-one",
-    title: "Recent Work",
+    title: "Recent work",
     caption: "Southwestern Ontario",
     featured: true,
     images: [
@@ -31,7 +31,7 @@ export const galleries: Gallery[] = [
   },
   {
     slug: "placeholder-two",
-    title: "Recent Work",
+    title: "Recent work",
     caption: "Southwestern Ontario",
     featured: true,
     images: [

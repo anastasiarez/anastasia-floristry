@@ -31,9 +31,9 @@ export default function PortfolioPage() {
 
       {/* One banded section per gallery, alternating tone. */}
       {galleries.map((gallery, i) => (
-        <Section key={gallery.slug} tone={i % 2 === 0 ? "cream" : "linen"} id={gallery.slug}>
+        <Section key={gallery.slug} tone={i % 2 === 0 ? "sandstone" : "linen"} id={gallery.slug}>
           <div className="mb-12 text-center">
-            <h2 className="text-display-2xs tracking-[0.12em]">{gallery.title}</h2>
+            <h2 className="text-display-2xs tracking-heading">{gallery.title}</h2>
             <p className="eyebrow mt-4 text-evergreen">{gallery.caption}</p>
           </div>
           <Gallery images={galleryCells(gallery.images)} />

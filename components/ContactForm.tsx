@@ -52,8 +52,8 @@ export function ContactForm() {
 
   return (
     <form onSubmit={onSubmit} className="grid gap-8 md:grid-cols-2">
-      <Field name="name" label={f.name.label} required />
-      <Field name="email" label={f.email.label} type="email" required />
+      <Field name="name" label={f.name.label} autoComplete="name" required />
+      <Field name="email" label={f.email.label} type="email" autoComplete="email" required />
       <Field name="eventDate" label={f.eventDate.label} type="date" hint={f.eventDate.hint} />
       <Field name="eventType" label={f.eventType.label} as="select" options={f.eventType.options} />
       <Field name="venue" label={f.venue.label} />
@@ -73,7 +73,7 @@ export function ContactForm() {
         <button
           type="submit"
           disabled={state === "sending"}
-          className="eyebrow w-full border border-ink px-10 py-5 transition-colors hover:bg-ink hover:text-linen disabled:opacity-50 md:w-auto"
+          className="eyebrow btn w-full disabled:opacity-50 md:w-auto"
         >
           {state === "sending" ? f.submitting : f.submit}
         </button>
@@ -96,6 +96,7 @@ function Field({
   required,
   hint,
   options,
+  autoComplete,
 }: {
   name: string;
   label: string;
@@ -104,9 +105,11 @@ function Field({
   required?: boolean;
   hint?: string;
   options?: readonly string[];
+  autoComplete?: string;
 }) {
+  const hintId = hint ? `${name}-hint` : undefined;
   const base =
-    "mt-3 w-full border-b border-ink/30 bg-transparent pb-3 text-body focus:border-mauve focus:outline-none";
+    "mt-3 w-full border-b border-ink/60 bg-transparent pb-3 text-body focus:border-mauve focus:outline-hidden user-invalid:border-mauve-tx";
 
   return (
     <div>
@@ -116,7 +119,7 @@ function Field({
       </label>
 
       {as === "textarea" ? (
-        <textarea id={name} name={name} rows={5} required={required} className={`${base} resize-y`} />
+        <textarea id={name} name={name} rows={5} required={required} className={`${base} min-h-32 resize-y field-sizing-content`} />
       ) : as === "select" ? (
         <select id={name} name={name} required={required} defaultValue="" className={base}>
           <option value="" disabled>
@@ -129,10 +132,22 @@ function Field({
           ))}
         </select>
       ) : (
-        <input id={name} name={name} type={type} required={required} className={base} />
+        <input
+          id={name}
+          name={name}
+          type={type}
+          required={required}
+          autoComplete={autoComplete}
+          aria-describedby={hintId}
+          className={base}
+        />
       )}
 
-      {hint && <p className="mt-2 text-body-sm text-ink">{hint}</p>}
+      {hint && (
+        <p id={hintId} className="mt-2 text-body-sm text-ink">
+          {hint}
+        </p>
+      )}
     </div>
   );
 }

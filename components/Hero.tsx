@@ -46,7 +46,7 @@ export function Hero({
         className="object-cover"
       />
       <div aria-hidden className="scrim absolute inset-0" />
-      <div className="relative px-(--spacing-gutter) text-center text-white">
+      <div className="on-dark relative px-(--spacing-gutter) text-center text-linen">
         {eyebrow && <p className="eyebrow mb-6">{eyebrow}</p>}
 
         <h1 className={full ? "text-display-hero font-myroge" : "text-display-lg"}>

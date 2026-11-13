@@ -60,7 +60,7 @@ export const home = {
     accent: "let's begin",
     title: "Tell us what you are planning",
     body: `Dates book up well ahead, particularly through summer and early autumn. Reach out and we will let you know what is open.`,
-    button: { label: "Get in touch", href: "/contact" },
+    button: { label: "Enquire", href: "/contact" },
     image: "/images/home/cta.jpg",
     imageAlt: "Floral arrangement by Anastasia Floristry",
   },
@@ -92,7 +92,7 @@ export const about = {
     body: `I grew up in rural Ukraine, in a place where everyone had a garden and flowers were simply part of ordinary life. That stayed with me through years of corporate work, until I finally gave in to it. More than 150 weddings later, I still get the same feeling walking into a room before the guests arrive.`,
     image: "/images/about/portrait.jpg",
     imageAlt: "Anastasia, founder of Anastasia Floristry",
-    cta: { label: "See her work", href: "/portfolio" },
+    cta: { label: "See my work", href: "/portfolio" },
   },
   values: {
     eyebrow: "What we care about",
@@ -207,8 +207,16 @@ export const contactPage = {
   },
 };
 
+/** The 404 page. */
+export const notFoundPage = {
+  metaTitle: "Page not found",
+  eyebrow: "Page not found",
+  title: "This page has wandered off",
+  body: `The link may be out of date, or the page may have moved. Here is everything else:`,
+};
+
 export const faqPage = {
-  eyebrow: "Questions",
-  title: "Frequently asked",
+  eyebrow: "Good to know",
+  title: "Questions",
   body: `Everything couples usually want to know before enquiring. If your question is not here, just ask.`,
 };

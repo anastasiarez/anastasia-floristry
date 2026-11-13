@@ -68,28 +68,24 @@
      which broke every width in the middle. These interpolate smoothly.
   */
   --text-display-hero: clamp(3.25rem, 13vw, 11.25rem);
-  --text-display-xl: clamp(2.75rem, 9vw, 7.5rem);
   --text-display-lg: clamp(2.25rem, 7vw, 6.25rem);
-  --text-display-md: clamp(2rem, 5.5vw, 5rem);
   --text-display-sm: clamp(1.75rem, 4.5vw, 4.6875rem);
   --text-display-xs: clamp(1.375rem, 3vw, 3.4375rem);
   /* Holding page heading only. */
   --text-holding: clamp(1.5rem, 3.3vw, 3.25rem);
   --text-display-2xs: clamp(1.125rem, 1.8vw, 1.875rem);
 
-  --text-script-hero: clamp(4rem, 16vw, 15rem);
   --text-script-lg: clamp(2.25rem, 4.5vw, 3.75rem);
-  --text-script-md: clamp(2rem, 4vw, 3.4375rem);
   --text-script-sm: clamp(1.75rem, 3.5vw, 3.125rem);
   --text-script-xs: clamp(1.5rem, 2.5vw, 2.5rem);
 
-  /* The wordmark. Its own token because the business name is the string most
-     likely to change, and it previously had three different hardcoded
-     treatments across Nav (twice) and Footer. */
-  --text-wordmark: clamp(1.05rem, 1.6vw, 1.25rem);
 
   /* 16px floor for body copy: Montserrat Light is thin, and 15px read faint
      on Linen, especially on phones. */
+  /* Letter-spacing for the small uppercase headings (cards, FAQ questions,
+     gallery titles, mobile menu). One value, not one per call site. */
+  --tracking-heading: 0.12em;
+
   --text-body: 1rem;
   --text-body-sm: 0.9375rem;
   --text-label: 0.75rem;
@@ -100,7 +96,6 @@
      and faded between pages over 0.75s. Kept for the scroll reveal; the page
      fade is shorter because navigation here is already instant.
   */
-  --reveal-duration: 0.75s;
   --reveal-distance: 1.25rem;
   --page-fade: 0.45s;
 
@@ -173,14 +168,6 @@
     text-transform: uppercase;
   }
 
-  /* The business name, wherever it appears as a wordmark. */
-  .wordmark {
-    font-family: var(--font-display);
-    font-size: var(--text-wordmark);
-    font-weight: 400;
-    letter-spacing: 0.3em;
-    text-transform: uppercase;
-  }
 
   /* Script accent word, often overlapping a display heading. */
   .script {
@@ -202,6 +189,29 @@
   .link-underline:hover {
     background-size: 0% 1px;
     color: var(--color-mauve-tx);
+  }
+
+  /* The bordered button. One pattern for every call to action: the header
+     Enquire, the CTA band, the Instagram strip and the form submit.
+     `.btn-light` is the same button on a dark photo; `.btn-sm` is the compact
+     header size. Pair with `.eyebrow` for the label type. */
+  .btn {
+    display: inline-block;
+    border: 1px solid currentColor;
+    padding: 1rem 2.5rem;
+    transition: background-color 0.4s ease, color 0.4s ease;
+  }
+  .btn:hover {
+    background-color: var(--color-ink);
+    color: var(--color-linen);
+  }
+  .btn-light:hover {
+    background-color: var(--color-linen);
+    color: var(--color-ink);
+  }
+  .btn-sm {
+    padding: 0.625rem 1rem;
+    line-height: 1;
   }
 
   /* The reverse, for navigation: no line at rest, drawn in on hover or focus.
@@ -242,6 +252,19 @@
   color: var(--color-mauve-tx);
 }
 
+/* Windows High Contrast / forced colours: lines drawn with a background
+   colour (hamburger, close icon, testimonial dots) would vanish. */
+@media (forced-colors: active) {
+  .icon-line {
+    background-color: CanvasText;
+  }
+}
+
+/* Focus ring on dark photo bands: Evergreen vanishes on the scrim. */
+.on-dark :focus-visible {
+  outline-color: var(--color-linen);
+}
+
 /* Darkening behind white text on photos (Hero, CTA band). Strongest in the
    centre where the text sits, lighter at the edges so the photo still reads. */
 .scrim {
@@ -268,25 +291,24 @@
    and the full-bleed bands scroll at a different rate to the page.
    ========================================================================== */
 
-/* Scroll reveal.
-   The hidden start state is gated on `.js-reveal`, set on <html> by an inline
-   script in app/layout.tsx before first paint. Three reasons it is a class and
-   not a media query: no-JS and pre-hydration renders stay visible, there is no
-   flash of visible-then-hidden, and it cannot be split across a query boundary
-   by the minifier (which is exactly what broke an earlier
-   `@media (scripting: enabled)` version: the hide rule was hoisted out and the
-   show rule was left inside, so content never became visible). */
-.js-reveal .reveal {
-  opacity: 0;
-  transform: translateY(var(--reveal-distance));
-  transition:
-    opacity var(--reveal-duration) ease-out,
-    transform var(--reveal-duration) ease-out;
+/* Scroll reveal, CSS only (see components/Reveal.tsx).
+   Fades and lifts each .reveal block as it enters the viewport, tied to scroll
+   position. Gated twice: browsers without scroll-driven animations and anyone
+   asking for reduced motion get the content as-is, never hidden. */
+@keyframes reveal {
+  from {
+    opacity: 0;
+    translate: 0 var(--reveal-distance);
+  }
 }
-
-.js-reveal .reveal.is-visible {
-  opacity: 1;
-  transform: none;
+@supports (animation-timeline: view()) {
+  @media (prefers-reduced-motion: no-preference) {
+    .reveal {
+      animation: reveal linear both;
+      animation-timeline: view();
+      animation-range: entry 0% entry 60%;
+    }
+  }
 }
 
 /* Page crossfade on navigation. */
@@ -326,13 +348,6 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .js-reveal .reveal,
-  .js-reveal .reveal.is-visible {
-    opacity: 1;
-    transform: none;
-    transition: none;
-  }
-
   .page-fade {
     animation: none;
   }
