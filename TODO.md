@@ -34,8 +34,8 @@
 Live at https://anastasiafloristry.com — structurally complete, still wearing
 placeholders. Run `pnpm check` for the current machine-readable state.
 
-As of the last check: **37 TODO markers, 13 placeholder alt texts, 1 unfilled
-fact, 19 placeholder images.**
+As of 2026-11-13: **19 placeholder images** (every photo on the full site),
+no real testimonials, and 9 facts awaiting her confirmation. Run `pnpm check`.
 
 ---
 
@@ -56,21 +56,10 @@ templates. Specs are documented in AGENTS.md. Source files are gitignored
 
 Done already: the real tagline ("Weddings & Events") replaced the invented one.
 
-- [ ] **Swap the palette** to the seven brand colours. Watch the trap: the old
-      tokens `linen` and `ink` both exist in the new palette with *different*
-      values, so check value-by-value, not by name. Re-run the contrast audit
-      after; these are print-first values and several will fail AA for small
-      text exactly as the reference palette did. Derive accessible text
-      variants the same way and keep brand values for large display only.
-- [ ] **Swap the fonts.** Display goes from Jost (geometric sans) to
-      **Playfair Display** or **Prata** (high-contrast serif) — a real change
-      of character, matching the serif wordmark. Body becomes **Montserrat
-      Light**. Both are explicitly sanctioned in the guidelines.
-- [ ] **Use the real logo.** The header is currently the name set in type.
-      Replace with an SVG from `Branding/Logos/RGB/SVG`.
-- [ ] **Favicon and app icons** from the brand mark or the AF monogram. The
-      guidelines name "website favicon" as a submark use, so this is specified,
-      not a judgement call.
+- [x] Palette swapped to the seven brand colours, contrast audit passes.
+- [x] Fonts: Prata (display), Montserrat (body and eyebrows), Myroge on the
+      holding page.
+- [x] Real wordmark in the header, brand mark as favicon and app icon.
 - [x] Regenerate the OG card once palette and fonts are in. Done.
 - [ ] **AT LAUNCH: raise `images.minimumCacheTTL`** in `next.config.ts`. It is
       deliberately short (300s) because placeholders are overwritten in place at
@@ -94,34 +83,13 @@ Done already: the real tagline ("Weddings & Events") replaced the invented one.
       **Her decision, not ours.** But it likely means a planner-facing page or
       section, and different FAQ questions.
 
-What is currently a placeholder standing in for real brand work:
-
-- [ ] **Logo / wordmark.** The header is just the business name set in Jost.
-- [ ] **Favicon and app icons.** Still the Next.js default logo in the browser
-      tab. Pointless to design now if a real mark is coming. When it arrives:
-      replace `app/favicon.ico`, and add `app/icon.png` (512px) and
-      `app/apple-icon.png` (180px) — Next picks both up automatically.
-- [ ] **Palette.** The seven colours were extracted from the reference
-      template, then darkened to pass WCAG AA. A brand palette will replace
-      them, and will need re-checking with `pnpm contrast`.
-- [ ] **Typography.** `Jost` and `Parisienne` are free stand-ins for the
-      reference design's two commercial fonts. A designer will likely specify
-      real ones.
-- [ ] **Social card.** `app/opengraph-image.tsx` is generated from the palette
-      and the name, so it changes when they do.
-
-**The swap is cheap by design.** Every colour and type value lives in the one
-`@theme` block in `app/globals.css`, and the fonts are two `next/font`
-declarations in `app/layout.tsx`. Nothing is hardcoded in components, so
-adopting a brand is editing one file plus two font lines, not a rebuild.
-
 ### Identity inconsistencies to settle at the same time
 
-Three identities are currently live in one flow. Not urgent while branding is
+Several identities are currently live in one flow. Not urgent while branding is
 pending, but they need to agree before launch:
 
 - site says **Anastasia Floristry**
-- Instagram link points at **@flower_your_soul**
+- Instagram link points at **@anastasia_floristry** (fixed Nov 2026)
 - enquiries deliver to **floweryoursoul@gmail.com**
 - Resend account is **anastasiia.rn@gmail.com**
 

@@ -38,8 +38,8 @@ const body = Montserrat({
 export const metadata: Metadata = {
   metadataBase: new URL(site.url),
   title: {
-    default: `${site.name} — ${site.tagline}`,
-    template: `%s — ${site.name}`,
+    default: `${site.name} | ${site.tagline}`,
+    template: `%s | ${site.name}`,
   },
   description: `${site.tagline} in ${site.location.city}, ${site.location.region}. ${site.location.serviceArea}.`,
   openGraph: {

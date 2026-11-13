@@ -22,7 +22,7 @@ export const metadata: Metadata = {
  * Service structured data, one entry per offering.
  *
  * Lets search engines and AI assistants answer "does X do elopements" or
- * "who does floral installations in Toronto" with this business as the
+ * "who does wedding florals near Guelph" with this business as the
  * source, rather than only matching on the page text.
  */
 function ServicesSchema() {

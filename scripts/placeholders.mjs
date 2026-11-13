@@ -58,6 +58,7 @@ const targets = [
 
 let written = 0;
 let skipped = 0;
+const generated = [];
 
 for (const [i, slot] of targets.entries()) {
   const file = `${OUT}${slot.path}`;
@@ -79,13 +80,23 @@ for (const [i, slot] of targets.entries()) {
   await mkdir(dirname(file), { recursive: true });
   await sharp(Buffer.from(svg)).jpeg({ quality: 80 }).toFile(file);
   console.log(`  write  ${slot.path}  ${slot.w}×${slot.h}`);
+  generated.push(slot.path);
   written++;
 }
 
 // Record which paths are placeholders so `pnpm check` can flag them.
+// Only paths written by this run are added: a skipped file may be a real
+// photo, and must not be re-marked as a placeholder. The manifest is committed,
+// so a fresh clone knows which images are still stand-ins.
+let known = [];
+try {
+  known = JSON.parse(await readFile(PLACEHOLDER_MANIFEST, "utf8"));
+} catch {
+  // First run: nothing recorded yet.
+}
 await writeFile(
   PLACEHOLDER_MANIFEST,
-  JSON.stringify(targets.map((t) => t.path), null, 2) + "\n",
+  JSON.stringify([...new Set([...known, ...generated])].sort(), null, 2) + "\n",
 );
 
 console.log(`\n${written} written, ${skipped} already present (${targets.length} slots total).`);
