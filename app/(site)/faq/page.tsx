@@ -3,7 +3,7 @@ import { Section, SectionIntro } from "@/components/Section";
 import { CTABand } from "@/components/CTABand";
 import { faqs } from "@/content/faq";
 import { seo } from "@/content/seo";
-import { home } from "@/content/pages";
+import { faqPage, home } from "@/content/pages";
 
 export const metadata: Metadata = {
   title: seo.faq.title,
@@ -42,10 +42,10 @@ export default function FaqPage() {
       <Section width="content">
         <SectionIntro
           as="h1"
-          eyebrow="Questions"
-          accent="good to know"
-          title="Frequently asked"
-          body="Everything couples usually want to know before enquiring. If your question is not here, just ask."
+          eyebrow={faqPage.eyebrow}
+          accent={faqPage.accent}
+          title={faqPage.title}
+          body={faqPage.body}
         />
 
         {/* Plain dl rather than accordions: every answer is in the initial

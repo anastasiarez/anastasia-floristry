@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import { Hero } from "@/components/Hero";
 import { Section, SectionIntro } from "@/components/Section";
 import { SplitFeature } from "@/components/SplitFeature";
@@ -43,15 +44,17 @@ export default function HomePage() {
       <ImageBand {...home.band} />
 
       <Section tone="linen">
-        <SectionIntro eyebrow="Services" title="How we can help" />
+        <SectionIntro eyebrow={home.services.eyebrow} title={home.services.title} />
         <div className="mt-20">
           <NumberedCards
-            items={services.map((s, i) => ({
-              step: String(i + 1).padStart(2, "0"),
-              title: s.name,
-              body: s.summary,
-            }))}
+            numbered={false}
+            items={services.map((s) => ({ title: s.name, body: s.summary }))}
           />
+        </div>
+        <div className="mt-16 text-center">
+          <Link href="/services" className="eyebrow link-underline text-evergreen">
+            {home.services.link}
+          </Link>
         </div>
       </Section>
 

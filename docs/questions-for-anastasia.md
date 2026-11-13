@@ -53,6 +53,17 @@ Sizes: `docs/photo-brief.md`. She drops originals into `incoming/`.
 - [ ] Enquiries currently go to `floweryoursoul@gmail.com`. Move to an inbox
       on the new domain?
 
+### Price calculator (she wants one on the site soon)
+
+- [ ] What should a visitor enter? For example guest count, package, date or
+      season, venue area, ceremony installation yes or no, number of tables.
+- [ ] How does each input change the price? A simple rule per input is enough
+      (for example "+$X per table above Y").
+- [ ] Is Intimate Celebrations priced separately? The price guide currently
+      covers full-service weddings only.
+- [ ] Should the result be a range ("$6,500 to $7,500") or a "from" price?
+- [ ] Should the calculator send the result with the enquiry form?
+
 ## Answered
 
 (none yet)
@@ -84,6 +95,13 @@ Sizes: `docs/photo-brief.md`. She drops originals into `incoming/`.
 **Тільки ти можеш дати:**
 - 2–3 справжні відгуки клієнтів, з дозволом і іменем.
 - Затвердити історію «Про мене» (село в Україні, сади, корпоративна робота, потім флористика).
+
+**Калькулятор ціни** (ти хотіла його на сайт):
+- Що відвідувач має вводити? Наприклад: кількість гостей, пакет, дата/сезон, район локації, церемоніальна інсталяція так/ні, кількість столів.
+- Як кожен пункт змінює ціну? Достатньо простого правила (напр. «+$X за кожен стіл понад Y»).
+- Чи має Intimate Celebrations окрему ціну? Зараз прайс показує лише повний весільний сервіс.
+- Результат показувати діапазоном («$6,500–7,500») чи «від $X»?
+- Надсилати результат разом із заявкою?
 
 **Рішення:**
 - У брендбуку головні клієнти це весільні планувальники, а сайт говорить до пар. Залишаємо для пар чи додаємо розділ для планувальників?

@@ -35,6 +35,7 @@ export default function AboutPage() {
         body={about.bio.body}
         image={about.bio.image}
         imageAlt={about.bio.imageAlt}
+        cta={about.bio.cta}
         side="left"
         tone="linen"
       />
@@ -44,7 +45,7 @@ export default function AboutPage() {
       <Section>
         <SectionIntro eyebrow={about.values.eyebrow} title={about.values.title} />
         <div className="mt-20">
-          <NumberedCards items={about.values.items} />
+          <NumberedCards numbered={false} items={about.values.items} />
         </div>
       </Section>
 
