@@ -3,7 +3,7 @@ import { site } from "@/content/site";
 
 /** Palette-only social card so it stays legible without depending on photos. */
 
-export const alt = `${site.name} — ${site.tagline}`;
+export const alt = `${site.name}, ${site.tagline}`;
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 

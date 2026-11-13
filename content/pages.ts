@@ -119,7 +119,7 @@ export const servicesPage = {
     eyebrow: "Services",
     title: "What we do",
     accent: "florals",
-    subtitle: "Weddings, events and large-scale installations",
+    subtitle: "Signature weddings and intimate celebrations",
     image: "/images/services/hero.jpg",
     imageAlt: "Floral arrangement by Anastasia Floristry",
   },

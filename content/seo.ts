@@ -15,9 +15,9 @@
 
 export const seo = {
   home: {
-    title: undefined, // uses the root template: "<name> — <tagline>"
+    title: undefined, // uses the root template: "<name> | <tagline>"
     description:
-      "Wedding and event florist serving Toronto and southern Ontario. Seasonal floral design for weddings, celebrations and large-scale installations.",
+      "Wedding and event florist serving Hamilton, Brantford, Kitchener-Waterloo, Guelph and Southwestern Ontario. Seasonal florals for weddings and celebrations.",
   },
   about: {
     title: "About",
@@ -27,17 +27,17 @@ export const seo = {
   services: {
     title: "Services",
     description:
-      "Wedding florals, event arrangements and large-scale installations in Ontario. Bouquets, ceremony pieces, centrepieces, delivery, setup and teardown.",
+      "Wedding and celebration florals in Southwestern Ontario. Ceremony installations, bouquets, centrepieces, delivery, setup and teardown.",
   },
   portfolio: {
     title: "Portfolio",
     description:
-      "Recent wedding and event florals across Toronto and southern Ontario, each designed around the venue, the season and the couple.",
+      "Recent wedding and event florals across Southwestern Ontario, each designed around the venue, the season and the couple.",
   },
   contact: {
     title: "Contact",
     description:
-      "Enquire about wedding or event florals in Toronto and southern Ontario. Share your date and venue and we reply within two business days.",
+      "Enquire about wedding or event florals in Southwestern Ontario. Share your date and venue and we reply within two business days.",
   },
   faq: {
     title: "Questions",
