@@ -20,7 +20,6 @@ export default function HomePage() {
         sizes="100vw"
         className="absolute inset-0 -z-20 object-cover object-[50%_56%]"
       />
-      <div aria-hidden="true" className="absolute inset-0 -z-10 bg-linen/80" />
       <a
         href={site.social.instagram}
         target="_blank"
