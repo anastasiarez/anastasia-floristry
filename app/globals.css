@@ -1,13 +1,8 @@
 @import "tailwindcss";
 
-/* Licensed Myroge webfont, supplied as a local WOFF asset. */
-@font-face {
-  font-family: "Myroge";
-  src: url("/fonts/MYROGE-Regular.woff") format("woff");
-  font-weight: 400;
-  font-style: normal;
-  font-display: swap;
-}
+/* Myroge (licensed, local) is loaded by next/font/local in app/layout.tsx,
+   which preloads it, serves it from a hashed immutable URL and generates a
+   size-matched fallback so the swap does not shift layout. */
 
 /* ==========================================================================
    DESIGN TOKENS
@@ -66,7 +61,7 @@
   --font-display: var(--font-prata), Georgia, "Times New Roman", serif;
   --font-script: var(--font-prata), Georgia, serif;
   --font-body: var(--font-montserrat), system-ui, sans-serif;
-  --font-myroge: "Myroge", var(--font-prata), Georgia, "Times New Roman", serif;
+  --font-myroge: var(--font-myroge-face), var(--font-prata), Georgia, "Times New Roman", serif;
 
   /* ---- Type scale -------------------------------------------------------
      Fluid. The reference design jumped 180px -> 50px with nothing between,

@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Montserrat, Prata } from "next/font/google";
+import localFont from "next/font/local";
 import { Analytics } from "@vercel/analytics/next";
 import { site } from "@/content/site";
 import "./globals.css";
@@ -26,6 +27,15 @@ const display = Prata({
   weight: "400",
   variable: "--font-prata",
   display: "swap",
+});
+
+/** Licensed brand headline face. Only weight 400 exists. */
+const myroge = localFont({
+  src: "./fonts/MYROGE-Regular.woff",
+  weight: "400",
+  variable: "--font-myroge-face",
+  display: "swap",
+  adjustFontFallback: "Times New Roman",
 });
 
 const body = Montserrat({
@@ -96,7 +106,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html
       lang="en-CA"
-      className={`${display.variable} ${body.variable}`}
+      className={`${display.variable} ${body.variable} ${myroge.variable}`}
       // The inline script below adds `js-reveal` to this element before React
       // hydrates, so the client class list legitimately differs from the
       // server's. Same reason next-themes suppresses here.

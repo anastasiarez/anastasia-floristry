@@ -34,6 +34,7 @@ export async function Footer() {
             */}
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
+              loading="lazy"
               src="/brand/mark-ink.svg"
               alt=""
               width={890}
