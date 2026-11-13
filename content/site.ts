@@ -89,7 +89,7 @@ export const site: Site = {
   },
 
   social: {
-    instagram: "https://instagram.com/anastasiafloristry",
+    instagram: "https://instagram.com/anastasia_floristry",
     pinterest: "", // leave empty to hide
   },
 

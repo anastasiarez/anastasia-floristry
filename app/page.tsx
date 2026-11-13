@@ -10,7 +10,7 @@ export const metadata: Metadata = {
 
 export default function HomePage() {
   return (
-    <section className="relative isolate flex min-h-svh flex-col items-center justify-center gap-10 bg-wisteria px-(--spacing-gutter) py-8 text-center text-ink">
+    <section className="relative isolate flex min-h-svh flex-col items-center justify-start gap-8 bg-wisteria px-(--spacing-gutter) pt-8 pb-8 text-center text-ink">
       <Image
         src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/ANA_1992.JPG-ZzlR6KnLiGixe60Pa96zOAuYgUK2uY.jpeg"
         alt=""
@@ -26,10 +26,10 @@ export default function HomePage() {
         target="_blank"
         rel="noopener noreferrer"
         aria-label="Anastasia Floristry on Instagram"
-        className="block w-full max-w-[min(48rem,90vw)] rounded-sm focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-ink"
+        className="block w-full max-w-[min(38rem,88vw)] rounded-sm focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-ink"
       >
         <Image
-          src="/images/98140468-replacement-image-1.png"
+          src="/images/anastasia-floristry-evergreen-logo.png"
           alt="Anastasia Floristry — Weddings & Events"
           width={2490}
           height={1000}
@@ -38,7 +38,7 @@ export default function HomePage() {
           className="h-auto w-full mix-blend-difference"
         />
       </a>
-      <h1 className="flex flex-col font-myroge text-[clamp(2rem,5.2vw,4.1rem)] normal-case leading-[1.08]">
+      <h1 className="flex flex-col font-myroge text-[clamp(1.5rem,3.3vw,3.25rem)] normal-case leading-[1.12]">
         <span>We are reimagining</span>
         <span>our website.</span>
       </h1>
