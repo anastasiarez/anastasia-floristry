@@ -35,6 +35,7 @@ import {
   PUBLIC_DIR,
   INCOMING_DIR,
   PLACEHOLDER_MANIFEST,
+  displaySize,
 } from "./slots.mjs";
 
 const IN = INCOMING_DIR;
@@ -83,8 +84,7 @@ for (const entry of manifest.assignments) {
 
   try {
     const pipeline = sharp(src).rotate(); // EXIF orientation
-    // Size as displayed, after EXIF rotation (see ingest-scan.mjs).
-    const meta = (await pipeline.metadata()).autoOrient ?? (await pipeline.metadata());
+    const meta = displaySize(await pipeline.metadata());
 
     const scaleNeeded = upscaleFactor(slot, meta.width, meta.height);
     if (scaleNeeded > 1) {

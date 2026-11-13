@@ -36,12 +36,22 @@ export function Nav() {
 
   const openButton = useRef<HTMLButtonElement>(null);
   const closeButton = useRef<HTMLButtonElement>(null);
-  const wasOpen = useRef(false);
+  // Set by the close button and Escape: focus goes back to the hamburger.
+  // Following a menu link leaves it unset, so focus stays on the new page.
+  const refocus = useRef(false);
+  const dismiss = () => {
+    refocus.current = true;
+    close();
+  };
 
   // While open: lock scroll, make the page behind inert so Tab cannot reach
-  // it, and move focus into the drawer. On close, return focus to the
-  // hamburger, but only if focus was inside the drawer (not after navigating).
+  // it, and move focus into the drawer.
   useEffect(() => {
+    if (!open) {
+      if (refocus.current) openButton.current?.focus();
+      refocus.current = false;
+      return;
+    }
     const behind = [
       document.querySelector("body > header"),
       document.getElementById("main"),
@@ -49,17 +59,9 @@ export function Nav() {
       document.querySelector("body > footer"),
     ].filter((el): el is HTMLElement => el !== null);
 
-    if (open) {
-      document.body.style.overflow = "hidden";
-      behind.forEach((el) => (el.inert = true));
-      closeButton.current?.focus();
-    } else if (wasOpen.current) {
-      const focusWasInDrawer =
-        document.activeElement === document.body ||
-        closeButton.current?.closest("[role=dialog]")?.contains(document.activeElement);
-      if (focusWasInDrawer) openButton.current?.focus();
-    }
-    wasOpen.current = open;
+    document.body.style.overflow = "hidden";
+    behind.forEach((el) => (el.inert = true));
+    closeButton.current?.focus();
 
     return () => {
       document.body.style.overflow = "";
@@ -71,7 +73,7 @@ export function Nav() {
   // is hidden there and would otherwise leave the page scroll-locked.
   useEffect(() => {
     if (!open) return;
-    const onKey = (e: KeyboardEvent) => e.key === "Escape" && close();
+    const onKey = (e: KeyboardEvent) => e.key === "Escape" && dismiss();
     const wide = window.matchMedia(DESKTOP);
     const onWide = () => wide.matches && close();
     window.addEventListener("keydown", onKey);
@@ -124,7 +126,7 @@ export function Nav() {
           </ul>
 
           {/* Mobile: enquiry button, always visible */}
-          <Link href={navCta.href} className={`${ctaClass} lg:hidden`}>
+          <Link href={navCta.href} className="eyebrow btn btn-sm lg:hidden">
             {navCta.label}
           </Link>
 
@@ -177,7 +179,7 @@ export function Nav() {
           <button
             ref={closeButton}
             type="button"
-            onClick={close}
+            onClick={dismiss}
             aria-label={navLabels.close}
             className="-mr-2.5 flex size-11 flex-col items-center justify-center"
           >
@@ -210,9 +212,6 @@ export function Nav() {
   );
 }
 
-/** The bordered enquiry button, shared by the desktop and mobile headers. */
-const ctaClass = "eyebrow btn btn-sm";
-
 function NavLink({
   label,
   href,
@@ -227,7 +226,7 @@ function NavLink({
   if (href === navCta.href) {
     return (
       <li>
-        <Link href={href} aria-current={active ? "page" : undefined} className={ctaClass}>
+        <Link href={href} aria-current={active ? "page" : undefined} className="eyebrow btn btn-sm">
           {navCta.label}
         </Link>
       </li>
@@ -241,7 +240,7 @@ function NavLink({
       <Link
         href={href}
         aria-current={active ? "page" : undefined}
-        className={`eyebrow ${active ? "link-hover text-evergreen" : "link-hover"}`}
+        className={`eyebrow link-hover ${active ? "text-evergreen" : ""}`}
       >
         {label}
       </Link>

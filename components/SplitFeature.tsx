@@ -8,7 +8,6 @@ import { Reveal } from "./Reveal";
  */
 export function SplitFeature({
   eyebrow,
-  accent,
   title,
   body,
   bullets,
@@ -20,7 +19,6 @@ export function SplitFeature({
   id,
 }: {
   eyebrow?: string;
-  accent?: string;
   title: string;
   body: string;
   bullets?: readonly string[];
@@ -47,14 +45,13 @@ export function SplitFeature({
             src={image}
             alt={imageAlt}
             fill
-            sizes="(min-width: 768px) 50vw, 100vw"
+            sizes="(min-width: 82.5rem) 41rem, (min-width: 768px) 50vw, 100vw"
             className="object-cover"
           />
         </div>
 
         <Reveal className={side === "right" ? "md:order-1" : "md:order-2"}>
           {eyebrow && <p className="eyebrow text-evergreen">{eyebrow}</p>}
-          {accent && <p className="script mt-4 text-script-sm text-mauve">{accent}</p>}
           <h2 className="mt-6 text-display-xs">{title}</h2>
           <p className="mt-8">{body}</p>
 

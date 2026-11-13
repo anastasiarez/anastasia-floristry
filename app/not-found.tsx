@@ -1,6 +1,5 @@
 import Link from "next/link";
-import { Nav } from "@/components/Nav";
-import { Footer } from "@/components/Footer";
+import SiteLayout from "./(site)/layout";
 import { Section, SectionIntro } from "@/components/Section";
 import { notFoundPage } from "@/content/pages";
 import { nav } from "@/content/site";
@@ -12,33 +11,29 @@ export const metadata = {
 };
 
 /**
- * Rendered by the root layout, outside the (site) group, so it brings its own
- * header and footer: a lost visitor should still see the whole site frame.
+ * Rendered by the root layout, outside the (site) group, so it wraps itself in
+ * that group's layout: a lost visitor still sees the whole site frame.
  */
 export default function NotFound() {
   return (
-    <>
-      <Nav />
-      <main id="main">
-        <Section width="content" className="min-h-[60svh]">
-          <SectionIntro
-            as="h1"
-            eyebrow={notFoundPage.eyebrow}
-            title={notFoundPage.title}
-            body={notFoundPage.body}
-          />
-          <ul className="mx-auto mt-16 grid max-w-md grid-cols-3 justify-items-center gap-y-4">
-            {nav.map((item) => (
-              <li key={item.href}>
-                <Link href={item.href} className="eyebrow link-underline text-evergreen">
-                  {item.label}
-                </Link>
-              </li>
-            ))}
-          </ul>
-        </Section>
-      </main>
-      <Footer />
-    </>
+    <SiteLayout>
+      <Section width="content" className="min-h-[60svh]">
+        <SectionIntro
+          as="h1"
+          eyebrow={notFoundPage.eyebrow}
+          title={notFoundPage.title}
+          body={notFoundPage.body}
+        />
+        <ul className="mx-auto mt-16 grid max-w-md grid-cols-3 justify-items-center gap-y-4">
+          {nav.map((item) => (
+            <li key={item.href}>
+              <Link href={item.href} className="eyebrow link-underline text-evergreen">
+                {item.label}
+              </Link>
+            </li>
+          ))}
+        </ul>
+      </Section>
+    </SiteLayout>
   );
 }

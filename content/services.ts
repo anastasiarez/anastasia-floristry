@@ -55,17 +55,14 @@ export const services: Service[] = [
 /** The booking process, shown as numbered steps on /services. */
 export const process = [
   {
-    step: "01",
     title: "Tell us about the day",
     body: `Send through your date, venue and a rough guest count, along with anything you have already collected for inspiration.`,
   },
   {
-    step: "02",
     title: "A conversation",
     body: `We talk through the whole picture, what is possible in your season, and where the budget is best spent.`,
   },
   {
-    step: "03",
     title: "Proposal and booking",
     body: `You receive a written floral proposal. Once it feels right, a signed agreement and deposit hold your date.`,
   },
@@ -79,6 +76,8 @@ export const process = [
 export const pricing = {
   /** The lowest price for a full-service wedding. Shown on home, services and FAQ. */
   minimum: "$5,000",
+  /** Shown before `minimum` on home and services. */
+  fromLabel: "Full-service weddings from",
   note: "Full-service wedding florals, scaled to guest count.",
   tiers: [
     { guests: "70–80 guests", range: "$5,000–$6,500" },

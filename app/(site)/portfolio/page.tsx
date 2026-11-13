@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import Link from "next/link";
+import { SectionLink } from "@/components/SectionLink";
 import { Hero } from "@/components/Hero";
 import { Section, SectionIntro } from "@/components/Section";
 import { Gallery } from "@/components/Gallery";
@@ -38,11 +38,7 @@ export default function PortfolioPage() {
             <p className="eyebrow mt-4 text-evergreen">{gallery.caption}</p>
           </div>
           <Gallery images={galleryCells(gallery.images)} />
-          <div className="mt-10 text-center">
-            <Link href="/contact" className="eyebrow link-underline text-evergreen">
-              {portfolioPage.galleryEnquire}
-            </Link>
-          </div>
+          <SectionLink href="/contact">{portfolioPage.galleryEnquire}</SectionLink>
         </Section>
       ))}
 

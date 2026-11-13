@@ -32,8 +32,6 @@ export const home = {
   services: {
     eyebrow: "Services",
     title: "How we can help",
-    /** Followed by the minimum from `pricing` in content/services.ts. */
-    fromPrice: "Full-service weddings from",
     link: "Services and pricing",
   },
   hero: {
@@ -134,8 +132,6 @@ export const servicesPage = {
   },
   intro: {
     body: `Every enquiry is quoted individually, because the right answer depends on your venue, your season and the scale of the day. Below is the shape of what we offer.`,
-    /** Followed by the minimum from `pricing`, linking to the price guide. */
-    fromPrice: "Full-service weddings from",
     priceLink: "See the price guide",
   },
   /** Price guide. The figures come from `pricing` in content/services.ts. */

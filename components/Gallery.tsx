@@ -14,9 +14,9 @@ export function Gallery({ images }: { images: readonly GalleryCell[] }) {
   // Three columns only when there are enough images to fill them: a tall cell
   // plus two short ones in three columns left a blank row. `grid-flow-dense`
   // backfills any gap a tall cell leaves.
-  const columns = images.length >= 4 ? "md:grid-cols-3" : "";
+  const threeColumns = images.length >= 4;
   return (
-    <ul className={`grid grid-flow-dense grid-cols-2 gap-3 md:gap-5 ${columns}`}>
+    <ul className={`grid grid-flow-dense grid-cols-2 gap-3 md:gap-5 ${threeColumns ? "md:grid-cols-3" : ""}`}>
       {images.map((img) => (
         <li
           key={img.src}
@@ -28,7 +28,11 @@ export function Gallery({ images }: { images: readonly GalleryCell[] }) {
             src={img.src}
             alt={img.alt}
             fill
-            sizes={images.length >= 4 ? "(min-width: 768px) 33vw, 50vw" : "50vw"}
+            sizes={
+              threeColumns
+                ? "(min-width: 82.5rem) 27rem, (min-width: 768px) 33vw, 50vw"
+                : "(min-width: 82.5rem) 41rem, 50vw"
+            }
             className="object-cover transition-transform duration-700 hover:scale-105"
           />
         </li>

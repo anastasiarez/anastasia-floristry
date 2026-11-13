@@ -19,8 +19,10 @@ type HeroProps = {
  *
  * A `.scrim` darkens the photo behind the white text (see globals.css).
  * Pick hero photos with a mid-tone centre: on a near-white centre the small
- * eyebrow and subtitle can still fall short of AA. `preload` is set because this is always the largest contentful
- * paint on the page it appears on.
+ * eyebrow and subtitle can still fall short of AA.
+ *
+ * `preload` is set because the hero is always the largest contentful paint
+ * on its page.
  */
 export function Hero({
   titleTop,

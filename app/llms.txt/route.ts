@@ -22,8 +22,8 @@ import { services } from "@/content/services";
  */
 async function buildBody() {
   "use cache";
-  // Without a profile, "use cache" revalidates every 15 minutes, which kept
-  // regenerating the sitemap lastmod. Nothing here changes between deploys.
+  // Without a profile, "use cache" revalidates every 15 minutes; nothing here
+  // changes between deploys.
   cacheLife("max");
 
   const body = `# ${site.name}
