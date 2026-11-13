@@ -160,10 +160,17 @@ export const footerCopy = {
   contact: "Contact",
   instagramLead: "New work appears on Instagram first.",
   instagramButton: "Follow on Instagram",
+  instagramLink: "Instagram",
+  pinterestLink: "Pinterest",
 } as const;
 
 /** Labels for the mobile menu buttons, read by screen readers. */
-export const navLabels = { open: "Open menu", close: "Close menu", menu: "Menu" } as const;
+export const navLabels = {
+  open: "Open menu",
+  close: "Close menu",
+  menu: "Menu",
+  skip: "Skip to content",
+} as const;
 
 /**
  * Every indexable page. Drives the sitemap and llms.txt.

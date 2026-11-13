@@ -65,7 +65,9 @@ export function SectionIntro({
     <Reveal className="mx-auto max-w-(--container-content) text-center">
       {eyebrow && <p className="eyebrow text-evergreen">{eyebrow}</p>}
       {accent && <p className="script mt-4 text-script-sm text-mauve">{accent}</p>}
-      {title && <Heading className="mt-6 text-display-xs">{title}</Heading>}
+      {title && (
+        <Heading className={`mt-6 ${as === "h1" ? "text-display-sm" : "text-display-xs"}`}>{title}</Heading>
+      )}
       {body && <p className="mt-8">{body}</p>}
     </Reveal>
   );

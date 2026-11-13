@@ -99,7 +99,7 @@ export async function Footer() {
                     rel="noopener noreferrer"
                     className="link-underline"
                   >
-                    Instagram
+                    {footerCopy.instagramLink}
                   </a>
                 </li>
               )}
@@ -111,7 +111,7 @@ export async function Footer() {
                     rel="noopener noreferrer"
                     className="link-underline"
                   >
-                    Pinterest
+                    {footerCopy.pinterestLink}
                   </a>
                 </li>
               )}

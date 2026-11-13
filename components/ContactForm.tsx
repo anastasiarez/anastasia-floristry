@@ -109,7 +109,7 @@ function Field({
 }) {
   const hintId = hint ? `${name}-hint` : undefined;
   const base =
-    "mt-3 w-full border-b border-ink/60 bg-transparent pb-3 text-body focus:border-mauve focus:outline-hidden user-invalid:border-mauve-tx";
+    "mt-3 w-full border-b border-ink/60 bg-transparent pb-3 text-body focus:border-ink focus:outline-hidden user-invalid:border-mauve-tx";
 
   return (
     <div>

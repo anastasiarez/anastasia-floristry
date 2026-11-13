@@ -227,7 +227,8 @@
     transition: background-size 0.4s ease;
   }
   .link-hover:hover,
-  .link-hover:focus-visible {
+  .link-hover:focus-visible,
+  .link-hover[aria-current="page"] {
     background-size: 100% 1px;
   }
 }

@@ -29,7 +29,7 @@ export function CTABand({
         {body && <p className="mx-auto mt-8 max-w-xl">{body}</p>}
         <Link
           href={button.href}
-          className="eyebrow btn btn-light mt-12"
+          className="eyebrow btn btn-light mt-10"
         >
           {button.label}
         </Link>

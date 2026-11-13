@@ -9,7 +9,7 @@ import { about, home } from "@/content/pages";
 import { seo } from "@/content/seo";
 
 export const metadata: Metadata = {
-  title: "About",
+  title: seo.about.title,
   description: seo.about.description,
   alternates: { canonical: "/about" },
 };
