@@ -116,6 +116,15 @@ export const site: Site = {
 };
 
 /**
+ * Preview mode: lets Anastasia see the full site while the public only sees
+ * the holding page. Visiting /preview sets this cookie; /preview?exit clears
+ * it. Not a secret (the repo is public, so all of this copy is already
+ * readable on GitHub); it only keeps ordinary visitors on the holding page.
+ * Delete this, app/preview/ and the cookie rules in next.config.ts at launch.
+ */
+export const previewCookie = "af-preview";
+
+/**
  * Header navigation. Order here is the order rendered.
  *
  * Kept deliberately short: the studio name is long, and the desktop nav

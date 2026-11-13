@@ -134,6 +134,9 @@ If the new brand holds, set up an inbox on the new domain and point
 
 Things a visitor would notice today.
 
+- [ ] **Remove the holding page and preview mode.** Steps in AGENTS.md,
+      "Holding page and preview mode".
+
 - [ ] **Her photos.** 13 fixed slots + 3 per gallery. Drop originals in
       `incoming/`, then `pnpm ingest:scan` → review `assignment.json` →
       `pnpm ingest:build`. Sizes and ratios: `docs/photo-brief.md`.

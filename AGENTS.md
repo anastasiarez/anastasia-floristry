@@ -199,6 +199,21 @@ path. Do not rename paths, the content files reference them.
 - `pnpm placeholders` regenerates only missing files, so it is safe to run
   after real photos are added. `--force` regenerates everything.
 
+## Holding page and preview mode (pre-launch)
+
+The public sees only the holding page at `/` (`app/(holding)/`). Every other
+page redirects there unless the `af-preview` cookie is set. Visiting
+`/preview` sets it and shows the full site, with the real homepage
+(`app/(site)/home-preview/`) served at `/`. `/preview?exit` turns it off.
+Works the same locally and on the live domain.
+
+The cookie is not a secret: the repo is public. It only keeps ordinary
+visitors on the holding page.
+
+**At launch:** move `app/(site)/home-preview/page.tsx` to `app/(site)/page.tsx`,
+delete `app/(holding)/` and `app/preview/`, remove the cookie rules from
+`next.config.ts` and `previewCookie` from `content/site.ts`.
+
 ## Nav breakpoint
 
 The desktop split nav appears at `lg` (1024px), not `md`. The business name is

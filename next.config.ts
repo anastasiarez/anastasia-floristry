@@ -1,5 +1,5 @@
 import type { NextConfig } from "next";
-import { routes, site } from "./content/site";
+import { previewCookie, routes, site } from "./content/site";
 
 const nextConfig: NextConfig = {
   /**
@@ -40,14 +40,36 @@ const nextConfig: NextConfig = {
    * Driven by `site.indexable` in content/site.ts — flip that one flag at
    * launch and this disappears with it.
    */
+  /**
+   * Pre-launch: the public sees only the holding page. Every other page
+   * redirects to it unless the preview cookie is set (see content/site.ts).
+   * In preview mode "/" shows the full homepage instead of the holding page.
+   */
   async redirects() {
-    return routes
-      .filter(({ href }) => href !== "/")
-      .map(({ href }) => ({
-        source: href,
-        destination: "/",
-        permanent: false,
-      }));
+    const notPreviewing = [{ type: "cookie" as const, key: previewCookie }];
+    return [
+      ...routes.filter(({ href }) => href !== "/").map(({ href }) => href),
+      "/home-preview",
+    ].map((source) => ({
+      source,
+      missing: notPreviewing,
+      destination: "/",
+      permanent: false,
+    }));
+  },
+
+  async rewrites() {
+    return {
+      beforeFiles: [
+        {
+          source: "/",
+          has: [{ type: "cookie", key: previewCookie }],
+          destination: "/home-preview",
+        },
+      ],
+      afterFiles: [],
+      fallback: [],
+    };
   },
 
   async headers() {
