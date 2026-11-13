@@ -10,7 +10,7 @@ export const metadata: Metadata = {
 
 export default function HomePage() {
   return (
-    <section className="relative isolate flex min-h-svh flex-col items-center justify-center gap-10 bg-wisteria px-(--spacing-gutter) py-8 text-center text-ink">
+    <section className="relative isolate flex min-h-svh flex-col items-center justify-start gap-8 bg-wisteria px-(--spacing-gutter) pt-8 pb-8 text-center text-black">
       <Image
         src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/ANA_1992.JPG-ZzlR6KnLiGixe60Pa96zOAuYgUK2uY.jpeg"
         alt=""
@@ -18,31 +18,31 @@ export default function HomePage() {
         priority
         unoptimized
         sizes="100vw"
-        className="absolute inset-0 -z-20 object-cover object-center"
+        className="absolute inset-0 -z-20 object-cover object-[50%_56%]"
       />
-      <div aria-hidden="true" className="absolute inset-0 -z-10 bg-wisteria/55" />
+      <div aria-hidden="true" className="absolute inset-0 -z-10 bg-linen/20" />
       <a
         href={site.social.instagram}
         target="_blank"
         rel="noopener noreferrer"
         aria-label="Anastasia Floristry on Instagram"
-        className="block w-full max-w-[min(48rem,90vw)] rounded-sm focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-ink"
+        className="block w-full max-w-[min(38rem,88vw)] rounded-sm focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-ink"
       >
         <Image
-          src="/images/98140468-replacement-image-1.png"
+          src="/images/anastasia-floristry-evergreen-logo.png"
           alt="Anastasia Floristry — Weddings & Events"
           width={2490}
           height={1000}
           priority
           unoptimized
-          className="h-auto w-full mix-blend-difference"
+          className="h-auto w-full brightness-0"
         />
       </a>
-      <h1 className="flex flex-col font-myroge text-[clamp(2rem,5.2vw,4.1rem)] normal-case leading-[1.08]">
+      <h1 className="flex flex-col font-myroge text-[clamp(1.5rem,3.3vw,3.25rem)] font-bold normal-case leading-[1.12] text-black">
         <span>We are reimagining</span>
         <span>our website.</span>
       </h1>
-      <p className="text-body-sm tracking-[0.08em]">
+      <p className="text-body-sm font-semibold tracking-[0.08em] text-black">
         Please find us on{" "}
         <a
           href={site.social.instagram}
