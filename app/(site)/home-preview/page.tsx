@@ -9,7 +9,9 @@ import { Testimonials } from "@/components/Testimonials";
 import { CTABand } from "@/components/CTABand";
 import { Gallery } from "@/components/Gallery";
 import { home } from "@/content/pages";
-import { pricing, services } from "@/content/services";
+import { services } from "@/content/services";
+import { SectionLink } from "@/components/SectionLink";
+import { FromPrice } from "@/components/FromPrice";
 import { testimonials } from "@/content/testimonials";
 import { galleries, galleryCells } from "@/content/portfolio";
 import { seo } from "@/content/seo";
@@ -39,11 +41,7 @@ export default function HomePage() {
           <div className="mt-16">
             <Gallery images={featured} />
           </div>
-          <div className="mt-10 text-center">
-            <Link href="/portfolio" className="eyebrow link-underline text-evergreen">
-              {home.featured.link}
-            </Link>
-          </div>
+          <SectionLink href="/portfolio">{home.featured.link}</SectionLink>
         </Section>
       )}
 
@@ -65,7 +63,7 @@ export default function HomePage() {
                       src={s.image}
                       alt={s.imageAlt}
                       fill
-                      sizes="(min-width: 768px) 40vw, 100vw"
+                      sizes="(min-width: 82.5rem) 36rem, (min-width: 768px) 45vw, 100vw"
                       className="object-cover transition-transform duration-700 group-hover:scale-105"
                     />
                   </div>
@@ -76,14 +74,7 @@ export default function HomePage() {
             ))}
           </ul>
         </div>
-        <div className="mt-16 text-center">
-          <p className="text-display-2xs">
-            {home.services.fromPrice} {pricing.minimum}
-          </p>
-          <Link href="/services#pricing" className="eyebrow link-underline mt-10 inline-block text-evergreen">
-            {home.services.link}
-          </Link>
-        </div>
+        <FromPrice href="/services#pricing" linkLabel={home.services.link} />
       </Section>
 
       <Testimonials items={testimonials} tone="linen" />

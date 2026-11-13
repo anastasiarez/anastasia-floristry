@@ -27,7 +27,7 @@ import { slots, gallerySlots, exists, PLACEHOLDER_MANIFEST } from "./slots.mjs";
  * until a real description replaces it.
  */
 const GENERIC_ALT =
-  /imageAlt:\s*[`"'](Floral arrangement by|Wedding florals by|Anastasia Floristry studio)/;
+  /\b(?:imageAlt|alt):\s*[`"'](Floral arrangement by|Wedding florals by|Anastasia Floristry studio)/;
 
 const findings = { draft: [], alt: [], gap: [], missing: [], placeholder: [] };
 

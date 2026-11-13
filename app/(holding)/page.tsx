@@ -35,7 +35,6 @@ export default function HomePage() {
           width={3000}
           height={1204}
           sizes="(min-width: 44rem) 38rem, 88vw"
-          preload
           className="h-auto w-full brightness-0"
         />
       </a>

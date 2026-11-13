@@ -38,18 +38,16 @@ export function Section({
 }
 
 /**
- * Centred eyebrow / script accent / heading / body stack. The most repeated
+ * Centred eyebrow / heading / body stack. The most repeated
  * text pattern in the design.
  */
 export function SectionIntro({
   eyebrow,
-  accent,
   title,
   body,
   as = "h2",
 }: {
   eyebrow?: string;
-  accent?: string;
   title?: string;
   body?: string;
   /**
@@ -64,7 +62,6 @@ export function SectionIntro({
   return (
     <Reveal className="mx-auto max-w-(--container-content) text-center">
       {eyebrow && <p className="eyebrow text-evergreen">{eyebrow}</p>}
-      {accent && <p className="script mt-4 text-script-sm text-mauve">{accent}</p>}
       {title && (
         <Heading className={`mt-6 ${as === "h1" ? "text-display-sm" : "text-display-xs"}`}>{title}</Heading>
       )}

@@ -123,3 +123,11 @@ export const upscaleFactor = (slot, width, height) =>
 
 /** Above this, an image is too soft to use. Both stages share the threshold. */
 export const MAX_UPSCALE = 1.15;
+
+/**
+ * Width and height as the photo actually appears. sharp's .rotate() applies
+ * EXIF orientation to the pixels, but metadata() still reports the stored
+ * size; `autoOrient` is the displayed one. Without this a portrait phone
+ * photo reads as landscape.
+ */
+export const displaySize = (meta) => meta.autoOrient ?? meta;

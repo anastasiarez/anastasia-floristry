@@ -27,6 +27,9 @@ const display = Prata({
   weight: "400",
   variable: "--font-prata",
   display: "swap",
+  // Only a fallback for Myroge and the small script accents now, so it should
+  // not compete with the hero for an early preload.
+  preload: false,
 });
 
 /** Licensed brand headline face. Only weight 400 exists. */

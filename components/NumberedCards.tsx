@@ -8,7 +8,7 @@ export function NumberedCards({
   items,
   numbered = true,
 }: {
-  items: readonly { step?: string; title: string; body: string }[];
+  items: readonly { title: string; body: string }[];
   numbered?: boolean;
 }) {
   // Column count follows the item count, so two services do not leave an empty
@@ -30,7 +30,7 @@ export function NumberedCards({
           <Reveal>
           {numbered && (
             <p className="script mb-4 text-script-xs text-evergreen">
-              {item.step ?? String(i + 1).padStart(2, "0")}
+              {String(i + 1).padStart(2, "0")}
             </p>
           )}
           <h3 className="text-display-2xs tracking-heading md:min-h-[2lh]">{item.title}</h3>
